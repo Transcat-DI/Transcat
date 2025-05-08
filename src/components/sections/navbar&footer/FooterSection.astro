@@ -192,25 +192,36 @@ if (Astro.currentLocale === "fr") {
           
           <!-- Social Media Icons -->
           <div class="mt-3 flex flex-wrap gap-3">
-            <FooterSocialLink url={strings.socialLinks.facebook}>
-              <Icon name="facebook" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
-            </FooterSocialLink>
+            {/* Verificar si la propiedad existe antes de usarla */}
+            {strings.socialLinks && strings.socialLinks.facebook && (
+              <FooterSocialLink url={strings.socialLinks.facebook}>
+                <Icon name="facebook" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              </FooterSocialLink>
+            )}
 
-            <FooterSocialLink url={strings.socialLinks.x}>
-              <Icon name="x" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
-            </FooterSocialLink>
+            {strings.socialLinks && strings.socialLinks.x && (
+              <FooterSocialLink url={strings.socialLinks.x}>
+                <Icon name="x" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              </FooterSocialLink>
+            )}
             
-            <FooterSocialLink url={strings.socialLinks.instagram}>
-              <Icon name="instagram" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
-            </FooterSocialLink>
+            {strings.socialLinks && strings.socialLinks.instagram && (
+              <FooterSocialLink url={strings.socialLinks.instagram}>
+                <Icon name="instagram" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              </FooterSocialLink>
+            )}
             
-            <FooterSocialLink url={strings.socialLinks.linkedin}>
-              <Icon name="linkedIn" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
-            </FooterSocialLink>
+            {strings.socialLinks && strings.socialLinks.linkedin && (
+              <FooterSocialLink url={strings.socialLinks.linkedin}>
+                <Icon name="linkedin" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              </FooterSocialLink>
+            )}
             
-            <FooterSocialLink url={strings.socialLinks.whatsapp}>
-              <Icon name="whatsapp" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
-            </FooterSocialLink>
+            {strings.socialLinks && strings.socialLinks.whatsapp && (
+              <FooterSocialLink url={strings.socialLinks.whatsapp}>
+                <Icon name="whatsapp" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              </FooterSocialLink>
+            )}
           </div>
         </div>
       </div>
