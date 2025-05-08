@@ -1,0 +1,42 @@
+---
+import { Image } from "astro:assets";
+import Icon from "../../ui/icons/Icon.astro";
+
+const { content, author, role, avatarSrc } = Astro.props;
+
+interface Props {
+  content: string;
+  author: string;
+  role: string;
+  avatarSrc: string;
+}
+---
+
+<blockquote class="relative px-4 py-4 md:px-6 md:py-6">
+  <div class="relative">
+    <Icon name="quotation" />
+    <p class="text-xl italic leading-relaxed text-neutral-800 dark:text-neutral-200 pl-6 pt-6">
+      {content}
+    </p>
+  </div>
+
+  <div class="mt-8">
+    <div class="flex items-center">
+      <div class="shrink-0">
+        <Image
+          class="h-10 w-10 rounded-full object-cover border-2 border-orange-100 dark:border-neutral-700"
+          src={avatarSrc}
+          alt={`Avatar de ${author}`}
+          loading={"eager"}
+          inferSize
+        />
+      </div>
+      <div class="ms-4 grow">
+        <div class="font-bold text-neutral-800 dark:text-neutral-200">
+          {author}
+        </div>
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">{role}</div>
+      </div>
+    </div>
+  </div>
+</blockquote>

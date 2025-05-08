@@ -1,0 +1,136 @@
+---
+// Destructure the properties from Astro.props
+const { url, name } = Astro.props;
+
+// Define TypeScript interface for the properties
+interface Props {
+  url: string;
+  name: string;
+}
+
+// Determinar si estamos en la página de cobertura
+const isCobertura = Astro.url.pathname.includes('/es/cobertura');
+
+// Modificar la URL si estamos en la página de cobertura y el enlace contiene un hash
+let finalUrl = url;
+if (isCobertura && url.includes('#') && !url.includes('/es/cobertura')) {
+  finalUrl = url; // Mantener la URL original para que funcione la navegación
+}
+---
+
+<!--
+Re-usable link component for navigation bar. Highlights the active link
+by comparing the current URL with the href of each link.
+We assign an ID matching the URL for easy reference in our script.
+If URL is '/' (home page), assign ID as 'home' 
+-->
+<a
+  id={url === "/" ? "home" : url.replace("/", "")}
+  href={url}
+  data-astro-prefetch
+  class="rounded-lg text-base font-medium text-neutral-600 outline-hidden ring-zinc-500 hover:text-neutral-500 focus-visible:ring-3 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:text-neutral-500 dark:focus:outline-hidden md:py-3 md:text-sm 2xl:text-base"
+>
+  {name}
+</a>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Highlight active link
+    let url = window.location.pathname;
+    let navId;
+
+    if (url === "/") {
+      navId = "home";
+    } else {
+      navId = url.replace("/", "");
+    }
+
+    let nav = document.getElementById(navId);
+
+    if (nav) {
+      nav.classList.remove(
+        "text-neutral-600",
+        "dark:text-neutral-400",
+        "hover:text-neutral-500",
+        "dark:hover:text-neutral-500"
+      );
+      nav.classList.add("text-orange-400", "dark:text-orange-300");
+      nav.setAttribute("aria-current", "page");
+    }
+    
+    // Implementar desplazamiento suave para todos los enlaces de navegación
+    const allNavLinks = document.querySelectorAll('nav a');
+    
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
+        const href = this.getAttribute('href');
+        if (!href) return;
+        
+        // Manejo de enlaces con hash (#)
+        if (href.includes('#')) {
+          const parts = href.split('#');
+          const targetPage = parts[0];
+          const targetId = parts[1];
+          const currentPath = window.location.pathname;
+          
+          // Si estamos en la misma página y hay un elemento con el ID objetivo
+          const targetElement = document.getElementById(targetId);
+          
+          if (currentPath === targetPage || 
+              (currentPath === '/es' && targetPage === '') || 
+              (currentPath === '/' && targetPage === '/es')) {
+            // Estamos en la misma página, hacer scroll suave
+            if (targetElement) {
+              e.preventDefault();
+              window.scrollTo({
+                top: targetElement.offsetTop - 100,
+                behavior: 'smooth'
+              });
+            }
+          } 
+          else if (currentPath === '/es/cobertura') {
+            // Estamos en la página de cobertura
+            if (targetPage === '/es' || targetPage === '') {
+              // Guardamos el ID objetivo para usarlo después de la navegación
+              sessionStorage.setItem('scrollToTarget', targetId);
+              // No prevenimos el comportamiento por defecto, permitimos la navegación
+            }
+          }
+        }
+        // Manejo de enlaces sin hash para desplazamiento suave entre secciones de la misma página
+        else if (href.startsWith('/') || href === '') {
+          const currentPath = window.location.pathname;
+          
+          // Si el enlace apunta a la página actual, hacer scroll suave al inicio
+          if (href === currentPath || 
+              (currentPath === '/es' && href === '') || 
+              (currentPath === '/' && href === '/es')) {
+            e.preventDefault();
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+    
+    // Verificar si hay un objetivo de desplazamiento guardado en sessionStorage
+    const scrollToTarget = sessionStorage.getItem('scrollToTarget');
+    if (scrollToTarget) {
+      // Eliminar el objetivo de sessionStorage para no usarlo nuevamente
+      sessionStorage.removeItem('scrollToTarget');
+      
+      // Buscar el elemento objetivo y hacer scroll suave hacia él
+      const targetElement = document.getElementById(scrollToTarget);
+      if (targetElement) {
+        setTimeout(() => {
+          window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+          });
+        }, 500); // Pequeño retraso para asegurar que la página se ha cargado completamente
+      }
+    }
+  });
+</script>

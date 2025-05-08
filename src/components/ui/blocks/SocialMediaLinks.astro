@@ -1,0 +1,58 @@
+---
+import Icon from "@components/ui/icons/Icon.astro";
+
+// Define props from Astro
+const {
+  facebookUrl = "https://www.facebook.com/",
+  instagramUrl = "https://www.instagram.com/",
+  linkedinUrl = "https://www.linkedin.com/",
+  twitterUrl = "https://twitter.com/",
+} = Astro.props;
+
+// Define TypeScript interface for props
+interface Props {
+  facebookUrl?: string;
+  instagramUrl?: string;
+  linkedinUrl?: string;
+  twitterUrl?: string;
+}
+---
+
+<div class="flex items-center gap-x-3 mt-2">
+  <a 
+    href={facebookUrl} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors duration-300"
+    aria-label="Facebook"
+  >
+    <Icon name="facebookContact" />
+  </a>
+  <a 
+    href={instagramUrl} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors duration-300"
+    aria-label="Instagram"
+  >
+    <Icon name="instagramContact" />
+  </a>
+  <a 
+    href={linkedinUrl} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors duration-300"
+    aria-label="LinkedIn"
+  >
+    <Icon name="linkedinContact" />
+  </a>
+  <a 
+    href={twitterUrl} 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="text-neutral-600 hover:text-neutral-800 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors duration-300"
+    aria-label="X (Twitter)"
+  >
+    <Icon name="twitterContact" />
+  </a>
+</div>

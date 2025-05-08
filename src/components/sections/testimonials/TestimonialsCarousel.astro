@@ -1,0 +1,157 @@
+---
+import TestimonialItem from "./TestimonialItem.astro";
+
+const { testimonials } = Astro.props;
+
+interface Testimonial {
+  content: string;
+  author: string;
+  role: string;
+  avatarSrc: string;
+}
+
+interface Props {
+  testimonials: Testimonial[];
+}
+---
+
+<div class="relative testimonials-carousel">
+  <!-- Contenedor del carrusel -->
+  <div class="overflow-hidden">
+    <div class="carousel-inner flex transition-transform duration-500">
+      {
+        testimonials.map((testimonial, index) => (
+          <div class={`carousel-item w-full flex-shrink-0 ${index === 0 ? 'active' : ''}`} data-index={index}>
+            <TestimonialItem 
+              content={testimonial.content} 
+              author={testimonial.author} 
+              role={testimonial.role} 
+              avatarSrc={testimonial.avatarSrc} 
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Indicadores -->
+  <div class="mt-8 flex justify-center space-x-2">
+    {
+      testimonials.map((_, index) => (
+        <button
+          class={`carousel-indicator h-2 w-2 rounded-full transition-all duration-300 ${index === 0 ? 'bg-orange-400 w-6' : 'bg-neutral-300 dark:bg-neutral-600'}`}
+          data-index={index}
+          aria-label={`Ir al testimonio ${index + 1}`}
+        />
+      ))
+    }
+  </div>
+
+  <!-- Controles de navegación -->
+  <div class="absolute inset-y-0 left-0 flex items-center">
+    <button
+      class="carousel-control-prev -ml-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/70 text-neutral-800 shadow-md transition-all hover:bg-white dark:bg-neutral-800/70 dark:text-neutral-200 dark:hover:bg-neutral-800"
+      aria-label="Testimonio anterior"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+    </button>
+  </div>
+  <div class="absolute inset-y-0 right-0 flex items-center">
+    <button
+      class="carousel-control-next -mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/70 text-neutral-800 shadow-md transition-all hover:bg-white dark:bg-neutral-800/70 dark:text-neutral-200 dark:hover:bg-neutral-800"
+      aria-label="Siguiente testimonio"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('.testimonials-carousel');
+    if (!carousel) return;
+
+    const carouselInner = carousel.querySelector('.carousel-inner');
+    const carouselItems = carousel.querySelectorAll('.carousel-item');
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    const prevButton = carousel.querySelector('.carousel-control-prev');
+    const nextButton = carousel.querySelector('.carousel-control-next');
+    
+    let currentIndex = 0;
+    const itemCount = carouselItems.length;
+    let intervalId;
+
+    // Función para mostrar un slide específico
+    const showSlide = (index) => {
+      if (index < 0) index = itemCount - 1;
+      if (index >= itemCount) index = 0;
+      
+      currentIndex = index;
+      
+      // Actualizar la posición del carrusel
+      if (carouselInner) {
+        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+      }
+      
+      // Actualizar los indicadores
+      indicators.forEach((indicator, i) => {
+        if (i === currentIndex) {
+          indicator.classList.add('bg-orange-400', 'w-6');
+          indicator.classList.remove('bg-neutral-300', 'dark:bg-neutral-600');
+        } else {
+          indicator.classList.remove('bg-orange-400', 'w-6');
+          indicator.classList.add('bg-neutral-300', 'dark:bg-neutral-600');
+        }
+      });
+      
+      // Actualizar clases active en los items
+      carouselItems.forEach((item, i) => {
+        if (i === currentIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    };
+
+    // Iniciar el intervalo para cambio automático
+    const startInterval = () => {
+      clearInterval(intervalId);
+      intervalId = setInterval(() => {
+        showSlide(currentIndex + 1);
+      }, 10000); // Cambiar cada 10 segundos
+    };
+
+    // Configurar eventos para los botones de navegación
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        showSlide(currentIndex - 1);
+        startInterval(); // Reiniciar el intervalo
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        showSlide(currentIndex + 1);
+        startInterval(); // Reiniciar el intervalo
+      });
+    }
+
+    // Configurar eventos para los indicadores
+    indicators.forEach((indicator) => {
+      indicator.addEventListener('click', () => {
+        const index = parseInt(indicator.getAttribute('data-index') || '0', 10);
+        showSlide(index);
+        startInterval(); // Reiniciar el intervalo
+      });
+    });
+
+    // Iniciar el carrusel
+    showSlide(0);
+    startInterval();
+  });
+</script>

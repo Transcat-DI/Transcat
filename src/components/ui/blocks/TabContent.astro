@@ -1,0 +1,68 @@
+---
+// Import the Image component from astro:assets
+import { Image } from "astro:assets";
+
+// Destructure the component properties from Astro.props
+const { id, aria, src, alt, first, second } = Astro.props;
+
+// Define TypeScript interface for the properties
+interface Props {
+  id: string;
+  aria: string;
+  src?: any;
+  alt: string;
+  first?: boolean;
+  second?: boolean;
+}
+// Set class based on 'first' property
+// If 'first' is present, show the tab content immediately
+const firstClass = first ? "" : "hidden";
+// Clase común para todas las imágenes sin padding para que se muestren completas
+const imageClass = "w-full h-full object-cover";
+
+/*
+first: This property should be set to true for the initial TabContent component
+in your list to ensure that it's visible when the page first loads.
+All subsequent TabContent components should omit this property or set it to false.
+
+second: This property allows to control changes in the look of the Image.
+If it is set to true, the Image will have different aspect ratio and background color.
+If this property is not provided or is set to false, the Image will use default styling.
+You can enable this for any TabContent component you want to apply these changes to.
+
+This is the full example:
+<TabContent id="" aria="" src="" alt="" first={true}/>
+<TabContent id="" aria="" src="" alt="" second={true}/>
+<TabContent id="" aria="" src="" alt="" />
+*/
+---
+
+<!-- Container for tab content that controls visibility and accessibility -->
+<div id={id} role="tabpanel" class={firstClass} aria-labelledby={aria}>
+  <!-- Contenedor con marco y sombra similar al carrusel -->
+  <div class="relative rounded-xl overflow-hidden shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30">
+    <!-- Borde interior decorativo -->
+    <div class="absolute inset-4 border border-white/20 rounded-2xl z-10 pointer-events-none"></div>
+    
+    <!-- Elementos decorativos en las esquinas -->
+    <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg z-10 pointer-events-none"></div>
+    <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg z-10 pointer-events-none"></div>
+    <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg z-10 pointer-events-none"></div>
+    <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg z-10 pointer-events-none"></div>
+    
+    <!-- Overlay muy ligero para mantener legibilidad -->
+    <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 z-5"></div>
+    
+    <!-- Astro Image component -->
+    <Image
+      src={src}
+      alt={alt}
+      class={imageClass}
+      draggable={"false"}
+      format={"avif"}
+      loading={"eager"}
+      width={800}
+      height={600}
+    />
+  </div>
+</div>

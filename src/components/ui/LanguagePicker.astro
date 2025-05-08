@@ -1,0 +1,138 @@
+---
+import { languages, flagPaths, type LanguageCode } from "@utils//ui";
+import Icon from "./icons/Icon.astro";
+
+// Forzar español como idioma por defecto
+const currentLang: LanguageCode = 'es';
+---
+
+<div class="hs-dropdown relative inline-flex">
+  <button
+    id="hs-dropdown-default"
+    type="button"
+    aria-label="Change language"
+    class="hs-dropdown-toggle inline-flex items-center gap-x-2 rounded-lg px-1.5 py-1.5 text-sm font-medium text-neutral-600 outline-hidden ring-zinc-500 transition duration-300 hover:bg-neutral-200 hover:text-orange-400 dark:border-neutral-700 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:bg-neutral-700 dark:hover:text-orange-300 dark:focus:outline-hidden"
+  >
+    <span class="inline-flex items-center justify-center w-4 h-4 rounded-full overflow-hidden">
+      <img src={flagPaths[currentLang]} alt={`${languages[currentLang]} flag`} class="w-full h-full object-cover" />
+    </span>
+    <svg
+      class="size-4 hs-dropdown-open:rotate-180"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg
+    >
+  </button>
+
+  <div
+    class="hs-dropdown-menu duration left-[20%]! top-[98%]! mt-2 hidden transform-none! rounded-lg bg-neutral-50 p-2 opacity-0 shadow-md transition-[opacity,margin] before:absolute before:-top-4 before:start-0 before:h-4 before:w-full after:absolute after:-bottom-4 after:start-0 after:h-4 after:w-full hs-dropdown-open:opacity-100 dark:divide-neutral-700 dark:border dark:border-neutral-700 dark:bg-neutral-800 md:left-[90%]! md:top-[80%]!"
+    aria-labelledby="hs-dropdown-hover-event"
+  >
+    {
+      // Map through the list of languages, creating a link for each language
+      Object.entries(languages).map(([lang, label]) => {
+        // Explicitly cast lang as LanguageCode
+        const langCode = lang as LanguageCode;
+        // Determinar si el idioma está deshabilitado (todos excepto español)
+        const isDisabled = langCode !== 'es' as LanguageCode;
+        return (
+          <a
+            class={`flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm ${isDisabled ? 'cursor-not-allowed opacity-50' : 'text-neutral-800 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-hidden dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700'}`}
+            href={isDisabled ? '#' : `/${langCode === "en" ? "" : langCode}`}
+            data-disabled={isDisabled ? 'true' : 'false'}
+            data-lang={langCode}
+            aria-disabled={isDisabled ? 'true' : 'false'}
+            title={isDisabled ? 'Traducción pendiente' : ''}
+          >
+            <span class="inline-flex items-center justify-center w-4 h-4 rounded-full overflow-hidden mr-1">
+              <img src={flagPaths[langCode]} alt={`${label} flag`} class="w-full h-full object-cover" />
+            </span>
+            {label}
+            {isDisabled && <span class="ml-1 text-xs">(pendiente)</span>}
+          </a>
+        );
+      })
+    }
+  </div>
+</div>
+
+<script>
+  // Type alias for supported languages
+  type TLanguage = "en" | "fr" | "es" | "ca";
+  // array of supported languages
+  const languages: TLanguage[] = ["en", "fr", "es", "ca"];
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Only target language picker links
+    const languageLinks = document.querySelectorAll(".hs-dropdown-menu[aria-labelledby='hs-dropdown-hover-event'] a");
+    
+    languageLinks.forEach((element) => {
+      const link = element as HTMLAnchorElement;
+      const isDisabled = link.getAttribute('data-disabled') === 'true';
+      
+      // Si el enlace está deshabilitado, evitar la navegación
+      if (isDisabled) {
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          // Opcional: mostrar un mensaje o tooltip indicando que la traducción está pendiente
+          console.log('Traducción pendiente para este idioma');
+        });
+        return; // Salir temprano para no añadir el otro listener
+      }
+      
+      // Solo procesar enlaces habilitados (español)
+      const langAttr = link.getAttribute('data-lang');
+      // Verificar que langAttr es una de las lenguas soportadas
+      const lang = languages.includes(langAttr as TLanguage) ? langAttr as TLanguage : 'es';
+
+      link.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const url = new URL(window.location.href);
+        
+        const currentPath = url.pathname
+          .split("/")
+          .filter((part) => part && !languages.includes(part as TLanguage))
+          .join("/");
+
+        let newPath = "";
+        if (lang && lang !== "en") {
+          newPath = `/${lang}/${currentPath}`;
+        } else {
+          newPath = `/${currentPath}`;
+        }
+
+        newPath = newPath.replace(/\/+/g, "/");
+        if (newPath === "") newPath = "/";
+        
+        // Forzar la redirección a la versión en español (solo permitimos español)
+        newPath = newPath.replace(/^\/[a-z]{2}\//, '/es/');
+        if (!newPath.startsWith('/es')) {
+          newPath = '/es' + newPath;
+        }
+        
+        window.location.href = `${url.origin}${newPath}${url.search}`;
+      });
+    });
+    
+    // Asegurar que siempre estamos en la versión española
+    const currentPath = window.location.pathname;
+    if (!currentPath.startsWith('/es') && currentPath !== '/') {
+      const url = new URL(window.location.href);
+      const pathParts = url.pathname
+        .split("/")
+        .filter((part) => part && !languages.includes(part as TLanguage));
+      
+      let newPath = '/es/' + pathParts.join('/');
+      newPath = newPath.replace(/\/+/g, "/");
+      
+      // Redirigir a la versión española si no estamos en ella
+      window.location.href = `${url.origin}${newPath}${url.search}`;
+    }
+  });
+</script>

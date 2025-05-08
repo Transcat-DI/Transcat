@@ -1,0 +1,279 @@
+---
+// Import the necessary dependencies
+import { Image } from "astro:assets";
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+import ReviewComponent from "@components/ui/blocks/ReviewComponent.astro";
+
+// Define props from Astro
+const {
+  title,
+  subTitle,
+  primaryBtn,
+  primaryBtnURL,
+  secondaryBtn,
+  secondaryBtnURL,
+  withReview,
+  avatars,
+  starCount,
+  rating,
+  reviews,
+  src,
+  alt
+} = Astro.props;
+
+// Define TypeScript interface for props
+interface Props {
+  title: string;
+  subTitle?: string;
+  primaryBtn?: string;
+  primaryBtnURL?: string;
+  secondaryBtn?: string;
+  secondaryBtnURL?: string;
+  withReview?: boolean;
+  avatars?: Array<string>;
+  starCount?: number;
+  rating?: string;
+  reviews?: string;
+  src?: any;
+  alt?: string;
+}
+---
+
+<!-- Hero section con carrusel de imágenes de fondo personalizado -->
+<section
+  class="relative mx-auto mt-8 overflow-hidden rounded-3xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32 2xl:max-w-full shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30"
+>
+  <!-- Borde interior decorativo -->
+  <div class="absolute inset-4 border border-white/20 rounded-2xl z-10 pointer-events-none"></div>
+  
+  <!-- Elementos decorativos en las esquinas -->
+  <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg z-10 pointer-events-none"></div>
+  <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg z-10 pointer-events-none"></div>
+  <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg z-10 pointer-events-none"></div>
+  <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg z-10 pointer-events-none"></div>
+  
+  <!-- Carrusel de imágenes de fondo -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div id="custom-carousel" class="relative h-full w-full">
+      <!-- Slide 1 -->
+      <div class="carousel-slide absolute inset-0 opacity-100 transition-opacity duration-1000" data-slide="0">
+        <div 
+          class="h-full w-full bg-cover bg-center" 
+          style="background-image: url('/src/images/hero/hero-bg1.png'); background-position-y: 55%;"
+        ></div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="1">
+        <div 
+          class="h-full w-full bg-cover bg-center" 
+          style="background-image: url('/src/images/hero/hero-bg2.png'); background-position-y: 85%;"
+        ></div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="2">
+        <div 
+          class="h-full w-full bg-cover bg-center" 
+          style="background-image: url('/src/images/hero/hero-bg3.png'); background-position-y: 55%;"
+        ></div>
+      </div>
+      <!-- Slide 4 -->
+      <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="3">
+        <div 
+          class="h-full w-full bg-cover bg-center" 
+          style="background-image: url('/src/images/hero/hero-bg4.png'); background-position-y: 55%;"
+        ></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay muy ligero para mantener legibilidad del texto sin oscurecer demasiado las imágenes -->
+  <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20"></div>
+  
+  <!-- Controles del carrusel -->
+  <div class="absolute inset-0 flex items-center justify-between px-4">
+    <button type="button" id="carousel-prev" class="z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 focus:outline-none dark:bg-neutral-800/30 dark:hover:bg-neutral-800/50">
+      <span class="sr-only">Anterior</span>
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+    </button>
+    <button type="button" id="carousel-next" class="z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 focus:outline-none dark:bg-neutral-800/30 dark:hover:bg-neutral-800/50">
+      <span class="sr-only">Siguiente</span>
+      <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    </button>
+  </div>
+  
+  <!-- Indicadores del carrusel -->
+  <div class="absolute bottom-4 start-1/2 z-10 -translate-x-1/2">
+    <div class="flex items-center justify-center space-x-2" id="carousel-indicators">
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white bg-white" data-slide="0" aria-label="Ir a la diapositiva 1"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="1" aria-label="Ir a la diapositiva 2"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="2" aria-label="Ir a la diapositiva 3"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="3" aria-label="Ir a la diapositiva 4"></button>
+    </div>
+  </div>
+  
+  <!-- Contenedor del contenido justificado a la izquierda -->
+  <div class="relative mx-auto max-w-[85rem] text-left">
+    <!-- Título con mayor contraste y sombra para legibilidad sobre imagen -->
+    <h1
+      class="max-w-3xl text-balance text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-tight drop-shadow-lg text-shadow-lg"
+      style="text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);"
+    >
+      <Fragment set:html={title} />
+    </h1>
+    
+    {subTitle &&
+    <p
+      class="mt-6 max-w-2xl text-pretty text-xl leading-relaxed text-white/90 dark:text-white/80 drop-shadow-md"
+      style="text-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 2px 6px rgba(0,0,0,0.2);"
+    >
+      {subTitle}
+    </p>
+    }
+    
+    <!-- Botones alineados a la izquierda -->
+    <div class="mt-10 flex flex-col items-start gap-4 sm:flex-row">
+      {primaryBtn && 
+      <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
+      }
+      {secondaryBtn && 
+      <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
+      }
+    </div>
+
+    <!-- Se ha eliminado la sección de reseñas con estrellas -->
+  </div>
+</section>
+
+<!-- Script para controlar el carrusel personalizado -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Variables para controlar el carrusel
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevButton = document.getElementById('carousel-prev');
+    const nextButton = document.getElementById('carousel-next');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    let intervalId = null;
+    
+    // Textos para cada diapositiva
+    const slideTexts = [
+      {
+        title: document.querySelector('h1').innerHTML,
+        subtitle: document.querySelector('p.text-pretty').innerHTML
+      },
+      {
+        title: 'Cada ruta, una misión <span class="text-yellow-500 dark:text-yellow-400">cumplida.</span>',
+        subtitle: "Profesionalidad y compromiso en cada kilómetro. Confía en un servicio de transporte que cumple lo que promete, sin excusas ni retrasos."
+      },
+      {
+        title: 'Donde la confianza también <span class="text-yellow-500 dark:text-yellow-400">viaja.</span>',
+        subtitle: "Cercano, responsable y siempre a tu servicio. Transporte personalizado con la garantía de alguien que cuida tu carga como si fuera propia."
+      },
+      {
+        title: 'Directo, rápido y con sello <span class="text-yellow-500 dark:text-yellow-400">catalán.</span>',
+        subtitle: "Transporte de mercancías desde Tarragona y Barcelona con compromiso, puntualidad y trato cercano."
+      }
+    ];
+    
+    // Elementos de título y subtítulo
+    const titleElement = document.querySelector('h1');
+    const subtitleElement = document.querySelector('p.text-pretty');
+    
+    // Función para mostrar una diapositiva específica
+    const showSlide = (index) => {
+      // Ocultar todas las diapositivas
+      slides.forEach(slide => {
+        slide.classList.remove('opacity-100');
+        slide.classList.add('opacity-0');
+      });
+      
+      // Actualizar los indicadores
+      indicators.forEach(indicator => {
+        indicator.classList.remove('bg-white', 'border-white');
+        indicator.classList.add('bg-white/30', 'border-white/50');
+      });
+      
+      // Mostrar la diapositiva actual
+      slides[index].classList.remove('opacity-0');
+      slides[index].classList.add('opacity-100');
+      
+      // Actualizar el indicador actual
+      indicators[index].classList.remove('bg-white/30', 'border-white/50');
+      indicators[index].classList.add('bg-white', 'border-white');
+      
+      // Actualizar el texto según la diapositiva actual
+      if (titleElement && subtitleElement && slideTexts[index]) {
+        titleElement.innerHTML = slideTexts[index].title;
+        subtitleElement.innerHTML = slideTexts[index].subtitle;
+      }
+      
+      // Actualizar el índice actual
+      currentSlide = index;
+    };
+    
+    // Función para ir a la siguiente diapositiva
+    const nextSlide = () => {
+      const newIndex = (currentSlide + 1) % totalSlides;
+      showSlide(newIndex);
+    };
+    
+    // Función para ir a la diapositiva anterior
+    const prevSlide = () => {
+      const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+      showSlide(newIndex);
+    };
+    
+    // Iniciar la rotación automática
+    const startAutoplay = () => {
+      if (!intervalId) {
+        intervalId = setInterval(nextSlide, 5000); // Cambiar cada 5 segundos
+      }
+    };
+    
+    // Detener la rotación automática
+    const stopAutoplay = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+    
+    // Configurar los eventos de clic para los botones de navegación
+    prevButton.addEventListener('click', () => {
+      prevSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+    
+    nextButton.addEventListener('click', () => {
+      nextSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+    
+    // Configurar los eventos de clic para los indicadores
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        showSlide(index);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+    
+    // Iniciar el carrusel automático al cargar la página
+    startAutoplay();
+    
+    // Pausar el carrusel al pasar el mouse por encima
+    const carousel = document.getElementById('custom-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+    }
+  });
+</script>

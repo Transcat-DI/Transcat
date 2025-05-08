@@ -1,0 +1,13 @@
+---
+import { Image } from 'astro:assets';
+import logoWide from '../images/logos/logo-wide.png';
+
+const { class: className, ...props } = Astro.props;
+---
+
+<Image 
+  src={logoWide} 
+  alt="Francisco J. Arrazola Méndez" 
+  class={`h-auto ${className || ''}`}
+  {...props}
+/>

@@ -1,0 +1,135 @@
+---
+// Import necessary dependencies
+import { SITE } from "@data/constants";
+
+// Define the cities with their coordinates and information
+const coverageCities = [
+  { name: "Barcelona", lat: 41.3851, lng: 2.1734, radius: 50, color: "#FF5733" },
+  { name: "Madrid", lat: 40.4168, lng: -3.7038, radius: 40, color: "#33A8FF" },
+  { name: "Valencia", lat: 39.4699, lng: -0.3763, radius: 30, color: "#33FF57" },
+  { name: "Sevilla", lat: 37.3891, lng: -5.9845, radius: 25, color: "#FF33E9" },
+  { name: "Bilbao", lat: 43.2630, lng: -2.9350, radius: 20, color: "#FFD433" },
+  { name: "Zaragoza", lat: 41.6488, lng: -0.8891, radius: 20, color: "#33FFF3" },
+];
+
+// Define the routes between cities
+const routes = [
+  { from: "Barcelona", to: "Madrid", color: "#FF5733", weight: 3 },
+  { from: "Barcelona", to: "Valencia", color: "#33A8FF", weight: 3 },
+  { from: "Madrid", to: "Sevilla", color: "#33FF57", weight: 3 },
+  { from: "Madrid", to: "Bilbao", color: "#FF33E9", weight: 3 },
+  { from: "Barcelona", to: "Zaragoza", color: "#FFD433", weight: 3 },
+];
+
+// Set the map center coordinates (Spain)
+const mapCenter = { lat: 40.4637, lng: -3.7492 };
+---
+
+<section id="cobertura" class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+  <div class="mx-auto max-w-2xl lg:max-w-5xl">
+    <div class="text-center">
+      <h1
+        class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+      >
+        Cobertura de Servicios
+      </h1>
+      <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
+        Ofrecemos servicios en las principales ciudades de España con diferentes radios de cobertura.
+      </p>
+    </div>
+
+    <div class="mt-10 overflow-hidden rounded-xl border border-neutral-200 p-1.5 dark:border-neutral-700 shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30">
+      <div id="coverage-map" class="w-full h-[500px] rounded-lg"></div>
+    </div>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      {coverageCities.map((city) => (
+        <div class="rounded-lg border border-neutral-300 bg-white p-4 shadow-md transition-all hover:border-neutral-400 hover:shadow-lg dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600">
+          <h3 class="font-semibold text-neutral-800 dark:text-neutral-200">{city.name}</h3>
+          <div class="mt-1 flex items-center">
+            <span 
+              class="mr-2 inline-block h-3 w-3 rounded-full" 
+              style={`background-color: ${city.color};`}
+            ></span>
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">
+              Radio de cobertura: {city.radius} km
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+
+<script define:vars={{ coverageCities, routes, mapCenter }}>
+// Load Leaflet JS
+function loadLeaflet() {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+    script.crossOrigin = 'anonymous';
+    script.onload = () => resolve();
+    document.head.appendChild(script);
+  });
+}
+
+// Initialize the map
+async function initMap() {
+  // Wait for Leaflet to load
+  await loadLeaflet();
+  
+  // Create the map
+  const map = L.map('coverage-map').setView([mapCenter.lat, mapCenter.lng], 6);
+  
+  // Add the OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 19
+  }).addTo(map);
+
+  // Create a marker and circle for each city
+  const cityMarkers = {};
+  coverageCities.forEach(city => {
+    // Create marker
+    const marker = L.marker([city.lat, city.lng])
+      .addTo(map)
+      .bindPopup(`
+        <div style="padding: 5px;">
+          <h3 style="margin: 0 0 5px; font-weight: bold;">${city.name}</h3>
+          <p style="margin: 0;">Radio de cobertura: ${city.radius} km</p>
+        </div>
+      `);
+    
+    // Create circle for coverage radius
+    const circle = L.circle([city.lat, city.lng], {
+      color: city.color,
+      fillColor: city.color,
+      fillOpacity: 0.2,
+      radius: city.radius * 1000 // Convert km to meters
+    }).addTo(map);
+    
+    // Store marker reference
+    cityMarkers[city.name] = { marker, position: [city.lat, city.lng] };
+  });
+  
+  // Draw routes between cities
+  routes.forEach(route => {
+    const fromCity = cityMarkers[route.from];
+    const toCity = cityMarkers[route.to];
+    
+    if (fromCity && toCity) {
+      const path = L.polyline([fromCity.position, toCity.position], {
+        color: route.color,
+        weight: route.weight
+      }).addTo(map);
+    }
+  });
+}
+
+// Initialize the map when the document is ready
+document.addEventListener('DOMContentLoaded', initMap);
+</script>

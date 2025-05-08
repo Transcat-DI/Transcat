@@ -1,0 +1,99 @@
+---
+// Import the necessary dependencies
+import { Image } from "astro:assets";
+import aboutImage from "@images/about/about.jpg";
+
+interface Props {
+  title?: string;
+}
+// Define props from Astro
+const { title } = Astro.props;
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-3 sm:px-6 lg:px-8 lg:py-4 2xl:max-w-full"
+>
+  <!-- Cinta con efecto parallax a lo largo de toda la sección -->
+  <div class="relative mb-3 overflow-hidden md:mb-4 w-full shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30 rounded-xl">
+    <!-- Contenedor para el efecto parallax -->
+    <div class="parallax-container relative h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden rounded-xl">
+      <!-- Imagen de la cinta -->
+      <div class="parallax-image absolute inset-0 w-full h-[180%] -top-[40%]">
+        <Image
+          src={aboutImage}
+          alt="Servicios de transporte profesionales en Cataluña"
+          class="w-full h-full object-cover object-center"
+          draggable={"false"}
+          format={"avif"}
+          loading={"eager"}
+          width={1920}
+          height={600}
+        />
+      </div>
+      
+      <!-- Borde interior decorativo -->
+      <div class="absolute inset-4 border border-white/20 rounded-xl z-10 pointer-events-none"></div>
+      
+      <!-- Overlay ligero para mejorar legibilidad -->
+      <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 rounded-xl"></div>
+      
+      <!-- Sombra que cambia con el tema -->
+      <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500/30 to-yellow-400/30 dark:from-yellow-600/20 dark:to-yellow-500/20 blur-xl opacity-70 rounded-xl -z-10"></div>
+      
+      <!-- Texto centrado con estilo similar al Hero -->
+      <div class="absolute inset-0 flex items-center justify-center z-20">
+        <h2 
+          class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white text-center drop-shadow-lg text-shadow-lg"
+          style="text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);"
+        >
+          Tu confianza, nuestra <span class="text-yellow-500 dark:text-yellow-400">Mejor Ruta!</span>
+        </h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Título opcional -->
+  {title && (
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-3xl">
+        <Fragment set:html={title} />
+      </h2>
+    </div>
+  )}
+</section>
+
+<script>
+  // Script para el efecto parallax
+  document.addEventListener('DOMContentLoaded', () => {
+    const parallaxImage = document.querySelector('.parallax-image');
+    
+    if (parallaxImage) {
+      window.addEventListener('scroll', () => {
+        // Calcular la posición de desplazamiento basada en el scroll
+        const scrollPosition = window.scrollY;
+        const container = parallaxImage.closest('.parallax-container');
+        
+        if (container) {
+          const containerTop = container.getBoundingClientRect().top + window.scrollY;
+          const containerHeight = container.getBoundingClientRect().height;
+          
+          // Verificar si el contenedor está visible en la pantalla
+          if (scrollPosition + window.innerHeight > containerTop && 
+              scrollPosition < containerTop + containerHeight) {
+            
+            // Calcular el desplazamiento para el efecto parallax
+            // Limitamos el desplazamiento para evitar que se vea el fondo
+            const maxOffset = containerHeight * 0.15; // 15% del contenedor (reducido del 25%)
+            let offset = (scrollPosition - containerTop) * 0.2; // Reducido de 0.3 para un movimiento más suave
+            
+            // Limitar el offset para que no exceda el máximo permitido
+            offset = Math.min(offset, maxOffset);
+            
+            // Aplicar la transformación
+            (parallaxImage as HTMLElement).style.transform = `translateY(${offset}px)`;
+          }
+        }
+      });
+    }
+  });
+</script>

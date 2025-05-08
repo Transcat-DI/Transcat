@@ -1,0 +1,138 @@
+---
+import Icon from "@components/ui/icons/Icon.astro";
+
+const { count, description, index } = Astro.props;
+
+interface Props {
+  count: string;
+  description: string;
+  index: number;
+}
+
+// Extraer el valor numérico y el sufijo (si existe)
+const numericValue = count.replace(/[^0-9.,]/g, '');
+const suffix = count.replace(/[0-9.,]/g, '');
+
+// Determinar si el número tiene decimales
+const hasDecimals = numericValue.includes(',') || numericValue.includes('.');
+const decimalPlaces = hasDecimals ? (numericValue.split(',')[1]?.length || numericValue.split('.')[1]?.length || 0) : 0;
+
+// Normalizar el valor numérico (reemplazar comas por puntos para cálculos)
+const normalizedValue = numericValue.replace(',', '.');
+---
+
+<li class="-m-0.5 flex flex-col p-4 sm:p-8 stats-item" 
+    data-target={normalizedValue} 
+    data-suffix={suffix} 
+    data-decimals={decimalPlaces}>
+  <div
+    class="mb-2 flex items-end gap-x-2 text-3xl font-bold text-neutral-800 dark:text-neutral-200 sm:text-5xl"
+  >
+    {index === 1 || index === 2 ? <Icon name="arrowUp" /> : null}
+    <span class="counter-value">0</span>{suffix}
+  </div>
+  <p class="text-sm text-neutral-600 dark:text-neutral-400 sm:text-base">
+    {description}
+  </p>
+</li>
+
+<script>
+  // Función para animar el contador
+  function animateCounter(element, target, duration = 1500) {
+    // Asegurarse de que target sea un número
+    const targetNum = parseFloat(target);
+    if (isNaN(targetNum)) return;
+    
+    // Verificar si ya se ha completado la animación
+    if (element.dataset.animated === 'true') return;
+    
+    const counter = element.querySelector('.counter-value');
+    const decimals = parseInt(element.getAttribute('data-decimals') || '0');
+    const steps = 60; // Número total de pasos de animación
+    const increment = targetNum / steps; // Incremento por paso
+    const interval = duration / steps; // Tiempo entre pasos
+    
+    if (!counter) return;
+    
+    // Reiniciar el contador
+    counter.textContent = '0';
+    
+    // Limpiar cualquier intervalo anterior
+    if (element._timer) {
+      clearInterval(element._timer);
+    }
+    
+    let step = 0;
+    element._timer = setInterval(() => {
+      step++;
+      
+      // Calcular el valor actual basado en el paso actual
+      const currentValue = step >= steps ? targetNum : (increment * step);
+      
+      // Formatear el número con los decimales correctos
+      if (decimals > 0) {
+        counter.textContent = currentValue.toFixed(decimals).replace('.', ',');
+      } else {
+        counter.textContent = Math.round(currentValue).toString();
+      }
+      
+      // Detener cuando llegamos al final
+      if (step >= steps) {
+        clearInterval(element._timer);
+        element._timer = null;
+        element.dataset.animated = 'true'; // Marcar como animado
+      }
+    }, interval);
+  }
+
+  // Configurar el Intersection Observer
+  document.addEventListener('DOMContentLoaded', () => {
+    const statsItems = document.querySelectorAll('.stats-item');
+    let hasBeenVisible = false;
+    
+    if (!statsItems.length) return;
+    
+    // Crear un observer para detectar cuando la sección completa sale de la vista
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Si la sección sale completamente de la vista
+        if (!entry.isIntersecting && hasBeenVisible) {
+          // Resetear el estado de animación para todos los elementos
+          statsItems.forEach(item => {
+            item.dataset.animated = 'false';
+          });
+          hasBeenVisible = false;
+        } else if (entry.isIntersecting) {
+          hasBeenVisible = true;
+        }
+      });
+    }, { threshold: 0 }); // Umbral 0 para detectar cuando sale completamente
+    
+    // Observar el contenedor de estadísticas
+    const statsContainer = statsItems[0].closest('ul');
+    if (statsContainer) {
+      sectionObserver.observe(statsContainer);
+    }
+    
+    // Observer para cada elemento individual
+    const itemObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const target = element.getAttribute('data-target') || '0';
+          
+          // Animar el contador solo si no ha sido animado o si se ha reseteado
+          if (element.dataset.animated !== 'true') {
+            animateCounter(element, target);
+          }
+        }
+      });
+    }, { threshold: 0.5 }); // Umbral más alto para asegurar que está bien visible
+    
+    // Inicializar todos los elementos como no animados
+    statsItems.forEach(item => {
+      item.dataset.animated = 'false';
+      itemObserver.observe(item);
+    });
+  });
+</script>
