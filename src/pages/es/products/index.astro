@@ -1,0 +1,166 @@
+---
+// Importing necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
+import CardSmall from "@components/ui/cards/CardSmall.astro";
+import CardWide from "@components/ui/cards/CardWide.astro";
+import FeaturesStatsAlt from "@components/sections/features/FeaturesStatsAlt.astro";
+import TestimonialsSectionAlt from "@components/sections/testimonials/TestimonialsSectionAlt.astro";
+
+// Importing necessary functions from Astro
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { SITE } from "@data/constants";
+
+// Fetching all the product related content and sorting it by main.id
+const product: CollectionEntry<"products">[] = (
+  await getCollection("products", ({ id }) => {
+    return id.startsWith("en/");
+  })
+).sort(
+  (a: CollectionEntry<"products">, b: CollectionEntry<"products">) =>
+    a.data.main.id - b.data.main.id
+);
+
+// Define variables for page content
+const title: string = "Products";
+const subTitle: string =
+  "Explore the durability and precision of ScrewFast tools, designed for both professionals and enthusiasts. Each of our products is crafted with precision and built to last, ensuring you have the right tool for every job.";
+
+// Testimonial data that will be rendered in the component
+const testimonials = [
+  // First testimonial data
+  {
+    content:
+      " \"Since switching to ScrewFast's hardware tools, the efficiency on our construction sites has skyrocketed. The durability of the hex bolts and precision of the machine screws are simply unmatched. It's refreshing to work with a company that truly understands the daily demands of the industry.\" ",
+    author: "Jason Clark",
+    role: "Site Foreman | TopBuild",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+    avatarAlt: "Image Description",
+  },
+  // Second testimonial data
+  {
+    content:
+      " \"As an interior designer, I'm always looking for high-quality materials and tools that help bring my visions to life. ScrewFast's mixed screws assortment has been a game-changer for my projects, providing the perfect blend of quality and variety. The outstanding customer support was just the cherry on top!\" ",
+    author: "Maria Gonzalez",
+    role: "Interior Designer | Creative Spaces",
+    avatarSrc:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+    avatarAlt: "Image Description",
+  },
+];
+
+// Define the page title, meta description, and OG title for SEO
+const pageTitle: string = `${title} | ${SITE.title}`;
+const metaDescription: string =
+  "Discover ScrewFast's comprehensive range of high-quality hardware tools designed for durability and precision. From screws and bolts to power tools, find the perfect solution for your construction needs.";
+const ogTitle: string = "Premium Hardware Tools | ScrewFast";
+---
+
+<MainLayout
+  title={pageTitle}
+  customDescription={metaDescription}
+  customOgTitle={ogTitle}
+  lang="es"
+  structuredData={{
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://screwfast.uk/es/products",
+    url: "https://screwfast.uk/es/products",
+    name: "Premium Hardware Tools | ScrewFast",
+    description:
+      "Discover ScrewFast's comprehensive range of high-quality hardware tools designed for durability and precision. From screws and bolts to power tools, find the perfect solution for your construction needs.",
+    isPartOf: {
+      "@type": "WebSite",
+      url: "https://screwfast.uk",
+      name: "ScrewFast",
+      description:
+        "ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.",
+    },
+    inLanguage: "es-ES",
+  }}
+>
+  <div
+    class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 2xl:max-w-full"
+  >
+    <div class="mb-4 flex items-center justify-between gap-8 sm:mb-8 md:mb-12">
+      <div class="mb-4 max-w-2xl lg:mb-8">
+        <h2
+          class="mb-4 text-3xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 lg:text-4xl"
+        >
+          {title}
+        </h2>
+        <p class="text-neutral-600 dark:text-neutral-400">
+          {subTitle}
+        </p>
+      </div>
+      <div class="hidden md:block">
+        <PrimaryCTA
+          title="View All"
+          url="#"
+          customClasses="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-yellow-500 text-white hover:bg-yellow-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        />
+      </div>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:gap-8">
+      {
+        product.map((item) => {
+          return item.data.main.featured ? (
+            <CardWide
+              title={item.data.main.name}
+              description={item.data.main.description}
+              price={item.data.main.price}
+              url={`/es/products/${item.slug.split("/")[1]}`}
+              src={item.data.main.image.src}
+              alt={item.data.main.image.alt}
+              badge={item.data.main.badge}
+              rating={item.data.main.rating}
+            />
+          ) : (
+            <CardSmall
+              title={item.data.main.name}
+              description={item.data.main.description}
+              price={item.data.main.price}
+              url={`/es/products/${item.slug.split("/")[1]}`}
+              src={item.data.main.image.src}
+              alt={item.data.main.image.alt}
+              badge={item.data.main.badge}
+              rating={item.data.main.rating}
+            />
+          );
+        })
+      }
+    </div>
+
+    <div class="mt-12 text-center md:hidden">
+      <PrimaryCTA
+        title="View All"
+        url="#"
+        customClasses="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-yellow-500 text-white hover:bg-yellow-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+      />
+    </div>
+  </div>
+
+  <FeaturesStatsAlt
+    title="Precision Engineered for Your Needs"
+    subTitle="Our tools are crafted with meticulous attention to detail, ensuring they meet the highest standards of quality and performance."
+    stats={[
+      {
+        number: "99.9%",
+        text: "Customer Satisfaction",
+      },
+      {
+        number: "2,000+",
+        text: "Product Variations",
+      },
+      {
+        number: "10+",
+        text: "Years of Excellence",
+      },
+    ]}
+  />
+
+  <TestimonialsSectionAlt testimonials={testimonials} />
+</MainLayout>

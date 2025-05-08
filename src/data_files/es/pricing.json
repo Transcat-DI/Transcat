@@ -1,0 +1,40 @@
+{
+  "title": "Tarifas Simples y Transparentes",
+  "subTitle": "Mejora tu logística con nuestros planes claros y orientados al valor.",
+  "badge": "Mejor valor",
+  "thirdOption": "¿Necesitas una solución personalizada?",
+  "btnText": "Solicita un Presupuesto",
+
+  "starterKit": {
+    "name": "Plan Básico",
+    "description": "Ideal para pequeñas empresas y envíos ocasionales",
+    "price": "149",
+    "cents": ",00",
+    "billingFrequency": "€ / mensual",
+    "features": [
+      "Hasta 10 envíos mensuales",
+      "Cobertura en Cataluña",
+      "Seguimiento básico de envíos",
+      "Soporte por email"
+    ],
+    "purchaseBtnTitle": "Contratar Plan Básico",
+    "purchaseLink": "#contacto"
+  },
+
+  "professionalToolbox": {
+    "name": "Plan Premium",
+    "description": "Perfecto para empresas con envíos regulares",
+    "price": "299",
+    "cents": ",00",
+    "billingFrequency": "€ / mensual",
+    "features": [
+      "Envíos ilimitados",
+      "Cobertura en toda España",
+      "Seguimiento en tiempo real",
+      "Soporte prioritario 24/7",
+      "Recogida en el mismo día"
+    ],
+    "purchaseBtnTitle": "Contratar Plan Premium",
+    "purchaseLink": "#contacto"
+  }
+}

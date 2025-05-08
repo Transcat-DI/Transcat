@@ -1,0 +1,29 @@
+{
+  "subTitle": "Resolvemos tus dudas sobre nuestros servicios de transporte y logística.",
+  "faqs": [
+    {
+      "question": "¿Qué áreas geográficas cubre TransCat?",
+      "answer": "TransCat ofrece servicios de transporte principalmente en Cataluña, con cobertura completa en Barcelona, Girona, Lleida y Tarragona. Con nuestro Plan Premium, también ofrecemos servicios en toda España peninsular."
+    },
+    {
+      "question": "¿Cómo puedo hacer seguimiento de mi envío?",
+      "answer": "Todos nuestros clientes reciben un código de seguimiento único por cada envío. Con el Plan Básico, puedes consultar el estado actual de tu envío en nuestra web. Los clientes Premium disfrutan de seguimiento en tiempo real con actualizaciones instantáneas por SMS o email."
+    },
+    {
+      "question": "¿Cuál es el tiempo estimado de entrega?",
+      "answer": "Para envíos dentro de Cataluña, garantizamos entregas en 24-48 horas. Para el resto de España (Plan Premium), el tiempo estimado es de 48-72 horas. En casos urgentes, ofrecemos servicios de entrega en el mismo día para clientes Premium en determinadas zonas."
+    },
+    {
+      "question": "¿Qué tipo de mercancías pueden transportarse?",
+      "answer": "Transportamos una amplia variedad de mercancías, desde paquetería general hasta productos especializados. Sin embargo, existen restricciones para materiales peligrosos, perecederos o de valor extremadamente alto. Contáctanos para consultar sobre tu caso específico."
+    },
+    {
+      "question": "¿Cómo se gestionan las incidencias o retrasos?",
+      "answer": "Contamos con un equipo dedicado a la resolución de incidencias. Los clientes del Plan Básico pueden contactarnos por email, mientras que los clientes Premium tienen acceso a soporte telefónico prioritario 24/7. Nuestra tasa de resolución de incidencias en menos de 24 horas supera el 95%."
+    },
+    {
+      "question": "¿Ofrece TransCat servicios personalizados para empresas?",
+      "answer": "Sí, además de nuestros planes estándar, ofrecemos soluciones a medida para empresas con necesidades logísticas específicas. Esto incluye recogidas programadas, gestión de flotas dedicadas o integración con sistemas de gestión. Solicita una consulta personalizada y te ofreceremos un presupuesto adaptado a tus necesidades."
+    }
+  ]
+}

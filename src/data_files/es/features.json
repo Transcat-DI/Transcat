@@ -1,0 +1,32 @@
+[
+  {
+    "heading": "Experiencia y Profesionalidad",
+    "content": "Con más de 15 años de experiencia en el sector del transporte, ofrezco un servicio profesional y confiable para todas sus necesidades logísticas en Cataluña.",
+    "svg": "verified"
+  },
+  {
+    "heading": "Flota Moderna",
+    "content": "Dispongo de vehículos modernos y bien mantenidos, equipados con la última tecnología para garantizar entregas seguras y puntuales en cualquier condición.",
+    "svg": "truck"
+  },
+  {
+    "heading": "Servicios Personalizados",
+    "content": "Cada cliente tiene necesidades únicas. Ofrezco soluciones de transporte adaptadas a sus requerimientos específicos, desde entregas urgentes hasta transportes programados.",
+    "svg": "groups"
+  },
+  {
+    "heading": "Cobertura Regional",
+    "content": "Servicio completo en toda Cataluña, con especial atención a Barcelona y sus alrededores. Conozco cada ruta y acceso para optimizar tiempos de entrega.",
+    "svg": "map"
+  },
+  {
+    "heading": "Atención al Cliente",
+    "content": "Comunicación constante y directa con el cliente antes, durante y después del servicio. Siempre disponible para resolver dudas y atender necesidades específicas.",
+    "svg": "phone"
+  },
+  {
+    "heading": "Compromiso Medioambiental",
+    "content": "Comprometido con la reducción de la huella de carbono mediante rutas optimizadas, mantenimiento riguroso de vehículos y prácticas de conducción eficiente.",
+    "svg": "recycle"
+  }
+]

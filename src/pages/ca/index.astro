@@ -1,0 +1,141 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import ClientsSection from "@components/sections/landing/ClientsSection.astro";
+import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
+import PricingSection from "@components/sections/pricing/PricingSection.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+
+import heroImage from "@images/hero-image.avif";
+import faqs from "@data/faqs.json";
+import features from "@data/features.json";
+import pricing from "@data/pricing.json";
+import featureImage from "@images/features-image.avif";
+import construction from "@images/construction-image.avif";
+import tools from "@images/automated-tools.avif";
+import dashboard from "@images/dashboard-image.avif";
+import { partnersData } from "@/data_files/constants";
+
+const avatarSrcs: Array<string> = [
+  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+  "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+  "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
+  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
+];
+---
+
+<MainLayout lang="ca">
+
+  <HeroSection
+    title=`Et portem del punt "A" al punt <span
+        class="text-yellow-500 dark:text-yellow-400">Fet!</span>`
+    subTitle="Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional."
+    primaryBtn="Serveis"
+    primaryBtnURL="/ca/products"
+    secondaryBtn="Contacta'm"
+    secondaryBtnURL="/ca/contact"
+    withReview={true}
+    avatars={avatarSrcs}
+    rating=`<span class="font-bold">4.8</span> / 5`
+    starCount={4}
+    reviews=`De més de <span class="font-bold">12.8k</span> Ressenyes`
+    src={heroImage}
+    alt="Stack of ScrewFast product boxes containing assorted hardware tools"
+  />
+
+  <ClientsSection
+    title="Confiat per Líders de la Indústria"
+    subTitle="Experimenta la fiabilitat escollida pels gegants de la indústria."
+    partners={partnersData}
+  />
+
+  <FeaturesGeneral
+    title="Satisfent les Demandes de la Indústria"
+    subTitle="A ScrewFast, abordem els reptes únics que es troben en els sectors del hardware i la construcció. Des d'eines d'avantguarda fins a serveis experts, estem dedicats a ajudar-te a superar obstacles i aconseguir els teus objectius."
+    src={featureImage}
+    alt="ScrewFast products in floating boxes"
+    features={features}
+  />
+
+  <FeaturesNavs
+    title=`Personalitza les ofertes de <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span> per adaptar-les perfectament a les teves necessitats de hardware i construcció.`
+    tabs={[
+      {
+        heading: "Eines d'Avantguarda",
+        content:
+          "Potencia els teus projectes amb les eines d'avantguarda de ScrewFast. Experimenta una eficiència millorada en la gestió de la construcció amb les nostres sofisticades solucions automatitzades.",
+        svg: "tools",
+        src: tools,
+        alt: "Yellow and black heavy equipment on brown grass field",
+        first: true,
+      },
+      {
+        heading: "Taulers Intuïtius",
+        content:
+          "Navega amb facilitat utilitzant els taulers intuïtius de ScrewFast. Configura i supervisa els teus projectes sense problemes, amb interfícies fàcils d'usar dissenyades per a una gestió del flux de treball ràpida i efectiva.",
+        svg: "dashboard",
+        src: dashboard,
+        alt: "A screenshot or graphic representation of the intuitive dashboard",
+        second: true,
+      },
+      {
+        heading: "Característiques Robustes",
+        content:
+          "Minimitza la complexitat, maximitza la productivitat. Les característiques robustes de ScrewFast estan dissenyades per agilitzar el teu procés de construcció, oferint resultats que destaquen per la seva excel·lència.",
+        svg: "house",
+        src: construction,
+        alt: "Gray metal building frame near tower crane during daytime",
+      },
+    ]}
+  />
+
+  <TestimonialsSection
+    title="Accelera els Teus Projectes"
+    subTitle="A ScrewFast, assegurem un inici ràpid amb una configuració instantània del compte. Experimenta la velocitat de la construcció redefinida."
+    testimonials={[
+      {
+        content:
+          "ScrewFast va augmentar dramàticament l'eficiència del nostre projecte. La configuració va ser instantània, i els seus temps de resposta ràpids són fenomenals. Veritablement un canvi de joc en el suport de hardware i construcció!",
+        author: "Samantha Ruiz",
+        role: "Directora d'Operacions | ConstructIt Inc.",
+        avatarSrc:
+          "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?q=80&w=1453&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+      },
+    ]}
+    statistics={[
+      {
+        count: "70k+",
+        description:
+          "clients equipats — des de DIY fins a grans empreses de construcció",
+      },
+      {
+        count: "35%",
+        description:
+          "augment en l'eficiència del projecte amb eines i serveis ScrewFast",
+      },
+      {
+        count: "15.3%",
+        description:
+          "reducció en costos de manteniment reportats per clients a llarg termini",
+      },
+      {
+        count: "2x",
+        description: "muntatge més ràpid utilitzant solucions de fixació innovadores",
+      },
+    ]}
+  />
+
+  <PricingSection pricing={pricing} />
+
+  <FAQ title="Preguntes<br />freqüents" faqs={faqs} />
+
+  <HeroSectionAlt
+    title="Construïm Junts"
+    subTitle="ScrewFast és una plantilla de codi obert, meticulosament elaborada amb Astro, Tailwind CSS i els frameworks de Preline UI."
+    url="https://github.com/mearashadowfax/ScrewFast"
+  />
+</MainLayout>
