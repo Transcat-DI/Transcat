@@ -81,21 +81,27 @@ interface Props {
     const prevButton = carousel.querySelector('.carousel-control-prev');
     const nextButton = carousel.querySelector('.carousel-control-next');
     
+    // Verificar que todos los elementos necesarios existen
+    if (!carouselInner || carouselItems.length === 0) {
+      console.error('Elementos del carrusel no encontrados');
+      return;
+    }
+    
     let currentIndex = 0;
     const itemCount = carouselItems.length;
     let intervalId;
 
     // Función para mostrar un slide específico
     const showSlide = (index) => {
+      if (!carouselInner || !indicators || !carouselItems) return;
+      
       if (index < 0) index = itemCount - 1;
       if (index >= itemCount) index = 0;
       
       currentIndex = index;
       
       // Actualizar la posición del carrusel
-      if (carouselInner) {
-        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }
+      carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
       
       // Actualizar los indicadores
       indicators.forEach((indicator, i) => {
@@ -120,11 +126,30 @@ interface Props {
 
     // Iniciar el intervalo para cambio automático
     const startInterval = () => {
-      clearInterval(intervalId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
       intervalId = setInterval(() => {
         showSlide(currentIndex + 1);
       }, 10000); // Cambiar cada 10 segundos
     };
+    
+    // Detener el intervalo cuando el usuario no está en la página
+    const stopInterval = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+    
+    // Pausar el carrusel cuando el usuario no está en la página
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        stopInterval();
+      } else {
+        startInterval();
+      }
+    });
 
     // Configurar eventos para los botones de navegación
     if (prevButton) {
@@ -142,13 +167,18 @@ interface Props {
     }
 
     // Configurar eventos para los indicadores
-    indicators.forEach((indicator) => {
-      indicator.addEventListener('click', () => {
-        const index = parseInt(indicator.getAttribute('data-index') || '0', 10);
-        showSlide(index);
-        startInterval(); // Reiniciar el intervalo
+    if (indicators && indicators.length > 0) {
+      indicators.forEach((indicator) => {
+        indicator.addEventListener('click', () => {
+          const indexAttr = indicator.getAttribute('data-index');
+          if (indexAttr !== null) {
+            const index = parseInt(indexAttr, 10);
+            showSlide(index);
+            startInterval(); // Reiniciar el intervalo
+          }
+        });
       });
-    });
+    }
 
     // Iniciar el carrusel
     showSlide(0);

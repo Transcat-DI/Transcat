@@ -213,7 +213,6 @@ if (Astro.currentLocale === "fr") {
             </FooterSocialLink>
           </div>
         </div>
-        </div>
       </div>
     </div>
 
@@ -276,7 +275,9 @@ if (Astro.currentLocale === "fr") {
     <script>
       const year = new Date().getFullYear();
       const element = document.getElementById("current-year");
-      element!.innerText = year.toString();
+      if (element) {
+        element.innerText = year.toString();
+      }
       
       // Script para scroll suave en enlaces con hash (#)
       document.addEventListener('DOMContentLoaded', () => {
@@ -301,10 +302,13 @@ if (Astro.currentLocale === "fr") {
                 const targetElement = document.getElementById(targetId);
                 
                 if (targetElement) {
-                  window.scrollTo({
-                    top: targetElement.offsetTop - 100, // Offset para evitar que el header cubra el contenido
-                    behavior: 'smooth'
-                  });
+                  // Usar setTimeout para asegurar que el scroll ocurra después de cualquier otro evento
+                  setTimeout(() => {
+                    window.scrollTo({
+                      top: targetElement.offsetTop - 100, // Offset para evitar que el header cubra el contenido
+                      behavior: 'smooth'
+                    });
+                  }, 10);
                 }
               }
             }

@@ -204,26 +204,37 @@ if (Astro.currentLocale === "fr") {
     );
 
     $clickableThemes.forEach(($item) => {
-      $item.addEventListener("click", () =>
-        HSThemeAppearance.setAppearance(
-          $item.getAttribute("data-hs-theme-click-value"),
-          true,
-          $item,
-        ),
-      );
+      $item.addEventListener("click", () => {
+        const themeValue = $item.getAttribute("data-hs-theme-click-value");
+        if (themeValue) {
+          HSThemeAppearance.setAppearance(
+            themeValue,
+            true,
+            true
+          );
+        }
+      });
     });
 
     $switchableThemes.forEach(($item) => {
       $item.addEventListener("change", (e) => {
-        HSThemeAppearance.setAppearance(e.target.checked ? "dark" : "default");
+        const target = e.target;
+        if (target && 'checked' in target) {
+          HSThemeAppearance.setAppearance(target.checked ? "dark" : "default");
+        }
       });
 
-      $item.checked = HSThemeAppearance.getAppearance() === "dark";
+      if ($item && 'checked' in $item) {
+        $item.checked = HSThemeAppearance.getAppearance() === "dark";
+      }
     });
 
     window.addEventListener("on-hs-appearance-change", (e) => {
+      const customEvent = e;
       $switchableThemes.forEach(($item) => {
-        $item.checked = e.detail === "dark";
+        if ($item && 'checked' in $item) {
+          $item.checked = customEvent.detail === "dark";
+        }
       });
     });
   });

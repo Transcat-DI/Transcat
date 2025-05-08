@@ -25,8 +25,8 @@ We assign an ID matching the URL for easy reference in our script.
 If URL is '/' (home page), assign ID as 'home' 
 -->
 <a
-  id={url === "/" ? "home" : url.replace("/", "")}
-  href={url}
+  id={url === "/" || url === "/es" ? "home" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}
+  href={finalUrl}
   data-astro-prefetch
   class="rounded-lg text-base font-medium text-neutral-600 outline-hidden ring-zinc-500 hover:text-neutral-500 focus-visible:ring-3 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:text-neutral-500 dark:focus:outline-hidden md:py-3 md:text-sm 2xl:text-base"
 >
@@ -39,10 +39,13 @@ If URL is '/' (home page), assign ID as 'home'
     let url = window.location.pathname;
     let navId;
 
-    if (url === "/") {
+    // Manejar diferentes formatos de URL
+    if (url === "/" || url === "/es" || url === "/es/") {
       navId = "home";
     } else {
-      navId = url.replace("/", "");
+      // Eliminar barras iniciales y finales para normalizar el ID
+      // Reemplazar barras con guiones para evitar problemas con IDs
+      navId = url.replace(/^\/|\/$/g, "").replace(/\//g, "-");
     }
 
     let nav = document.getElementById(navId);
@@ -62,7 +65,8 @@ If URL is '/' (home page), assign ID as 'home'
     const allNavLinks = document.querySelectorAll('nav a');
     
     allNavLinks.forEach(link => {
-      link.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
+      link.addEventListener('click', function(e) {
+        // Usar 'this' como el elemento actual
         const href = this.getAttribute('href');
         if (!href) return;
         
@@ -78,14 +82,19 @@ If URL is '/' (home page), assign ID as 'home'
           
           if (currentPath === targetPage || 
               (currentPath === '/es' && targetPage === '') || 
-              (currentPath === '/' && targetPage === '/es')) {
+              (currentPath === '/es/' && targetPage === '') || 
+              (currentPath === '/' && targetPage === '/es') ||
+              (currentPath === '/' && targetPage === '/es/')) {
             // Estamos en la misma página, hacer scroll suave
             if (targetElement) {
               e.preventDefault();
-              window.scrollTo({
-                top: targetElement.offsetTop - 100,
-                behavior: 'smooth'
-              });
+              // Usar setTimeout para asegurar que el scroll ocurra después de cualquier otro evento
+              setTimeout(() => {
+                window.scrollTo({
+                  top: targetElement.offsetTop - 100,
+                  behavior: 'smooth'
+                });
+              }, 10);
             }
           } 
           else if (currentPath === '/es/cobertura') {
@@ -122,14 +131,35 @@ If URL is '/' (home page), assign ID as 'home'
       sessionStorage.removeItem('scrollToTarget');
       
       // Buscar el elemento objetivo y hacer scroll suave hacia él
-      const targetElement = document.getElementById(scrollToTarget);
-      if (targetElement) {
-        setTimeout(() => {
-          window.scrollTo({
-            top: targetElement.offsetTop - 100,
-            behavior: 'smooth'
-          });
-        }, 500); // Pequeño retraso para asegurar que la página se ha cargado completamente
+      // Usar un observador de mutaciones para asegurarse de que el DOM esté completamente cargado
+      let attempts = 0;
+      const maxAttempts = 50; // Límite de intentos para evitar bucles infinitos
+      
+      const checkForElement = () => {
+        const targetElement = document.getElementById(scrollToTarget);
+        if (targetElement) {
+          setTimeout(() => {
+            window.scrollTo({
+              top: targetElement.offsetTop - 100,
+              behavior: 'smooth'
+            });
+          }, 500); // Pequeño retraso para asegurar que la página se ha cargado completamente
+        } else {
+          // Si el elemento aún no existe y no hemos excedido el límite de intentos
+          attempts++;
+          if (attempts < maxAttempts) {
+            setTimeout(checkForElement, 100);
+          } else {
+            console.warn('No se pudo encontrar el elemento con ID:', scrollToTarget);
+          }
+        }
+      };
+      
+      // Iniciar la comprobación cuando el DOM esté listo
+      if (document.readyState === 'complete') {
+        checkForElement();
+      } else {
+        window.addEventListener('load', checkForElement);
       }
     }
   });

@@ -10,15 +10,17 @@ interface Props {
 }
 
 // Extraer el valor numérico y el sufijo (si existe)
-const numericValue = count.replace(/[^0-9.,]/g, '');
-const suffix = count.replace(/[0-9.,]/g, '');
+const numericValue = count ? count.replace(/[^0-9.,]/g, '') : '0';
+const suffix = count ? count.replace(/[0-9.,]/g, '') : '';
 
 // Determinar si el número tiene decimales
 const hasDecimals = numericValue.includes(',') || numericValue.includes('.');
-const decimalPlaces = hasDecimals ? (numericValue.split(',')[1]?.length || numericValue.split('.')[1]?.length || 0) : 0;
+const decimalPlaces = hasDecimals ? 
+  (numericValue.includes(',') ? (numericValue.split(',')[1]?.length || 0) : 
+   (numericValue.split('.')[1]?.length || 0)) : 0;
 
 // Normalizar el valor numérico (reemplazar comas por puntos para cálculos)
-const normalizedValue = numericValue.replace(',', '.');
+const normalizedValue = numericValue.replace(/,/g, '.');
 ---
 
 <li class="-m-0.5 flex flex-col p-4 sm:p-8 stats-item" 
@@ -39,6 +41,8 @@ const normalizedValue = numericValue.replace(',', '.');
 <script>
   // Función para animar el contador
   function animateCounter(element, target, duration = 1500) {
+    if (!element) return;
+    
     // Asegurarse de que target sea un número
     const targetNum = parseFloat(target);
     if (isNaN(targetNum)) return;
@@ -47,12 +51,13 @@ const normalizedValue = numericValue.replace(',', '.');
     if (element.dataset.animated === 'true') return;
     
     const counter = element.querySelector('.counter-value');
-    const decimals = parseInt(element.getAttribute('data-decimals') || '0');
+    if (!counter) return;
+    
+    const decimalsAttr = element.getAttribute('data-decimals');
+    const decimals = decimalsAttr ? parseInt(decimalsAttr, 10) : 0;
     const steps = 60; // Número total de pasos de animación
     const increment = targetNum / steps; // Incremento por paso
     const interval = duration / steps; // Tiempo entre pasos
-    
-    if (!counter) return;
     
     // Reiniciar el contador
     counter.textContent = '0';
@@ -60,6 +65,7 @@ const normalizedValue = numericValue.replace(',', '.');
     // Limpiar cualquier intervalo anterior
     if (element._timer) {
       clearInterval(element._timer);
+      element._timer = null;
     }
     
     let step = 0;
@@ -99,14 +105,22 @@ const normalizedValue = numericValue.replace(',', '.');
         if (!entry.isIntersecting && hasBeenVisible) {
           // Resetear el estado de animación para todos los elementos
           statsItems.forEach(item => {
-            item.dataset.animated = 'false';
+            if (item && item.dataset) {
+              item.dataset.animated = 'false';
+              
+              // Limpiar cualquier timer pendiente
+              if (item._timer) {
+                clearInterval(item._timer);
+                item._timer = null;
+              }
+            }
           });
           hasBeenVisible = false;
         } else if (entry.isIntersecting) {
           hasBeenVisible = true;
         }
       });
-    }, { threshold: 0 }); // Umbral 0 para detectar cuando sale completamente
+    }, { threshold: 0, rootMargin: '-20% 0px' }); // Umbral 0 para detectar cuando sale completamente
     
     // Observar el contenedor de estadísticas
     const statsContainer = statsItems[0].closest('ul');
@@ -119,15 +133,20 @@ const normalizedValue = numericValue.replace(',', '.');
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const element = entry.target;
+          if (!element) return;
+          
           const target = element.getAttribute('data-target') || '0';
           
           // Animar el contador solo si no ha sido animado o si se ha reseteado
           if (element.dataset.animated !== 'true') {
-            animateCounter(element, target);
+            // Usar setTimeout para evitar problemas de rendimiento
+            setTimeout(() => {
+              animateCounter(element, target);
+            }, 100);
           }
         }
       });
-    }, { threshold: 0.5 }); // Umbral más alto para asegurar que está bien visible
+    }, { threshold: 0.5, rootMargin: '0px 0px -10% 0px' }); // Umbral más alto para asegurar que está bien visible
     
     // Inicializar todos los elementos como no animados
     statsItems.forEach(item => {
