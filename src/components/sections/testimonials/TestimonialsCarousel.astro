@@ -72,116 +72,128 @@ interface Props {
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const carousel = document.querySelector('.testimonials-carousel');
-    if (!carousel) return;
-
-    const carouselInner = carousel.querySelector('.carousel-inner');
-    const carouselItems = carousel.querySelectorAll('.carousel-item');
-    const indicators = carousel.querySelectorAll('.carousel-indicator');
-    const prevButton = carousel.querySelector('.carousel-control-prev');
-    const nextButton = carousel.querySelector('.carousel-control-next');
+    // Seleccionar todos los carruseles en la página (por si hay más de uno)
+    const carousels = document.querySelectorAll('.testimonials-carousel');
+    if (!carousels || carousels.length === 0) return;
     
-    // Verificar que todos los elementos necesarios existen
-    if (!carouselInner || carouselItems.length === 0) {
-      console.error('Elementos del carrusel no encontrados');
-      return;
-    }
-    
-    let currentIndex = 0;
-    const itemCount = carouselItems.length;
-    let intervalId;
-
-    // Función para mostrar un slide específico
-    const showSlide = (index) => {
-      if (!carouselInner || !indicators || !carouselItems) return;
-      
-      if (index < 0) index = itemCount - 1;
-      if (index >= itemCount) index = 0;
-      
-      currentIndex = index;
-      
-      // Actualizar la posición del carrusel
-      carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-      
-      // Actualizar los indicadores
-      indicators.forEach((indicator, i) => {
-        if (i === currentIndex) {
-          indicator.classList.add('bg-orange-400', 'w-6');
-          indicator.classList.remove('bg-neutral-300', 'dark:bg-neutral-600');
-        } else {
-          indicator.classList.remove('bg-orange-400', 'w-6');
-          indicator.classList.add('bg-neutral-300', 'dark:bg-neutral-600');
-        }
-      });
-      
-      // Actualizar clases active en los items
-      carouselItems.forEach((item, i) => {
-        if (i === currentIndex) {
-          item.classList.add('active');
-        } else {
-          item.classList.remove('active');
-        }
-      });
-    };
-
-    // Iniciar el intervalo para cambio automático
-    const startInterval = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-      }
-      intervalId = setInterval(() => {
-        showSlide(currentIndex + 1);
-      }, 10000); // Cambiar cada 10 segundos
-    };
-    
-    // Detener el intervalo cuando el usuario no está en la página
-    const stopInterval = () => {
-      if (intervalId) {
-        clearInterval(intervalId);
-        intervalId = null;
-      }
-    };
-    
-    // Pausar el carrusel cuando el usuario no está en la página
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        stopInterval();
-      } else {
-        startInterval();
-      }
+    // Inicializar cada carrusel
+    carousels.forEach((carousel: Element) => {
+      initCarousel(carousel);
     });
+  });
+  
+  function initCarousel(carousel: Element) {
+    try {
+      const carouselInner = carousel.querySelector('.carousel-inner');
+      const carouselItems = carousel.querySelectorAll('.carousel-item');
+      const indicators = carousel.querySelectorAll('.carousel-indicator');
+      const prevButton = carousel.querySelector('.carousel-control-prev');
+      const nextButton = carousel.querySelector('.carousel-control-next');
+      
+      // Verificar que todos los elementos necesarios existen
+      if (!carouselInner || carouselItems.length === 0) {
+        console.error('Elementos del carrusel no encontrados');
+        return;
+      }
+      
+      let currentIndex = 0;
+      const itemCount = carouselItems.length;
+      let intervalId: number | null = null;
 
-    // Configurar eventos para los botones de navegación
-    if (prevButton) {
-      prevButton.addEventListener('click', () => {
-        showSlide(currentIndex - 1);
-        startInterval(); // Reiniciar el intervalo
-      });
-    }
-
-    if (nextButton) {
-      nextButton.addEventListener('click', () => {
-        showSlide(currentIndex + 1);
-        startInterval(); // Reiniciar el intervalo
-      });
-    }
-
-    // Configurar eventos para los indicadores
-    if (indicators && indicators.length > 0) {
-      indicators.forEach((indicator) => {
-        indicator.addEventListener('click', () => {
-          const indexAttr = indicator.getAttribute('data-index');
-          if (indexAttr !== null) {
-            const index = parseInt(indexAttr, 10);
-            showSlide(index);
-            startInterval(); // Reiniciar el intervalo
+      // Función para mostrar un slide específico
+      const showSlide = (index: number) => {
+        if (!carouselInner || !indicators || !carouselItems) return;
+        
+        if (index < 0) index = itemCount - 1;
+        if (index >= itemCount) index = 0;
+        
+        currentIndex = index;
+        
+        // Actualizar la posición del carrusel
+        (carouselInner as HTMLElement).style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Actualizar los indicadores
+        indicators.forEach((indicator: Element, i: number) => {
+          if (i === currentIndex) {
+            // Para el indicador activo
+            indicator.className = 'carousel-indicator h-2 w-6 rounded-full transition-all duration-300 bg-orange-400';
+          } else {
+            // Para los indicadores inactivos
+            indicator.className = 'carousel-indicator h-2 w-2 rounded-full transition-all duration-300 bg-neutral-300 dark:bg-neutral-600';
           }
         });
-      });
-    }
+        
+        // Actualizar clases active en los items
+        carouselItems.forEach((item: Element, i: number) => {
+          if (i === currentIndex) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      };
 
-    // Iniciar el carrusel
-    showSlide(0);
-    startInterval();
-  });
+      // Iniciar el intervalo para cambio automático
+      const startInterval = () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
+        intervalId = window.setInterval(() => {
+          showSlide(currentIndex + 1);
+        }, 10000); // Cambiar cada 10 segundos
+      };
+      
+      // Detener el intervalo cuando el usuario no está en la página
+      const stopInterval = () => {
+        if (intervalId) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+      };
+      
+      // Pausar el carrusel cuando el usuario no está en la página
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          stopInterval();
+        } else {
+          startInterval();
+        }
+      });
+
+      // Configurar eventos para los botones de navegación
+      if (prevButton) {
+        prevButton.addEventListener('click', () => {
+          showSlide(currentIndex - 1);
+          startInterval(); // Reiniciar el intervalo
+        });
+      }
+
+      if (nextButton) {
+        nextButton.addEventListener('click', () => {
+          showSlide(currentIndex + 1);
+          startInterval(); // Reiniciar el intervalo
+        });
+      }
+
+      // Configurar eventos para los indicadores
+      if (indicators && indicators.length > 0) {
+        indicators.forEach((indicator: Element) => {
+          indicator.addEventListener('click', () => {
+            const indexAttr = indicator.getAttribute('data-index');
+            if (indexAttr !== null) {
+              const index = parseInt(indexAttr, 10);
+              showSlide(index);
+              startInterval(); // Reiniciar el intervalo
+            }
+          });
+        });
+      }
+
+      // Iniciar el carrusel
+      showSlide(0);
+      startInterval();
+    } catch (error) {
+      console.error('Error al inicializar el carrusel:', error);
+    }
+  }
 </script>

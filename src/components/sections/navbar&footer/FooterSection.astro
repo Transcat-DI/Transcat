@@ -193,23 +193,23 @@ if (Astro.currentLocale === "fr") {
           <!-- Social Media Icons -->
           <div class="mt-3 flex flex-wrap gap-3">
             <FooterSocialLink url={strings.socialLinks.facebook}>
-              <Icon name="facebookContact" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              <Icon name="facebook" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
             </FooterSocialLink>
 
             <FooterSocialLink url={strings.socialLinks.x}>
-              <Icon name="twitterContact" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              <Icon name="x" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
             </FooterSocialLink>
             
             <FooterSocialLink url={strings.socialLinks.instagram}>
-              <Icon name="instagramContact" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              <Icon name="instagram" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
             </FooterSocialLink>
             
             <FooterSocialLink url={strings.socialLinks.linkedin}>
-              <Icon name="linkedinContact" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              <Icon name="linkedIn" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
             </FooterSocialLink>
             
             <FooterSocialLink url={strings.socialLinks.whatsapp}>
-              <Icon name="whatsappContact" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
+              <Icon name="whatsapp" class="h-5 w-5 fill-white text-white dark:fill-white dark:text-white" />
             </FooterSocialLink>
           </div>
         </div>
@@ -272,7 +272,8 @@ if (Astro.currentLocale === "fr") {
       <!-- <div class="py-8"></div>  -->
     </div>
 
-    <script>
+    <script is:inline>
+      // @ts-nocheck
       const year = new Date().getFullYear();
       const element = document.getElementById("current-year");
       if (element) {
@@ -284,7 +285,7 @@ if (Astro.currentLocale === "fr") {
         const footerLinks = document.querySelectorAll('footer a[href*="#"]');
         
         footerLinks.forEach(link => {
-          link.addEventListener('click', function(this: HTMLAnchorElement, e) {
+          link.addEventListener('click', function(e) {
             // Solo aplicar a enlaces internos (mismo dominio)
             const href = this.getAttribute('href');
             if (!href) return;

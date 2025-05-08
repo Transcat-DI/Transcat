@@ -39,6 +39,9 @@ const normalizedValue = numericValue.replace(/,/g, '.');
 </li>
 
 <script>
+  // Almacén para los timers de cada elemento
+  const timerMap = new Map();
+
   // Función para animar el contador
   function animateCounter(element, target, duration = 1500) {
     if (!element) return;
@@ -63,95 +66,111 @@ const normalizedValue = numericValue.replace(/,/g, '.');
     counter.textContent = '0';
     
     // Limpiar cualquier intervalo anterior
-    if (element._timer) {
-      clearInterval(element._timer);
-      element._timer = null;
+    const elementId = element.getAttribute('data-id') || element.id || Math.random().toString(36).substring(2, 9);
+    if (timerMap.has(elementId)) {
+      clearInterval(timerMap.get(elementId));
+      timerMap.delete(elementId);
     }
     
     let step = 0;
-    element._timer = setInterval(() => {
+    const timerId = setInterval(() => {
       step++;
       
       // Calcular el valor actual basado en el paso actual
       const currentValue = step >= steps ? targetNum : (increment * step);
       
       // Formatear el número con los decimales correctos
-      if (decimals > 0) {
-        counter.textContent = currentValue.toFixed(decimals).replace('.', ',');
-      } else {
-        counter.textContent = Math.round(currentValue).toString();
+      try {
+        if (decimals > 0) {
+          counter.textContent = currentValue.toFixed(decimals).replace('.', ',');
+        } else {
+          counter.textContent = Math.round(currentValue).toString();
+        }
+      } catch (error) {
+        console.error('Error al formatear el contador:', error);
       }
       
       // Detener cuando llegamos al final
       if (step >= steps) {
-        clearInterval(element._timer);
-        element._timer = null;
+        clearInterval(timerId);
+        timerMap.delete(elementId);
         element.dataset.animated = 'true'; // Marcar como animado
       }
     }, interval);
+    
+    // Guardar el ID del timer en el mapa
+    timerMap.set(elementId, timerId);
   }
 
   // Configurar el Intersection Observer
   document.addEventListener('DOMContentLoaded', () => {
-    const statsItems = document.querySelectorAll('.stats-item');
-    let hasBeenVisible = false;
-    
-    if (!statsItems.length) return;
-    
-    // Crear un observer para detectar cuando la sección completa sale de la vista
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Si la sección sale completamente de la vista
-        if (!entry.isIntersecting && hasBeenVisible) {
-          // Resetear el estado de animación para todos los elementos
-          statsItems.forEach(item => {
-            if (item && item.dataset) {
-              item.dataset.animated = 'false';
-              
-              // Limpiar cualquier timer pendiente
-              if (item._timer) {
-                clearInterval(item._timer);
-                item._timer = null;
+    try {
+      const statsItems = document.querySelectorAll('.stats-item');
+      if (!statsItems || statsItems.length === 0) return;
+      
+      let hasBeenVisible = false;
+      
+      // Crear un observer para detectar cuando la sección completa sale de la vista
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          // Si la sección sale completamente de la vista
+          if (!entry.isIntersecting && hasBeenVisible) {
+            // Resetear el estado de animación para todos los elementos
+            statsItems.forEach((item, index) => {
+              if (item && item.dataset) {
+                item.dataset.animated = 'false';
+                
+                // Limpiar cualquier timer pendiente
+                const elementId = item.getAttribute('data-id') || item.id || `stats-item-${index}`;
+                if (timerMap.has(elementId)) {
+                  clearInterval(timerMap.get(elementId));
+                  timerMap.delete(elementId);
+                }
               }
-            }
-          });
-          hasBeenVisible = false;
-        } else if (entry.isIntersecting) {
-          hasBeenVisible = true;
-        }
-      });
-    }, { threshold: 0, rootMargin: '-20% 0px' }); // Umbral 0 para detectar cuando sale completamente
-    
-    // Observar el contenedor de estadísticas
-    const statsContainer = statsItems[0].closest('ul');
-    if (statsContainer) {
-      sectionObserver.observe(statsContainer);
-    }
-    
-    // Observer para cada elemento individual
-    const itemObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const element = entry.target;
-          if (!element) return;
-          
-          const target = element.getAttribute('data-target') || '0';
-          
-          // Animar el contador solo si no ha sido animado o si se ha reseteado
-          if (element.dataset.animated !== 'true') {
-            // Usar setTimeout para evitar problemas de rendimiento
-            setTimeout(() => {
-              animateCounter(element, target);
-            }, 100);
+            });
+            hasBeenVisible = false;
+          } else if (entry.isIntersecting) {
+            hasBeenVisible = true;
           }
+        });
+      }, { threshold: 0, rootMargin: '-20% 0px' }); // Umbral 0 para detectar cuando sale completamente
+      
+      // Observar el contenedor de estadísticas
+      const statsContainer = statsItems[0]?.closest('ul');
+      if (statsContainer) {
+        sectionObserver.observe(statsContainer);
+      }
+      
+      // Observer para cada elemento individual
+      const itemObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            if (!element) return;
+            
+            const target = element.getAttribute('data-target') || '0';
+            
+            // Animar el contador solo si no ha sido animado o si se ha reseteado
+            if (element.dataset.animated !== 'true') {
+              // Usar setTimeout para evitar problemas de rendimiento
+              setTimeout(() => {
+                animateCounter(element, target);
+              }, 100);
+            }
+          }
+        });
+      }, { threshold: 0.5, rootMargin: '0px 0px -10% 0px' }); // Umbral más alto para asegurar que está bien visible
+      
+      // Inicializar todos los elementos como no animados y asignar IDs únicos
+      statsItems.forEach((item, index) => {
+        item.dataset.animated = 'false';
+        if (!item.id && !item.getAttribute('data-id')) {
+          item.setAttribute('data-id', `stats-item-${index}`);
         }
+        itemObserver.observe(item);
       });
-    }, { threshold: 0.5, rootMargin: '0px 0px -10% 0px' }); // Umbral más alto para asegurar que está bien visible
-    
-    // Inicializar todos los elementos como no animados
-    statsItems.forEach(item => {
-      item.dataset.animated = 'false';
-      itemObserver.observe(item);
-    });
+    } catch (error) {
+      console.error('Error al inicializar los contadores de estadísticas:', error);
+    }
   });
 </script>

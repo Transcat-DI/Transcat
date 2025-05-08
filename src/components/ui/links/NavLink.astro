@@ -14,7 +14,9 @@ const isCobertura = Astro.url.pathname.includes('/es/cobertura');
 // Modificar la URL si estamos en la página de cobertura y el enlace contiene un hash
 let finalUrl = url;
 if (isCobertura && url.includes('#') && !url.includes('/es/cobertura')) {
-  finalUrl = url; // Mantener la URL original para que funcione la navegación
+  // Si estamos en cobertura y el enlace tiene un hash pero no incluye /es/cobertura,
+  // mantenemos la URL original para que la navegación funcione correctamente
+  finalUrl = url;
 }
 ---
 
@@ -28,6 +30,7 @@ If URL is '/' (home page), assign ID as 'home'
   id={url === "/" || url === "/es" ? "home" : url.replace(/^\/|\/$/g, "").replace(/\//g, "-")}
   href={finalUrl}
   data-astro-prefetch
+  aria-label={`Navegar a ${name}`}
   class="rounded-lg text-base font-medium text-neutral-600 outline-hidden ring-zinc-500 hover:text-neutral-500 focus-visible:ring-3 dark:text-neutral-400 dark:ring-zinc-200 dark:hover:text-neutral-500 dark:focus:outline-hidden md:py-3 md:text-sm 2xl:text-base"
 >
   {name}
@@ -39,128 +42,156 @@ If URL is '/' (home page), assign ID as 'home'
     let url = window.location.pathname;
     let navId;
 
-    // Manejar diferentes formatos de URL
-    if (url === "/" || url === "/es" || url === "/es/") {
-      navId = "home";
-    } else {
-      // Eliminar barras iniciales y finales para normalizar el ID
-      // Reemplazar barras con guiones para evitar problemas con IDs
-      navId = url.replace(/^\/|\/$/g, "").replace(/\//g, "-");
-    }
+    try {
+      // Manejar diferentes formatos de URL
+      if (url === "/" || url === "/es" || url === "/es/") {
+        navId = "home";
+      } else {
+        // Eliminar barras iniciales y finales para normalizar el ID
+        // Reemplazar barras con guiones para evitar problemas con IDs
+        navId = url.replace(/^\/|\/$/g, "").replace(/\//g, "-");
+      }
 
-    let nav = document.getElementById(navId);
+      let nav = document.getElementById(navId);
 
-    if (nav) {
-      nav.classList.remove(
-        "text-neutral-600",
-        "dark:text-neutral-400",
-        "hover:text-neutral-500",
-        "dark:hover:text-neutral-500"
-      );
-      nav.classList.add("text-orange-400", "dark:text-orange-300");
-      nav.setAttribute("aria-current", "page");
+      if (nav) {
+        nav.classList.remove(
+          "text-neutral-600",
+          "dark:text-neutral-400",
+          "hover:text-neutral-500",
+          "dark:hover:text-neutral-500"
+        );
+        nav.classList.add("text-orange-400", "dark:text-orange-300");
+        nav.setAttribute("aria-current", "page");
+      }
+    } catch (error) {
+      console.error('Error al resaltar el enlace activo:', error);
     }
     
-    // Implementar desplazamiento suave para todos los enlaces de navegación
-    const allNavLinks = document.querySelectorAll('nav a');
+    try {
+      // Implementar desplazamiento suave para todos los enlaces de navegación
+      const allNavLinks = document.querySelectorAll('nav a');
+      
+      if (allNavLinks && allNavLinks.length > 0) {
+        allNavLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            try {
+              // Obtener el href del enlace actual
+              const href = this.getAttribute('href');
+              if (!href) return;
+              
+              // Manejo de enlaces con hash (#)
+              if (href.includes('#')) {
+                const parts = href.split('#');
+                const targetPage = parts[0];
+                const targetId = parts[1];
+                
+                if (!targetId) return; // Si no hay ID objetivo, no hacer nada especial
+                
+                const currentPath = window.location.pathname;
+                
+                // Comprobar si estamos en la misma página
+                const isHomePage = currentPath === '/' || currentPath === '/es' || currentPath === '/es/';
+                const isSamePage = currentPath === targetPage || 
+                                  (isHomePage && (targetPage === '' || targetPage === '/es' || targetPage === '/es/'));
+                
+                // Si estamos en la misma página, buscar el elemento objetivo
+                if (isSamePage) {
+                  const targetElement = document.getElementById(targetId);
+                  
+                  // Si el elemento existe, hacer scroll suave
+                  if (targetElement) {
+                    e.preventDefault();
+                    setTimeout(() => {
+                      window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                      });
+                    }, 10);
+                  }
+                } 
+                // Caso especial para la página de cobertura
+                else if (currentPath === '/es/cobertura') {
+                  if (targetPage === '/es' || targetPage === '') {
+                    // Guardar el ID objetivo para usarlo después de la navegación
+                    sessionStorage.setItem('scrollToTarget', targetId);
+                    // Permitir la navegación normal
+                  }
+                }
+              }
+              // Manejo de enlaces sin hash (navegación a página completa)
+              else if (href.startsWith('/') || href === '') {
+                const currentPath = window.location.pathname;
+                
+                // Si el enlace apunta a la página actual, hacer scroll suave al inicio
+                const isCurrentPage = href === currentPath || 
+                                    (currentPath === '/es' && href === '') || 
+                                    (currentPath === '/' && href === '/es');
+                
+                if (isCurrentPage) {
+                  e.preventDefault();
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                  });
+                }
+              }
+            } catch (error) {
+              console.error('Error en el manejo de clic de enlace:', error);
+              // Permitir que la navegación normal ocurra en caso de error
+            }
+          });
+        });
+      }
+    } catch (error) {
+      console.error('Error al configurar los enlaces de navegación:', error);
+    }
     
-    allNavLinks.forEach(link => {
-      link.addEventListener('click', function(e) {
-        // Usar 'this' como el elemento actual
-        const href = this.getAttribute('href');
-        if (!href) return;
+    try {
+      // Verificar si hay un objetivo de desplazamiento guardado en sessionStorage
+      const scrollToTarget = sessionStorage.getItem('scrollToTarget');
+      if (scrollToTarget) {
+        // Eliminar el objetivo de sessionStorage para no usarlo nuevamente
+        sessionStorage.removeItem('scrollToTarget');
         
-        // Manejo de enlaces con hash (#)
-        if (href.includes('#')) {
-          const parts = href.split('#');
-          const targetPage = parts[0];
-          const targetId = parts[1];
-          const currentPath = window.location.pathname;
-          
-          // Si estamos en la misma página y hay un elemento con el ID objetivo
-          const targetElement = document.getElementById(targetId);
-          
-          if (currentPath === targetPage || 
-              (currentPath === '/es' && targetPage === '') || 
-              (currentPath === '/es/' && targetPage === '') || 
-              (currentPath === '/' && targetPage === '/es') ||
-              (currentPath === '/' && targetPage === '/es/')) {
-            // Estamos en la misma página, hacer scroll suave
+        // Buscar el elemento objetivo y hacer scroll suave hacia él
+        let attempts = 0;
+        const maxAttempts = 20; // Reducir el límite de intentos para evitar problemas de rendimiento
+        
+        const checkForElement = () => {
+          try {
+            const targetElement = document.getElementById(scrollToTarget);
             if (targetElement) {
-              e.preventDefault();
-              // Usar setTimeout para asegurar que el scroll ocurra después de cualquier otro evento
+              // Elemento encontrado, hacer scroll suave con un pequeño retraso
               setTimeout(() => {
                 window.scrollTo({
                   top: targetElement.offsetTop - 100,
                   behavior: 'smooth'
                 });
-              }, 10);
+              }, 300); // Retraso reducido para mejor experiencia de usuario
+            } else {
+              // El elemento aún no existe, intentar de nuevo si no hemos excedido el límite
+              attempts++;
+              if (attempts < maxAttempts) {
+                setTimeout(checkForElement, 100);
+              } else {
+                console.warn('No se pudo encontrar el elemento con ID:', scrollToTarget);
+              }
             }
-          } 
-          else if (currentPath === '/es/cobertura') {
-            // Estamos en la página de cobertura
-            if (targetPage === '/es' || targetPage === '') {
-              // Guardamos el ID objetivo para usarlo después de la navegación
-              sessionStorage.setItem('scrollToTarget', targetId);
-              // No prevenimos el comportamiento por defecto, permitimos la navegación
-            }
+          } catch (error) {
+            console.error('Error al buscar el elemento para scroll:', error);
           }
-        }
-        // Manejo de enlaces sin hash para desplazamiento suave entre secciones de la misma página
-        else if (href.startsWith('/') || href === '') {
-          const currentPath = window.location.pathname;
-          
-          // Si el enlace apunta a la página actual, hacer scroll suave al inicio
-          if (href === currentPath || 
-              (currentPath === '/es' && href === '') || 
-              (currentPath === '/' && href === '/es')) {
-            e.preventDefault();
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth'
-            });
-          }
-        }
-      });
-    });
-    
-    // Verificar si hay un objetivo de desplazamiento guardado en sessionStorage
-    const scrollToTarget = sessionStorage.getItem('scrollToTarget');
-    if (scrollToTarget) {
-      // Eliminar el objetivo de sessionStorage para no usarlo nuevamente
-      sessionStorage.removeItem('scrollToTarget');
-      
-      // Buscar el elemento objetivo y hacer scroll suave hacia él
-      // Usar un observador de mutaciones para asegurarse de que el DOM esté completamente cargado
-      let attempts = 0;
-      const maxAttempts = 50; // Límite de intentos para evitar bucles infinitos
-      
-      const checkForElement = () => {
-        const targetElement = document.getElementById(scrollToTarget);
-        if (targetElement) {
-          setTimeout(() => {
-            window.scrollTo({
-              top: targetElement.offsetTop - 100,
-              behavior: 'smooth'
-            });
-          }, 500); // Pequeño retraso para asegurar que la página se ha cargado completamente
+        };
+        
+        // Iniciar la comprobación cuando el DOM esté listo
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          setTimeout(checkForElement, 100); // Pequeño retraso inicial
         } else {
-          // Si el elemento aún no existe y no hemos excedido el límite de intentos
-          attempts++;
-          if (attempts < maxAttempts) {
-            setTimeout(checkForElement, 100);
-          } else {
-            console.warn('No se pudo encontrar el elemento con ID:', scrollToTarget);
-          }
+          window.addEventListener('DOMContentLoaded', () => setTimeout(checkForElement, 100));
         }
-      };
-      
-      // Iniciar la comprobación cuando el DOM esté listo
-      if (document.readyState === 'complete') {
-        checkForElement();
-      } else {
-        window.addEventListener('load', checkForElement);
       }
+    } catch (error) {
+      console.error('Error al procesar el objetivo de desplazamiento:', error);
     }
   });
 </script>
