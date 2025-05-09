@@ -43,7 +43,7 @@ const normalizedValue = numericValue.replace(/,/g, '.');
   const timerMap = new Map();
 
   // Función para animar el contador
-  function animateCounter(element, target, duration = 1500) {
+  function animateCounter(element: HTMLElement, target: string, duration = 1500) {
     if (!element) return;
     
     // Asegurarse de que target sea un número
@@ -51,7 +51,7 @@ const normalizedValue = numericValue.replace(/,/g, '.');
     if (isNaN(targetNum)) return;
     
     // Verificar si ya se ha completado la animación
-    if (element.dataset.animated === 'true') return;
+    if (element.getAttribute('data-animated') === 'true') return;
     
     const counter = element.querySelector('.counter-value');
     if (!counter) return;
@@ -94,7 +94,7 @@ const normalizedValue = numericValue.replace(/,/g, '.');
       if (step >= steps) {
         clearInterval(timerId);
         timerMap.delete(elementId);
-        element.dataset.animated = 'true'; // Marcar como animado
+        element.setAttribute('data-animated', 'true'); // Marcar como animado
       }
     }, interval);
     
@@ -117,8 +117,8 @@ const normalizedValue = numericValue.replace(/,/g, '.');
           if (!entry.isIntersecting && hasBeenVisible) {
             // Resetear el estado de animación para todos los elementos
             statsItems.forEach((item, index) => {
-              if (item && item.dataset) {
-                item.dataset.animated = 'false';
+              if (item) {
+                item.setAttribute('data-animated', 'false');
                 
                 // Limpiar cualquier timer pendiente
                 const elementId = item.getAttribute('data-id') || item.id || `stats-item-${index}`;
@@ -151,10 +151,10 @@ const normalizedValue = numericValue.replace(/,/g, '.');
             const target = element.getAttribute('data-target') || '0';
             
             // Animar el contador solo si no ha sido animado o si se ha reseteado
-            if (element.dataset.animated !== 'true') {
+            if (element.getAttribute('data-animated') !== 'true') {
               // Usar setTimeout para evitar problemas de rendimiento
               setTimeout(() => {
-                animateCounter(element, target);
+                animateCounter(element as HTMLElement, target);
               }, 100);
             }
           }
@@ -163,7 +163,7 @@ const normalizedValue = numericValue.replace(/,/g, '.');
       
       // Inicializar todos los elementos como no animados y asignar IDs únicos
       statsItems.forEach((item, index) => {
-        item.dataset.animated = 'false';
+        item.setAttribute('data-animated', 'false');
         if (!item.id && !item.getAttribute('data-id')) {
           item.setAttribute('data-id', `stats-item-${index}`);
         }
