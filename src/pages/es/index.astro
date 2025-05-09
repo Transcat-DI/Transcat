@@ -28,12 +28,14 @@ import service3 from "@images/services/service-3.jpg";
 import service4 from "@images/services/service-4.jpg";
 import { partnersData } from "@/data_files/constants";
 
-const avatarSrcs: Array<string> = [
-  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-];
+import testimonial1 from "@images/testimonials/01-samantha.jpg";
+import testimonial2 from "@images/testimonials/02-carlos.jpg";
+import testimonial3 from "@images/testimonials/03-elena.jpg";
+import testimonial4 from "@images/testimonials/04-miguel.jpg";
+import testimonial5 from "@images/testimonials/05-laura.jpg";
+
+// Usando imágenes locales para los avatares del hero section
+const avatarSrcs = [testimonial1, testimonial2, testimonial3, testimonial4];
 ---
 
 <MainLayout lang="es">
@@ -127,40 +129,35 @@ const avatarSrcs: Array<string> = [
           "Transcat aumentó dramáticamente la eficiencia de nuestro proyecto. La configuración fue instantánea y sus tiempos de respuesta rápidos son fenomenales. ¡Verdaderamente un cambio de juego en el soporte de transporte y logística!",
         author: "Samantha Ruiz",
         role: "Directora de Operaciones | LogísticaTotal S.A.",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?q=80&w=1453&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        avatarSrc: testimonial1,
       },
       {
         content:
           "Como empresa de distribución de productos perecederos, necesitábamos un servicio de transporte confiable y puntual. Francisco ha superado todas nuestras expectativas, manteniendo la cadena de frío intacta y cumpliendo siempre con los horarios acordados.",
         author: "Carlos Mendoza",
         role: "Gerente de Logística | FreshMarket",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        avatarSrc: testimonial2,
       },
       {
         content:
           "La flexibilidad y capacidad de adaptación de Francisco han sido cruciales para nuestro negocio. Cuando necesitamos cambios de última hora o entregas urgentes, siempre encuentra la manera de solucionarlo. Un socio logístico en quien realmente podemos confiar.",
         author: "Elena Martínez",
         role: "Propietaria | Muebles Martínez",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1461&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        avatarSrc: testimonial3,
       },
       {
         content:
           "Trabajamos con varios transportistas antes de encontrar a Francisco. La diferencia es notable: comunicación constante, cuidado excepcional de la mercancía y un servicio personalizado que entiende perfectamente las necesidades de nuestra industria.",
         author: "Miguel Ángel Sánchez",
         role: "Director | Cerámicas Artesanales S.L.",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        avatarSrc: testimonial4,
       },
       {
         content:
           "Como empresa de e-commerce, la rapidez en las entregas es fundamental para nosotros. Francisco no solo cumple con los plazos, sino que su profesionalidad y trato cercano han mejorado significativamente la experiencia de nuestros clientes finales.",
         author: "Laura Gómez",
         role: "Responsable de Envíos | TechShop Online",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        avatarSrc: testimonial5,
       },
     ]}
     statistics={[
