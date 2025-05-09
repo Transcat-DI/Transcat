@@ -26,15 +26,16 @@ export default defineConfig({
   prefetch: true,
   integrations: [sitemap({
     i18n: {
-      defaultLocale: "en", // All urls that don't contain `fr` after `https://screwfast.uk/` will be treated as default locale, i.e. `en`
+      defaultLocale: "es", // All urls that don't contain language code after domain will be treated as default locale, i.e. `es`
       locales: {
-        en: "en", // The `defaultLocale` value must present in `locales` keys
+        es: "es", // The `defaultLocale` value must present in `locales` keys
+        en: "en",
         fr: "fr",
       },
     },
   }), starlight({
     title: "ScrewFast Docs",
-    defaultLocale: "root",
+    defaultLocale: "es",
     // https://github.com/withastro/starlight/blob/main/packages/starlight/CHANGELOG.md
     // If no Astro and Starlight i18n configurations are provided, the built-in default locale is used in Starlight and a matching Astro i18n configuration is generated/used.
     // If only a Starlight i18n configuration is provided, an equivalent Astro i18n configuration is generated/used.
