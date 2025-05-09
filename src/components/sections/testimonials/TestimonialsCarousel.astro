@@ -75,7 +75,7 @@ interface Props {
     const carousel = document.querySelector('.testimonials-carousel');
     if (!carousel) return;
 
-    const carouselInner = carousel.querySelector('.carousel-inner');
+    const carouselInner = carousel.querySelector('.carousel-inner') as HTMLElement;
     const carouselItems = carousel.querySelectorAll('.carousel-item');
     const indicators = carousel.querySelectorAll('.carousel-indicator');
     const prevButton = carousel.querySelector('.carousel-control-prev');
@@ -83,10 +83,10 @@ interface Props {
     
     let currentIndex = 0;
     const itemCount = carouselItems.length;
-    let intervalId;
+    let intervalId: number | undefined;
 
     // Función para mostrar un slide específico
-    const showSlide = (index) => {
+    const showSlide = (index: number) => {
       if (index < 0) index = itemCount - 1;
       if (index >= itemCount) index = 0;
       
@@ -120,8 +120,8 @@ interface Props {
 
     // Iniciar el intervalo para cambio automático
     const startInterval = () => {
-      clearInterval(intervalId);
-      intervalId = setInterval(() => {
+      if (intervalId) clearInterval(intervalId);
+      intervalId = window.setInterval(() => {
         showSlide(currentIndex + 1);
       }, 10000); // Cambiar cada 10 segundos
     };
