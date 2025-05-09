@@ -150,22 +150,29 @@ interface Props {
 </section>
 
 <!-- Script para controlar el carrusel personalizado -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
     // Variables para controlar el carrusel
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.carousel-indicator');
-    const prevButton = document.getElementById('carousel-prev');
-    const nextButton = document.getElementById('carousel-next');
-    const totalSlides = slides.length;
-    let currentSlide = 0;
-    let intervalId = null;
+    var slides = document.querySelectorAll('.carousel-slide');
+    var indicators = document.querySelectorAll('.carousel-indicator');
+    var prevButton = document.getElementById('carousel-prev');
+    var nextButton = document.getElementById('carousel-next');
+    
+    // Verificar que los elementos existen antes de continuar
+    if (!slides.length || !indicators.length || !prevButton || !nextButton) {
+      console.warn('Algunos elementos del carrusel no se encontraron');
+      return;
+    }
+    
+    var totalSlides = slides.length;
+    var currentSlide = 0;
+    var intervalId = null;
     
     // Textos para cada diapositiva
-    const slideTexts = [
+    var slideTexts = [
       {
-        title: document.querySelector('h1').innerHTML,
-        subtitle: document.querySelector('p.text-pretty').innerHTML
+        title: '',
+        subtitle: ''
       },
       {
         title: 'Cada ruta, una misión <span class="text-yellow-500 dark:text-yellow-400">cumplida.</span>',
@@ -182,22 +189,28 @@ interface Props {
     ];
     
     // Elementos de título y subtítulo
-    const titleElement = document.querySelector('h1');
-    const subtitleElement = document.querySelector('p.text-pretty');
+    var titleElement = document.querySelector('h1');
+    var subtitleElement = document.querySelector('p.text-pretty');
+    
+    // Guardar el contenido original del título y subtítulo
+    if (titleElement && subtitleElement) {
+      slideTexts[0].title = titleElement.innerHTML;
+      slideTexts[0].subtitle = subtitleElement.innerHTML;
+    }
     
     // Función para mostrar una diapositiva específica
-    const showSlide = (index) => {
+    function showSlide(index) {
       // Ocultar todas las diapositivas
-      slides.forEach(slide => {
-        slide.classList.remove('opacity-100');
-        slide.classList.add('opacity-0');
-      });
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('opacity-100');
+        slides[i].classList.add('opacity-0');
+      }
       
       // Actualizar los indicadores
-      indicators.forEach(indicator => {
-        indicator.classList.remove('bg-white', 'border-white');
-        indicator.classList.add('bg-white/30', 'border-white/50');
-      });
+      for (var j = 0; j < indicators.length; j++) {
+        indicators[j].classList.remove('bg-white', 'border-white');
+        indicators[j].classList.add('bg-white/30', 'border-white/50');
+      }
       
       // Mostrar la diapositiva actual
       slides[index].classList.remove('opacity-0');
@@ -207,73 +220,71 @@ interface Props {
       indicators[index].classList.remove('bg-white/30', 'border-white/50');
       indicators[index].classList.add('bg-white', 'border-white');
       
-      // Actualizar el texto según la diapositiva actual
+      // Actualizar el texto si hay elementos de título y subtítulo
       if (titleElement && subtitleElement && slideTexts[index]) {
         titleElement.innerHTML = slideTexts[index].title;
         subtitleElement.innerHTML = slideTexts[index].subtitle;
       }
       
-      // Actualizar el índice actual
+      // Actualizar el índice de la diapositiva actual
       currentSlide = index;
-    };
-    
-    // Función para ir a la siguiente diapositiva
-    const nextSlide = () => {
-      const newIndex = (currentSlide + 1) % totalSlides;
-      showSlide(newIndex);
-    };
+    }
     
     // Función para ir a la diapositiva anterior
-    const prevSlide = () => {
-      const newIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+    function prevSlide() {
+      var newIndex = currentSlide - 1;
+      if (newIndex < 0) newIndex = totalSlides - 1;
       showSlide(newIndex);
-    };
+    }
+    
+    // Función para ir a la siguiente diapositiva
+    function nextSlide() {
+      var newIndex = currentSlide + 1;
+      if (newIndex >= totalSlides) newIndex = 0;
+      showSlide(newIndex);
+    }
     
     // Iniciar la rotación automática
-    const startAutoplay = () => {
+    function startAutoplay() {
       if (!intervalId) {
-        intervalId = setInterval(nextSlide, 5000); // Cambiar cada 5 segundos
+        intervalId = window.setInterval(nextSlide, 5000); // Cambiar cada 5 segundos
       }
-    };
+    }
     
     // Detener la rotación automática
-    const stopAutoplay = () => {
+    function stopAutoplay() {
       if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
       }
-    };
+    }
     
     // Configurar los eventos de clic para los botones de navegación
-    prevButton.addEventListener('click', () => {
+    prevButton.addEventListener('click', function() {
       prevSlide();
       stopAutoplay();
       startAutoplay();
     });
     
-    nextButton.addEventListener('click', () => {
+    nextButton.addEventListener('click', function() {
       nextSlide();
       stopAutoplay();
       startAutoplay();
     });
     
     // Configurar los eventos de clic para los indicadores
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', () => {
-        showSlide(index);
-        stopAutoplay();
-        startAutoplay();
-      });
-    });
+    for (var k = 0; k < indicators.length; k++) {
+      (function(index) {
+        indicators[index].addEventListener('click', function() {
+          showSlide(index);
+          stopAutoplay();
+          startAutoplay();
+        });
+      })(k);
+    }
     
     // Iniciar el carrusel automático al cargar la página
+    showSlide(0);
     startAutoplay();
-    
-    // Pausar el carrusel al pasar el mouse por encima
-    const carousel = document.getElementById('custom-carousel');
-    if (carousel) {
-      carousel.addEventListener('mouseenter', stopAutoplay);
-      carousel.addEventListener('mouseleave', startAutoplay);
-    }
   });
 </script>

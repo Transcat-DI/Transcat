@@ -36,38 +36,47 @@ const normalizedValue = numericValue.replace(',', '.');
   </p>
 </li>
 
-<script>
+<script is:inline>
   // Función para animar el contador
-  function animateCounter(element, target, duration = 1500) {
+  function animateCounter(element, target, duration) {
+    if (!element || !target) return;
+    
     // Asegurarse de que target sea un número
-    const targetNum = parseFloat(target);
+    var targetNum = parseFloat(target);
     if (isNaN(targetNum)) return;
     
     // Verificar si ya se ha completado la animación
-    if (element.dataset.animated === 'true') return;
+    var animated = element.getAttribute('data-animated');
+    if (animated === 'true') return;
     
-    const counter = element.querySelector('.counter-value');
-    const decimals = parseInt(element.getAttribute('data-decimals') || '0');
-    const steps = 60; // Número total de pasos de animación
-    const increment = targetNum / steps; // Incremento por paso
-    const interval = duration / steps; // Tiempo entre pasos
+    var counter = element.querySelector('.counter-value');
+    var decimals = parseInt(element.getAttribute('data-decimals') || '0');
+    var steps = 60; // Número total de pasos de animación
+    var increment = targetNum / steps; // Incremento por paso
+    var interval = duration / steps; // Tiempo entre pasos
     
-    if (!counter) return;
+    // Marcar como animado para evitar repeticiones
+    element.setAttribute('data-animated', 'false');
     
-    // Reiniciar el contador
-    counter.textContent = '0';
+    // Obtener el sufijo si existe
+    var suffix = element.getAttribute('data-suffix') || '';
     
-    // Limpiar cualquier intervalo anterior
+    // Obtener el número de decimales
+    var decimals = parseInt(element.getAttribute('data-decimals') || '0');
+    
+    var currentValue = 0;
+    var step = 0;
+    
+    // Limpiar temporizador anterior si existe
     if (element._timer) {
       clearInterval(element._timer);
+      element._timer = null;
     }
-    
-    let step = 0;
     element._timer = setInterval(() => {
       step++;
       
       // Calcular el valor actual basado en el paso actual
-      const currentValue = step >= steps ? targetNum : (increment * step);
+      currentValue = step >= steps ? targetNum : (increment * step);
       
       // Formatear el número con los decimales correctos
       if (decimals > 0) {
@@ -80,7 +89,7 @@ const normalizedValue = numericValue.replace(',', '.');
       if (step >= steps) {
         clearInterval(element._timer);
         element._timer = null;
-        element.dataset.animated = 'true'; // Marcar como animado
+        element.setAttribute('data-animated', 'true'); // Marcar como animado
       }
     }, interval);
   }
@@ -92,15 +101,15 @@ const normalizedValue = numericValue.replace(',', '.');
     
     if (!statsItems.length) return;
     
-    // Crear un observer para detectar cuando la sección completa sale de la vista
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    // Configurar el observador de intersección
+    var sectionObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         // Si la sección sale completamente de la vista
         if (!entry.isIntersecting && hasBeenVisible) {
           // Resetear el estado de animación para todos los elementos
-          statsItems.forEach(item => {
-            item.dataset.animated = 'false';
-          });
+          for (var i = 0; i < statsItems.length; i++) {
+            statsItems[i].setAttribute('data-animated', 'false');
+          }
           hasBeenVisible = false;
         } else if (entry.isIntersecting) {
           hasBeenVisible = true;
@@ -109,30 +118,30 @@ const normalizedValue = numericValue.replace(',', '.');
     }, { threshold: 0 }); // Umbral 0 para detectar cuando sale completamente
     
     // Observar el contenedor de estadísticas
-    const statsContainer = statsItems[0].closest('ul');
+    var statsContainer = statsItems.length > 0 ? statsItems[0].closest('ul') : null;
     if (statsContainer) {
       sectionObserver.observe(statsContainer);
     }
     
     // Observer para cada elemento individual
-    const itemObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    var itemObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
         if (entry.isIntersecting) {
-          const element = entry.target;
-          const target = element.getAttribute('data-target') || '0';
+          var element = entry.target;
+          var target = element.getAttribute('data-target') || '0';
           
           // Animar el contador solo si no ha sido animado o si se ha reseteado
-          if (element.dataset.animated !== 'true') {
-            animateCounter(element, target);
+          if (element.getAttribute('data-animated') !== 'true') {
+            animateCounter(element, target, 1500);
           }
         }
       });
     }, { threshold: 0.5 }); // Umbral más alto para asegurar que está bien visible
     
     // Inicializar todos los elementos como no animados
-    statsItems.forEach(item => {
-      item.dataset.animated = 'false';
-      itemObserver.observe(item);
-    });
+    for (var i = 0; i < statsItems.length; i++) {
+      statsItems[i].setAttribute('data-animated', 'false');
+      itemObserver.observe(statsItems[i]);
+    };
   });
 </script>

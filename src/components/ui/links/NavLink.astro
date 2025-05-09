@@ -33,11 +33,11 @@ If URL is '/' (home page), assign ID as 'home'
   {name}
 </a>
 
-<script>
+<script is:inline>
   document.addEventListener("DOMContentLoaded", function () {
     // Highlight active link
-    let url = window.location.pathname;
-    let navId;
+    var url = window.location.pathname;
+    var navId;
 
     if (url === "/") {
       navId = "home";
@@ -45,7 +45,7 @@ If URL is '/' (home page), assign ID as 'home'
       navId = url.replace("/", "");
     }
 
-    let nav = document.getElementById(navId);
+    var nav = document.getElementById(navId);
 
     if (nav) {
       nav.classList.remove(
@@ -59,22 +59,22 @@ If URL is '/' (home page), assign ID as 'home'
     }
     
     // Implementar desplazamiento suave para todos los enlaces de navegación
-    const allNavLinks = document.querySelectorAll('nav a');
+    var allNavLinks = document.querySelectorAll('nav a');
     
-    allNavLinks.forEach(link => {
-      link.addEventListener('click', function(this: HTMLAnchorElement, e: MouseEvent) {
-        const href = this.getAttribute('href');
+    for (var i = 0; i < allNavLinks.length; i++) {
+      allNavLinks[i].addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
         if (!href) return;
         
         // Manejo de enlaces con hash (#)
         if (href.includes('#')) {
-          const parts = href.split('#');
-          const targetPage = parts[0];
-          const targetId = parts[1];
-          const currentPath = window.location.pathname;
+          var parts = href.split('#');
+          var targetPage = parts[0];
+          var targetId = parts[1];
+          var currentPath = window.location.pathname;
           
           // Si estamos en la misma página y hay un elemento con el ID objetivo
-          const targetElement = document.getElementById(targetId);
+          var targetElement = document.getElementById(targetId);
           
           if (currentPath === targetPage || 
               (currentPath === '/es' && targetPage === '') || 
@@ -99,7 +99,7 @@ If URL is '/' (home page), assign ID as 'home'
         }
         // Manejo de enlaces sin hash para desplazamiento suave entre secciones de la misma página
         else if (href.startsWith('/') || href === '') {
-          const currentPath = window.location.pathname;
+          var currentPath = window.location.pathname;
           
           // Si el enlace apunta a la página actual, hacer scroll suave al inicio
           if (href === currentPath || 
@@ -113,18 +113,18 @@ If URL is '/' (home page), assign ID as 'home'
           }
         }
       });
-    });
+    }
     
     // Verificar si hay un objetivo de desplazamiento guardado en sessionStorage
-    const scrollToTarget = sessionStorage.getItem('scrollToTarget');
+    var scrollToTarget = sessionStorage.getItem('scrollToTarget');
     if (scrollToTarget) {
       // Eliminar el objetivo de sessionStorage para no usarlo nuevamente
       sessionStorage.removeItem('scrollToTarget');
       
       // Buscar el elemento objetivo y hacer scroll suave hacia él
-      const targetElement = document.getElementById(scrollToTarget);
+      var targetElement = document.getElementById(scrollToTarget);
       if (targetElement) {
-        setTimeout(() => {
+        setTimeout(function() {
           window.scrollTo({
             top: targetElement.offsetTop - 100,
             behavior: 'smooth'
