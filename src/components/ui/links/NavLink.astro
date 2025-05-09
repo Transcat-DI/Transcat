@@ -74,10 +74,11 @@ If URL is '/' (home page), assign ID as 'home'
       
       if (allNavLinks && allNavLinks.length > 0) {
         allNavLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
+          link.addEventListener('click', (e: MouseEvent) => {
+            // Using arrow function and casting link to HTMLAnchorElement
             try {
               // Obtener el href del enlace actual
-              const href = this.getAttribute('href');
+              const href = (link as HTMLAnchorElement).getAttribute('href');
               if (!href) return;
               
               // Manejo de enlaces con hash (#)
