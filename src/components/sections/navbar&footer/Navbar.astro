@@ -7,7 +7,7 @@ import enStrings from "@utils/navigation.ts";
 import frStrings from "@utils/fr/navigation.ts";
 import esStrings from "@utils/es/navigation.ts";
 import caStrings from "@utils/ca/navigation.ts";
-import Icon from "@components/ui/icons/Icon.astro";
+import { Icon } from "astro-icon";
 import TranscatLogo from "@components/TranscatLogo.astro";
 import LanguagePicker from "@components/ui/LanguagePicker.astro";
 
@@ -204,37 +204,26 @@ if (Astro.currentLocale === "fr") {
     );
 
     $clickableThemes.forEach(($item) => {
-      $item.addEventListener("click", () => {
-        const themeValue = $item.getAttribute("data-hs-theme-click-value");
-        if (themeValue) {
-          HSThemeAppearance.setAppearance(
-            themeValue,
-            true,
-            true
-          );
-        }
-      });
+      $item.addEventListener("click", () =>
+        HSThemeAppearance.setAppearance(
+          $item.getAttribute("data-hs-theme-click-value"),
+          true,
+          $item,
+        ),
+      );
     });
 
     $switchableThemes.forEach(($item) => {
       $item.addEventListener("change", (e) => {
-        const target = e.target;
-        if (target && 'checked' in target) {
-          HSThemeAppearance.setAppearance(target.checked ? "dark" : "default");
-        }
+        HSThemeAppearance.setAppearance(e.target.checked ? "dark" : "default");
       });
 
-      if ($item && 'checked' in $item) {
-        $item.checked = HSThemeAppearance.getAppearance() === "dark";
-      }
+      $item.checked = HSThemeAppearance.getAppearance() === "dark";
     });
 
     window.addEventListener("on-hs-appearance-change", (e) => {
-      const customEvent = e;
       $switchableThemes.forEach(($item) => {
-        if ($item && 'checked' in $item) {
-          $item.checked = customEvent.detail === "dark";
-        }
+        $item.checked = e.detail === "dark";
       });
     });
   });

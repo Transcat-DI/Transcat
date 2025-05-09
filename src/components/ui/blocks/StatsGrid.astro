@@ -10,17 +10,15 @@ interface Props {
 }
 
 // Extraer el valor numérico y el sufijo (si existe)
-const numericValue = count ? count.replace(/[^0-9.,]/g, '') : '0';
-const suffix = count ? count.replace(/[0-9.,]/g, '') : '';
+const numericValue = count.replace(/[^0-9.,]/g, '');
+const suffix = count.replace(/[0-9.,]/g, '');
 
 // Determinar si el número tiene decimales
 const hasDecimals = numericValue.includes(',') || numericValue.includes('.');
-const decimalPlaces = hasDecimals ? 
-  (numericValue.includes(',') ? (numericValue.split(',')[1]?.length || 0) : 
-   (numericValue.split('.')[1]?.length || 0)) : 0;
+const decimalPlaces = hasDecimals ? (numericValue.split(',')[1]?.length || numericValue.split('.')[1]?.length || 0) : 0;
 
 // Normalizar el valor numérico (reemplazar comas por puntos para cálculos)
-const normalizedValue = numericValue.replace(/,/g, '.');
+const normalizedValue = numericValue.replace(',', '.');
 ---
 
 <li class="-m-0.5 flex flex-col p-4 sm:p-8 stats-item" 
@@ -39,138 +37,102 @@ const normalizedValue = numericValue.replace(/,/g, '.');
 </li>
 
 <script>
-  // Almacén para los timers de cada elemento
-  const timerMap = new Map();
-
   // Función para animar el contador
-  function animateCounter(element: HTMLElement, target: string, duration = 1500) {
-    if (!element) return;
-    
+  function animateCounter(element, target, duration = 1500) {
     // Asegurarse de que target sea un número
     const targetNum = parseFloat(target);
     if (isNaN(targetNum)) return;
     
     // Verificar si ya se ha completado la animación
-    if (element.getAttribute('data-animated') === 'true') return;
+    if (element.dataset.animated === 'true') return;
     
     const counter = element.querySelector('.counter-value');
-    if (!counter) return;
-    
-    const decimalsAttr = element.getAttribute('data-decimals');
-    const decimals = decimalsAttr ? parseInt(decimalsAttr, 10) : 0;
+    const decimals = parseInt(element.getAttribute('data-decimals') || '0');
     const steps = 60; // Número total de pasos de animación
     const increment = targetNum / steps; // Incremento por paso
     const interval = duration / steps; // Tiempo entre pasos
+    
+    if (!counter) return;
     
     // Reiniciar el contador
     counter.textContent = '0';
     
     // Limpiar cualquier intervalo anterior
-    const elementId = element.getAttribute('data-id') || element.id || Math.random().toString(36).substring(2, 9);
-    if (timerMap.has(elementId)) {
-      clearInterval(timerMap.get(elementId));
-      timerMap.delete(elementId);
+    if (element._timer) {
+      clearInterval(element._timer);
     }
     
     let step = 0;
-    const timerId = setInterval(() => {
+    element._timer = setInterval(() => {
       step++;
       
       // Calcular el valor actual basado en el paso actual
       const currentValue = step >= steps ? targetNum : (increment * step);
       
       // Formatear el número con los decimales correctos
-      try {
-        if (decimals > 0) {
-          counter.textContent = currentValue.toFixed(decimals).replace('.', ',');
-        } else {
-          counter.textContent = Math.round(currentValue).toString();
-        }
-      } catch (error) {
-        console.error('Error al formatear el contador:', error);
+      if (decimals > 0) {
+        counter.textContent = currentValue.toFixed(decimals).replace('.', ',');
+      } else {
+        counter.textContent = Math.round(currentValue).toString();
       }
       
       // Detener cuando llegamos al final
       if (step >= steps) {
-        clearInterval(timerId);
-        timerMap.delete(elementId);
-        element.setAttribute('data-animated', 'true'); // Marcar como animado
+        clearInterval(element._timer);
+        element._timer = null;
+        element.dataset.animated = 'true'; // Marcar como animado
       }
     }, interval);
-    
-    // Guardar el ID del timer en el mapa
-    timerMap.set(elementId, timerId);
   }
 
   // Configurar el Intersection Observer
   document.addEventListener('DOMContentLoaded', () => {
-    try {
-      const statsItems = document.querySelectorAll('.stats-item');
-      if (!statsItems || statsItems.length === 0) return;
-      
-      let hasBeenVisible = false;
-      
-      // Crear un observer para detectar cuando la sección completa sale de la vista
-      const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          // Si la sección sale completamente de la vista
-          if (!entry.isIntersecting && hasBeenVisible) {
-            // Resetear el estado de animación para todos los elementos
-            statsItems.forEach((item, index) => {
-              if (item) {
-                item.setAttribute('data-animated', 'false');
-                
-                // Limpiar cualquier timer pendiente
-                const elementId = item.getAttribute('data-id') || item.id || `stats-item-${index}`;
-                if (timerMap.has(elementId)) {
-                  clearInterval(timerMap.get(elementId));
-                  timerMap.delete(elementId);
-                }
-              }
-            });
-            hasBeenVisible = false;
-          } else if (entry.isIntersecting) {
-            hasBeenVisible = true;
-          }
-        });
-      }, { threshold: 0, rootMargin: '-20% 0px' }); // Umbral 0 para detectar cuando sale completamente
-      
-      // Observar el contenedor de estadísticas
-      const statsContainer = statsItems[0]?.closest('ul');
-      if (statsContainer) {
-        sectionObserver.observe(statsContainer);
-      }
-      
-      // Observer para cada elemento individual
-      const itemObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const element = entry.target;
-            if (!element) return;
-            
-            const target = element.getAttribute('data-target') || '0';
-            
-            // Animar el contador solo si no ha sido animado o si se ha reseteado
-            if (element.getAttribute('data-animated') !== 'true') {
-              // Usar setTimeout para evitar problemas de rendimiento
-              setTimeout(() => {
-                animateCounter(element as HTMLElement, target);
-              }, 100);
-            }
-          }
-        });
-      }, { threshold: 0.5, rootMargin: '0px 0px -10% 0px' }); // Umbral más alto para asegurar que está bien visible
-      
-      // Inicializar todos los elementos como no animados y asignar IDs únicos
-      statsItems.forEach((item, index) => {
-        item.setAttribute('data-animated', 'false');
-        if (!item.id && !item.getAttribute('data-id')) {
-          item.setAttribute('data-id', `stats-item-${index}`);
+    const statsItems = document.querySelectorAll('.stats-item');
+    let hasBeenVisible = false;
+    
+    if (!statsItems.length) return;
+    
+    // Crear un observer para detectar cuando la sección completa sale de la vista
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // Si la sección sale completamente de la vista
+        if (!entry.isIntersecting && hasBeenVisible) {
+          // Resetear el estado de animación para todos los elementos
+          statsItems.forEach(item => {
+            item.dataset.animated = 'false';
+          });
+          hasBeenVisible = false;
+        } else if (entry.isIntersecting) {
+          hasBeenVisible = true;
         }
-        itemObserver.observe(item);
       });
-    } catch (error) {
-      console.error('Error al inicializar los contadores de estadísticas:', error);
+    }, { threshold: 0 }); // Umbral 0 para detectar cuando sale completamente
+    
+    // Observar el contenedor de estadísticas
+    const statsContainer = statsItems[0].closest('ul');
+    if (statsContainer) {
+      sectionObserver.observe(statsContainer);
     }
+    
+    // Observer para cada elemento individual
+    const itemObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const target = element.getAttribute('data-target') || '0';
+          
+          // Animar el contador solo si no ha sido animado o si se ha reseteado
+          if (element.dataset.animated !== 'true') {
+            animateCounter(element, target);
+          }
+        }
+      });
+    }, { threshold: 0.5 }); // Umbral más alto para asegurar que está bien visible
+    
+    // Inicializar todos los elementos como no animados
+    statsItems.forEach(item => {
+      item.dataset.animated = 'false';
+      itemObserver.observe(item);
+    });
   });
 </script>
