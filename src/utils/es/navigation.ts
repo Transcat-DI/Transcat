@@ -1,12 +1,12 @@
 const navBarLinks = [
-  { name: "Inicio", url: "/es#hero" },
-  { name: "Acerca", url: "/es#about" },
-  { name: "Servicios", url: "/es#services" },
+  { name: "Inicio", url: "#hero" },
+  { name: "Acerca", url: "#about" },
+  { name: "Servicios", url: "#services" },
   { name: "Cobertura", url: "/es/cobertura" },
-  { name: "Clientes", url: "/es#clientes" },
-  { name: "Planes", url: "/es#pricing" },
-  { name: "FAQ", url: "/es#faq" },
-  { name: "Contacto", url: "/es#contacto" },
+  { name: "Clientes", url: "#testimonials" },
+  { name: "Planes", url: "#pricing" },
+  { name: "FAQ", url: "#faq" },
+  { name: "Contacto", url: "#contacto" },
 ];
 
 const footerLinks = [
