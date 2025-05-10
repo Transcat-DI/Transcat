@@ -1,0 +1,11 @@
+/* Estilos para scroll suave global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Estilos para navegadores que no soportan scroll-behavior */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
