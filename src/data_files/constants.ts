@@ -1,14 +1,12 @@
-import ogImageSrc from "@images/social.png";
-
-
+import ogImageSrc from "@images/hero-image.avif";
 
 export const SITE = {
   title: "TransCat",
-  tagline: "Top-quality Hardware Tools",
-  description: "ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs. Start exploring and contact our sales team for superior quality and reliability.",
-  description_short: "ScrewFast offers top-tier hardware tools and expert construction services to meet all your project needs.",
-  url: "https://screwfast.uk",
-  author: "Emil Gulamov",
+  tagline: "Servicios de Transporte Profesional",
+  description: "Servicios de transporte rápidos y seguros en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional para todas tus necesidades de transporte y distribución.",
+  description_short: "Servicios de transporte rápidos y seguros en Cataluña con cobertura regional y entregas puntuales.",
+  url: "https://transcat.netlify.app",
+  author: "Francisco J. Arrazola Méndez",
 };
 
 export const SEO = {
@@ -17,7 +15,7 @@ export const SEO = {
   structuredData: {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    inLanguage: "en-US",
+    inLanguage: "es-ES",
     "@id": SITE.url,
     url: SITE.url,
     name: SITE.title,
@@ -32,11 +30,11 @@ export const SEO = {
 };
 
 export const OG = {
-  locale: "en_US",
+  locale: "es_ES",
   type: "website",
   url: SITE.url,
-  title: `${SITE.title}: : Hardware Tools & Construction Services`,
-  description: "Equip your projects with ScrewFast's top-quality hardware tools and expert construction services. Trusted by industry leaders, ScrewFast offers simplicity, affordability, and reliability. Experience the difference with user-centric design and cutting-edge tools. Start exploring now!",
+  title: `${SITE.title}: Servicios de Transporte Profesional en Cataluña`,
+  description: "Servicios de transporte rápidos y seguros en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional para todas tus necesidades de transporte y distribución. Entregas puntuales y servicio personalizado.",
   image: ogImageSrc,
 };
 
