@@ -3,7 +3,7 @@
 import { Image } from "astro:assets";
 
 // Destructure the component properties from Astro.props
-const { id, aria, src, alt, first } = Astro.props;
+const { id, aria, src, alt, first, heading, content } = Astro.props;
 
 // Define TypeScript interface for the properties
 interface Props {
@@ -13,6 +13,8 @@ interface Props {
   alt: string;
   first?: boolean;
   second?: boolean;
+  heading?: string;
+  content?: string;
 }
 // Set class based on 'first' property
 // If 'first' is present, show the tab content immediately
@@ -65,4 +67,6 @@ This is the full example:
       height={600}
     />
   </div>
+  
+  <!-- Se ha eliminado el texto que aparecía debajo de la imagen -->
 </div>
