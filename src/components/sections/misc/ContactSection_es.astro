@@ -82,7 +82,9 @@ const formSubTitle: string = "Te responderé en 1-2 días hábiles.";
           content="Síguenos en nuestras redes sociales para estar al día."
           isLinkVisible={false}
         >
-          <Icon name="socialMedia" />
+          <div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="socialMedia" class="h-8 w-8 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
+          </div>
           <div slot="additional-content" class="mt-2">
             <SocialMediaLinks />
           </div>
@@ -95,7 +97,9 @@ const formSubTitle: string = "Te responderé en 1-2 días hábiles.";
           linkTitle="Llamar ahora"
           linkURL="tel:+34612345678"
           isArrowVisible={false}
-          ><Icon name="phone" />
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="phone" class="h-8 w-8 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
+          </div>
           <div slot="additional-content" class="mt-2">
             <a 
               href="https://wa.me/34612345678" 
@@ -103,7 +107,7 @@ const formSubTitle: string = "Te responderé en 1-2 días hábiles.";
               rel="noopener noreferrer"
               class="inline-flex items-center gap-x-2 rounded-lg text-sm font-medium text-zinc-600 outline-hidden ring-zinc-500 transition duration-300 hover:text-zinc-800 focus-visible:ring-3 dark:text-zinc-400 dark:ring-zinc-200 dark:hover:text-zinc-200 dark:focus:outline-hidden dark:focus:ring-1"
             >
-              <Icon name="whatsapp" class="h-5 w-5 text-green-600 dark:text-green-500" />
+              <Icon name="whatsappContact" class="h-5 w-5 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
               <span>Contactar por WhatsApp</span>
             </a>
           </div>
@@ -114,7 +118,9 @@ const formSubTitle: string = "Te responderé en 1-2 días hábiles.";
           content="TransCat"
           isAddressVisible={true}
           addressContent="Carrer de la Indústria 140, 08025 Barcelona"
-          ><Icon name="mapPin" />
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="mapPin" class="h-8 w-8" />
+          </div>
         </ContactIconBlock>
 
         <ContactIconBlock
@@ -123,7 +129,9 @@ const formSubTitle: string = "Te responderé en 1-2 días hábiles.";
           isLinkVisible={true}
           linkTitle="info@transcat.es"
           linkURL="#"
-          ><Icon name="envelopeOpen" />
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="envelopeOpen" class="h-8 w-8" />
+          </div>
         </ContactIconBlock>
       </div>
     </div>
