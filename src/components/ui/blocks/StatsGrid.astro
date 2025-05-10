@@ -28,7 +28,12 @@ const normalizedValue = numericValue.replace(',', '.');
   <div
     class="mb-2 flex items-end gap-x-2 text-3xl font-bold text-neutral-800 dark:text-neutral-200 sm:text-5xl"
   >
-    {index === 1 || index === 2 ? <Icon name="arrowUp" /> : null}
+    <div class="text-orange-500 dark:text-orange-400">
+      {index === 0 && <Icon name="users" class="h-8 w-8" />}
+      {index === 1 && <Icon name="arrowUp" class="h-8 w-8" />}
+      {index === 2 && <Icon name="arrowUp" class="h-8 w-8" />}
+      {index === 3 && <Icon name="bolt" class="h-8 w-8" />}
+    </div>
     <span class="counter-value">0</span>{suffix}
   </div>
   <p class="text-sm text-neutral-600 dark:text-neutral-400 sm:text-base">
