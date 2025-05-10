@@ -5,6 +5,12 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 import ReviewComponent from "@components/ui/blocks/ReviewComponent.astro";
 
+// Importar las imágenes del carrusel
+import heroBg1 from "../../../images/hero/hero-bg1.png";
+import heroBg2 from "../../../images/hero/hero-bg2.png";
+import heroBg3 from "../../../images/hero/hero-bg3.png";
+import heroBg4 from "../../../images/hero/hero-bg4.png";
+
 // Define props from Astro
 const {
   title,
@@ -58,31 +64,47 @@ interface Props {
     <div id="custom-carousel" class="relative h-full w-full">
       <!-- Slide 1 -->
       <div class="carousel-slide absolute inset-0 opacity-100 transition-opacity duration-1000" data-slide="0">
-        <div 
-          class="h-full w-full bg-cover bg-center" 
-          style="background-image: url('/images/hero/hero-bg1.png'); background-position-y: 55%;"
-        ></div>
+        <div class="h-full w-full overflow-hidden">
+          <Image 
+            src={heroBg1} 
+            alt="Imagen de fondo 1" 
+            class="h-full w-full object-cover object-center" 
+            style="object-position: center 55%;"
+          />
+        </div>
       </div>
       <!-- Slide 2 -->
       <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="1">
-        <div 
-          class="h-full w-full bg-cover bg-center" 
-          style="background-image: url('/images/hero/hero-bg2.png'); background-position-y: 85%;"
-        ></div>
+        <div class="h-full w-full overflow-hidden">
+          <Image 
+            src={heroBg2} 
+            alt="Imagen de fondo 2" 
+            class="h-full w-full object-cover object-center" 
+            style="object-position: center 85%;"
+          />
+        </div>
       </div>
       <!-- Slide 3 -->
       <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="2">
-        <div 
-          class="h-full w-full bg-cover bg-center" 
-          style="background-image: url('/images/hero/hero-bg3.png'); background-position-y: 55%;"
-        ></div>
+        <div class="h-full w-full overflow-hidden">
+          <Image 
+            src={heroBg3} 
+            alt="Imagen de fondo 3" 
+            class="h-full w-full object-cover object-center" 
+            style="object-position: center 55%;"
+          />
+        </div>
       </div>
       <!-- Slide 4 -->
       <div class="carousel-slide absolute inset-0 opacity-0 transition-opacity duration-1000" data-slide="3">
-        <div 
-          class="h-full w-full bg-cover bg-center" 
-          style="background-image: url('/images/hero/hero-bg4.png'); background-position-y: 55%;"
-        ></div>
+        <div class="h-full w-full overflow-hidden">
+          <Image 
+            src={heroBg4} 
+            alt="Imagen de fondo 4" 
+            class="h-full w-full object-cover object-center" 
+            style="object-position: center 55%;"
+          />
+        </div>
       </div>
     </div>
   </div>
