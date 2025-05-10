@@ -85,7 +85,7 @@ interface Props {
     </style>
     <script is:inline>
       // Script para manejar el desplazamiento suave
-      document.addEventListener('DOMContentLoaded', () => {
+      function setupSmoothScroll() {
         // Seleccionar todos los enlaces que apuntan a anclas
         const anchorLinks = document.querySelectorAll('a[href^="#"]');
         
@@ -112,7 +112,15 @@ interface Props {
             }
           });
         });
-      });
+      }
+
+      // Ejecutar cuando el DOM esté listo
+      document.addEventListener('DOMContentLoaded', setupSmoothScroll);
+      
+      // Como respaldo, también intentar ejecutar inmediatamente si el DOM ya está cargado
+      if (document.readyState === 'interactive' || document.readyState === 'complete') {
+        setupSmoothScroll();
+      }
     </script>
   </body>
 </html>
