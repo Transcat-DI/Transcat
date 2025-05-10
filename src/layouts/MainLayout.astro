@@ -5,6 +5,7 @@ import Navbar from "@components/sections/navbar&footer/Navbar.astro";
 import FooterSection from "@components/sections/navbar&footer/FooterSection.astro";
 import { SITE } from "@data/constants";
 import "@styles/global.css";
+import "../assets/styles/smooth-scroll.css";
 
 // Setting expected props
 const {
@@ -27,7 +28,7 @@ interface Props {
 }
 ---
 
-<html lang={lang} class="scrollbar-hide lenis lenis-smooth scroll-pt-16">
+<html lang={lang} class="scrollbar-hide lenis lenis-smooth scroll-pt-16" style="scroll-behavior: smooth;">
   <head>
     {/* Adding metadata to the HTML document */}
     <Meta
@@ -84,6 +85,7 @@ interface Props {
         scrollbar-width: none;
       }
     </style>
-    <!-- El script de scroll suave ahora se importa desde @assets/scripts/smooth-scroll.js -->
+    <!-- Cargar el script de scroll suave directamente desde la carpeta pública -->
+    <script src="/js/smooth-scroll.js" is:inline></script>
   </body>
 </html>
