@@ -14,7 +14,9 @@ interface Props {
 
 <blockquote class="relative px-4 py-4 md:px-6 md:py-6">
   <div class="relative">
-    <Icon name="quotation" />
+    <div class="absolute -top-2 -left-2 text-orange-500 dark:text-orange-400 opacity-70">
+      <Icon name="quotation" class="h-10 w-10" />
+    </div>
     <p class="text-xl italic leading-relaxed text-neutral-800 dark:text-neutral-200 pl-6 pt-6">
       {content}
     </p>
