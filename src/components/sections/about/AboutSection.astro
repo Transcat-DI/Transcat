@@ -78,7 +78,7 @@ const { title, subTitle, features } = Astro.props;
         { features &&
           features.map((feature) => (
             <IconBlock heading={feature.heading} content={feature.content}>
-              <Icon name={feature.svg} />
+              <Icon name={feature.svg} class="h-8 w-8 text-orange-500 dark:text-orange-400" />
             </IconBlock>
           ))
         }
