@@ -1,0 +1,81 @@
+---
+// Componente de modal para mostrar imágenes en tamaño grande
+---
+
+<div id="image-modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+  <!-- Overlay con efecto de desenfoque -->
+  <div id="modal-overlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm"></div>
+  
+  <!-- Contenedor del modal con sombra -->
+  <div class="relative z-10 rounded-xl overflow-hidden shadow-2xl shadow-black/60 transform transition-all inline-block">
+    <!-- Botón de cierre -->
+    <button id="close-modal" class="absolute top-4 right-4 z-20 bg-white/10 backdrop-blur-md text-white rounded-full p-2 hover:bg-white/20 transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <!-- Contenedor de la imagen sin restricciones de aspecto -->
+    <div class="bg-neutral-900">
+      <!-- La imagen se insertará aquí dinámicamente, sin forzar dimensiones -->
+      <img id="modal-image" src="" alt="Imagen ampliada" class="max-h-[80vh] max-w-[90vw] object-contain" />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Declarar el tipo para la ventana global
+  declare global {
+    interface Window {
+      openImageModal: (imageSrc: string, altText: string) => void;
+    }
+  }
+
+  // Función para inicializar el modal
+  function setupImageModal() {
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image') as HTMLImageElement;
+    const closeButton = document.getElementById('close-modal');
+    const overlay = document.getElementById('modal-overlay');
+    
+    // Función para abrir el modal con una imagen específica
+    window.openImageModal = (imageSrc: string, altText: string): void => {
+      console.log('Opening modal with image:', imageSrc); // Debug
+      if (modal && modalImage) {
+        modalImage.src = imageSrc;
+        modalImage.alt = altText || 'Imagen ampliada';
+        modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden'); // Prevenir scroll
+      }
+    };
+    
+    // Cerrar el modal al hacer clic en el botón de cierre o en el overlay
+    const closeModal = (): void => {
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        // Limpiar la imagen al cerrar
+        if (modalImage) {
+          setTimeout(() => {
+            modalImage.src = '';
+          }, 300);
+        }
+      }
+    };
+    
+    // Event listeners para cerrar el modal
+    if (closeButton) closeButton.addEventListener('click', closeModal);
+    if (overlay) overlay.addEventListener('click', closeModal);
+    
+    // Cerrar el modal con la tecla Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+  
+  // Ejecutar la configuración cuando el DOM esté listo
+  document.addEventListener('DOMContentLoaded', setupImageModal);
+  
+  // También ejecutar cuando el contenido se cargue mediante navegación de cliente
+  document.addEventListener('astro:page-load', setupImageModal);
+</script>

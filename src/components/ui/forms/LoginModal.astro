@@ -5,15 +5,40 @@ import PasswordInput from "./input/PasswordInput.astro";
 import Checkbox from "./input/Checkbox.astro";
 import AuthBtn from "@components/ui/buttons/AuthBtn.astro";
 import GoogleBtn from "@components/ui/buttons/GoogleBtn.astro";
+import { loginTranslations } from "@utils/loginTranslations";
+import type { LanguageCode } from "@utils/ui";
+
+// Obtener el idioma actual de la URL
+const pathname = Astro.url.pathname;
+let currentLang: LanguageCode = 'es';
+
+// Detectar el idioma actual basado en la URL
+if (pathname.startsWith('/en')) {
+  currentLang = 'en';
+} else if (pathname.startsWith('/fr')) {
+  currentLang = 'fr';
+} else if (pathname.startsWith('/ca')) {
+  currentLang = 'ca';
+} else if (pathname.startsWith('/es') || pathname === '/') {
+  currentLang = 'es';
+}
+
+// Obtener las traducciones para el idioma actual
+const translations = loginTranslations[currentLang];
 
 // Variables for customization of the LoginModal Component
-
 const config = {
   id: "hs-toggle-between-modals-login-modal", // Modal IDENTIFIER
-  title: "Sign in", // Main HEADING
-  subTitle: "Don't have an account yet?", // Sub-Heading TEXT
-  registerBtn: "Sign up here", // Text for REGISTRATION BUTTON
+  title: translations.title, // Main HEADING
+  subTitle: translations.subTitle, // Sub-Heading TEXT
+  registerBtn: translations.registerBtn, // Text for REGISTRATION BUTTON
   registerBtnDataHS: "#hs-toggle-between-modals-register-modal", // TARGET LINK for registration button
+  signInWithGoogle: translations.signInWithGoogle,
+  or: translations.or,
+  forgotPassword: translations.forgotPassword,
+  rememberMe: translations.rememberMe,
+  signInButton: translations.signInButton,
+  incorrectCredentials: translations.incorrectCredentials
 };
 ---
 
@@ -46,15 +71,15 @@ const config = {
             </p>
           </div>
           <div class="mt-5">
-            <GoogleBtn title="Sign in with Google" />
+            <GoogleBtn title={config.signInWithGoogle} />
 
             <div
               class="flex items-center py-3 text-xs uppercase text-neutral-400 before:me-6 before:flex-[1_1_0%] before:border-t before:border-neutral-200 after:ms-6 after:flex-[1_1_0%] after:border-t after:border-neutral-200 dark:text-neutral-500 dark:before:border-neutral-600 dark:after:border-neutral-600"
             >
-              Or
+              {config.or}
             </div>
             <!-- The container for the form -->
-            <form>
+            <form id="login-form">
               <!-- A grid layout for the form fields -->
               <div class="grid gap-y-4">
                 <!-- The email input field -->
@@ -65,13 +90,73 @@ const config = {
                   id="password"
                   errorId="login-password-error"
                   content="8+ characters required"
+                  forgotText={config.forgotPassword}
                 />
                 <!-- The remember-me checkbox -->
-                <Checkbox id="remember-me" />
+                <Checkbox id="remember-me" label={config.rememberMe} />
                 <!-- The sign-in button -->
-                <AuthBtn title="Sign in" />
+                <button type="submit" class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-orange-500 text-white hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">
+                  {config.signInButton}
+                </button>
               </div>
             </form>
+            
+            <script>
+              // Declaración para TypeScript para la biblioteca Preline
+              declare global {
+                interface Window {
+                  HSOverlay?: {
+                    close: (element: HTMLElement) => void;
+                  }
+                }
+              }
+              
+              document.addEventListener('DOMContentLoaded', () => {
+                const loginForm = document.getElementById('login-form');
+                const emailInput = document.getElementById('login-email');
+                const passwordInput = document.getElementById('password');
+                
+                if (loginForm && emailInput && passwordInput) {
+                  // Asegurar que los elementos son inputs para acceder a sus valores
+                  const emailValue = emailInput instanceof HTMLInputElement ? emailInput.value : '';
+                  const passwordValue = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
+                  loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    // Obtener los valores actualizados en el momento del envío
+                    const email = emailInput instanceof HTMLInputElement ? emailInput.value : '';
+                    const password = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
+                    
+                    if (email === 'info@transcat.es' && password === 'Volvo25*') {
+                      // Credenciales correctas, abrir el dashboard en una nueva pestaña
+                      window.open('/dashboard', '_blank');
+                      
+                      // Cerrar el modal de login
+                      const loginModal = document.getElementById('hs-toggle-between-modals-login-modal');
+                      if (loginModal) {
+                        // Intentar cerrar el modal usando la biblioteca Preline
+                        try {
+                          // Si Preline está disponible, usará su API
+                          if (window.HSOverlay) {
+                            window.HSOverlay.close(loginModal);
+                          } else {
+                            // Alternativa para cerrar el modal manualmente
+                            loginModal.classList.remove('show');
+                            loginModal.style.display = 'none';
+                            document.body.classList.remove('hs-overlay-open');
+                          }
+                        } catch (error) {
+                          console.error('Error al cerrar el modal:', error);
+                        }
+                      }
+                    } else {
+                      // Credenciales incorrectas, mostrar mensaje de error
+                      alert(config.incorrectCredentials);
+                    }
+                  });
+                }
+              });
+            </script>
           </div>
         </div>
       </div>

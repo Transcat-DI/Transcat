@@ -1,0 +1,41 @@
+---
+// Componente que muestra imágenes de íconos de transporte con animaciones al pasar el ratón
+import { Image } from "astro:assets";
+import seguridad from "@images/truck/01 - seguridad.png";
+import puntualidad from "@images/truck/02 - puntualidad.png";
+import carga from "@images/truck/03 - carga.png";
+import control from "@images/truck/04 - control.png";
+
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+const icons = [
+  { img: seguridad, label: "Seguridad" },
+  { img: puntualidad, label: "Puntualidad" },
+  { img: carga, label: "Carga" },
+  { img: control, label: "Control" }
+];
+---
+
+<div class={`flex flex-wrap justify-center gap-8 md:gap-12 ${className}`}>
+  {icons.map(icon => (
+    <div class="group relative p-4 transition-all duration-300 hover:scale-110">
+      <div class="absolute inset-0 rounded-xl bg-neutral-100 dark:bg-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div class="relative z-10">
+        <Image 
+          src={icon.img} 
+          alt={icon.label}
+          width={80} 
+          height={80}
+          class="w-20 h-20 object-contain transition-transform duration-300 group-hover:drop-shadow-md"
+        />
+      </div>
+      {/* <p class="mt-3 text-center text-sm font-medium text-neutral-600 dark:text-neutral-400 group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors duration-300">
+        {icon.label}
+      </p> */}
+    </div>
+  ))}
+</div>

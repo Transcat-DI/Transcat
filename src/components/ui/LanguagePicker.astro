@@ -2,8 +2,20 @@
 import { languages, flagPaths, type LanguageCode } from "@utils//ui";
 import Icon from "./icons/Icon.astro";
 
-// Forzar español como idioma por defecto
-const currentLang: LanguageCode = 'es';
+// Obtener el idioma actual de la URL
+const pathname = Astro.url.pathname;
+let currentLang: LanguageCode = 'es';
+
+// Detectar el idioma actual basado en la URL
+if (pathname.startsWith('/en')) {
+  currentLang = 'en';
+} else if (pathname.startsWith('/fr')) {
+  currentLang = 'fr';
+} else if (pathname.startsWith('/ca')) {
+  currentLang = 'ca';
+} else if (pathname.startsWith('/es') || pathname === '/') {
+  currentLang = 'es';
+}
 ---
 
 <div class="hs-dropdown relative inline-flex">
@@ -38,8 +50,8 @@ const currentLang: LanguageCode = 'es';
       Object.entries(languages).map(([lang, label]) => {
         // Explicitly cast lang as LanguageCode
         const langCode = lang as LanguageCode;
-        // Determinar si el idioma está deshabilitado (todos excepto español)
-        const isDisabled = langCode !== 'es' as LanguageCode;
+        // Habilitar español, inglés, francés y catalán
+        const isDisabled = false;
         return (
           <a
             class={`flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm ${isDisabled ? 'cursor-not-allowed opacity-50' : 'text-neutral-800 hover:bg-neutral-100 focus:bg-neutral-100 focus:outline-hidden dark:text-neutral-400 dark:hover:bg-neutral-700 dark:hover:text-neutral-300 dark:focus:bg-neutral-700'}`}
@@ -85,7 +97,7 @@ const currentLang: LanguageCode = 'es';
         return; // Salir temprano para no añadir el otro listener
       }
       
-      // Solo procesar enlaces habilitados (español)
+      // Procesar enlaces habilitados (español e inglés)
       const langAttr = link.getAttribute('data-lang');
       // Verificar que langAttr es una de las lenguas soportadas
       const lang = languages.includes(langAttr as TLanguage) ? langAttr as TLanguage : 'es';
@@ -93,45 +105,76 @@ const currentLang: LanguageCode = 'es';
       link.addEventListener("click", function (event) {
         event.preventDefault();
 
+        // Obtener la URL actual
         const url = new URL(window.location.href);
         
-        const currentPath = url.pathname
+        // Extraer la parte de la ruta que no es el código de idioma
+        const pathParts = url.pathname
           .split("/")
-          .filter((part) => part && !languages.includes(part as TLanguage))
-          .join("/");
-
-        let newPath = "";
-        if (lang && lang !== "en") {
-          newPath = `/${lang}/${currentPath}`;
+          .filter((part) => part && !languages.includes(part as TLanguage));
+        
+        // Construir la nueva ruta según el idioma seleccionado
+        let newPath;
+        if (lang === 'en') {
+          newPath = '/en/' + pathParts.join('/');
+        } else if (lang === 'fr') {
+          newPath = '/fr/' + pathParts.join('/');
+        } else if (lang === 'ca') {
+          newPath = '/ca/' + pathParts.join('/');
         } else {
-          newPath = `/${currentPath}`;
+          newPath = '/es/' + pathParts.join('/');
         }
-
+        
+        // Limpiar la ruta (eliminar barras duplicadas)
         newPath = newPath.replace(/\/+/g, "/");
         if (newPath === "") newPath = "/";
         
-        // Forzar la redirección a la versión en español (solo permitimos español)
-        newPath = newPath.replace(/^\/[a-z]{2}\//, '/es/');
-        if (!newPath.startsWith('/es')) {
-          newPath = '/es' + newPath;
-        }
-        
+        // Navegar a la nueva URL
+        console.log(`Cambiando a idioma: ${lang}, nueva ruta: ${newPath}`);
         window.location.href = `${url.origin}${newPath}${url.search}`;
       });
     });
     
-    // Asegurar que siempre estamos en la versión española
+    // Actualizar la bandera del selector según el idioma actual
+    const updateLanguageFlag = () => {
+      const currentPath = window.location.pathname;
+      let currentLang: TLanguage = 'es'; // Valor por defecto
+      
+      // Detectar el idioma actual basado en la URL
+      if (currentPath.startsWith('/en')) {
+        currentLang = 'en';
+      } else if (currentPath.startsWith('/fr')) {
+        currentLang = 'fr';
+      } else if (currentPath.startsWith('/ca')) {
+        currentLang = 'ca';
+      }
+      
+      // Actualizar la bandera en el botón del selector
+      const flagImg = document.querySelector('#hs-dropdown-default .inline-flex img') as HTMLImageElement;
+      if (flagImg) {
+        // Actualizar la imagen de la bandera según el idioma actual
+        const flagPath = `/flags/${currentLang}.svg`;
+        flagImg.src = flagPath;
+        flagImg.alt = `${currentLang} flag`;
+      }
+    };
+    
+    // Ejecutar la actualización de la bandera al cargar la página
+    updateLanguageFlag();
+    
+    // Redirigir a español o inglés si estamos en una ruta sin idioma
     const currentPath = window.location.pathname;
-    if (!currentPath.startsWith('/es') && currentPath !== '/') {
+    if (!currentPath.startsWith('/es') && !currentPath.startsWith('/en') && !currentPath.startsWith('/fr') && !currentPath.startsWith('/ca') && currentPath !== '/') {
       const url = new URL(window.location.href);
       const pathParts = url.pathname
         .split("/")
         .filter((part) => part && !languages.includes(part as TLanguage));
       
+      // Por defecto, redirigir a español
       let newPath = '/es/' + pathParts.join('/');
       newPath = newPath.replace(/\/+/g, "/");
       
-      // Redirigir a la versión española si no estamos en ella
+      // Redirigir si no estamos en un idioma soportado
       window.location.href = `${url.origin}${newPath}${url.search}`;
     }
   });
