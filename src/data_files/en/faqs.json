@@ -1,0 +1,29 @@
+{
+  "subTitle": "We answer your questions about our transport and logistics services.",
+  "faqs": [
+    {
+      "question": "What geographic areas does TransCat cover?",
+      "answer": "TransCat offers transport services primarily in Catalonia, with complete coverage in Barcelona, Girona, Lleida, and Tarragona. With our Premium Plan, we also offer services throughout mainland Spain."
+    },
+    {
+      "question": "How can I track my shipment?",
+      "answer": "All our customers receive a unique tracking code for each shipment. With the Basic Plan, you can check the current status of your shipment on our website. Premium customers enjoy real-time tracking with instant updates via SMS or email."
+    },
+    {
+      "question": "What is the estimated delivery time?",
+      "answer": "For shipments within Catalonia, we guarantee deliveries within 24-48 hours. For the rest of Spain (Premium Plan), the estimated time is 48-72 hours. In urgent cases, we offer same-day delivery services for Premium customers in certain areas."
+    },
+    {
+      "question": "What types of goods can be transported?",
+      "answer": "We transport a wide variety of goods, from general parcels to specialized products. However, there are restrictions for hazardous materials, perishables, or extremely high-value items. Contact us to inquire about your specific case."
+    },
+    {
+      "question": "How are incidents or delays managed?",
+      "answer": "We have a dedicated team for incident resolution. Basic Plan customers can contact us by email, while Premium customers have access to priority telephone support 24/7. Our incident resolution rate in less than 24 hours exceeds 95%."
+    },
+    {
+      "question": "Does TransCat offer customized services for businesses?",
+      "answer": "Yes, in addition to our standard plans, we offer tailored solutions for companies with specific logistics needs. This includes scheduled pickups, dedicated fleet management, or integration with management systems. Request a personalized consultation and we will offer you a budget adapted to your needs."
+    }
+  ]
+}

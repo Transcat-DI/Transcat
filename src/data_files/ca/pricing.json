@@ -1,0 +1,38 @@
+{
+  "title": "Preus Simples i Transparents",
+  "subTitle": "Augmenta l'eficiència amb els plans clars i orientats al valor de ScrewFast.",
+  "badge": "Millor valor",
+  "thirdOption": "Solucions Empresarials?",
+  "btnText": "Obtén un Pressupost Personalitzat",
+
+  "starterKit": {
+    "name": "Kit d'Inici",
+    "description": "Millor opció per a projectes de bricolatge",
+    "price": "$49",
+    "cents": ".00",
+    "billingFrequency": "USD / mensual",
+    "features": [
+      "Eines de hardware essencials",
+      "Accés a guies i tutorials",
+      "Suport estàndard"
+    ],
+    "purchaseBtnTitle": "Obtén el Kit d'Inici",
+    "purchaseLink": "#"
+  },
+
+  "professionalToolbox": {
+    "name": "Caixa d'Eines Professional",
+    "description": "Ideal per a usos a gran escala",
+    "price": "$89",
+    "cents": ".00",
+    "billingFrequency": "USD / mensual",
+    "features": [
+      "Selecció d'eines premium",
+      "Suport prioritari",
+      "Contingut i ofertes exclusives",
+      "Descomptes en comandes a l'engròs"
+    ],
+    "purchaseBtnTitle": "Obtén la Caixa d'Eines Professional",
+    "purchaseLink": "#"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Simple and Transparent Rates",
+  "subTitle": "Improve your logistics with our clear, value-oriented plans.",
+  "badge": "Best value",
+  "thirdOption": "Need a customized solution?",
+  "btnText": "Request a Quote",
+
+  "starterKit": {
+    "name": "Basic Plan",
+    "description": "Ideal for small businesses and occasional shipments",
+    "price": "149",
+    "cents": ".00",
+    "billingFrequency": "€ / monthly",
+    "features": [
+      "Up to 10 monthly shipments",
+      "Coverage in Catalonia",
+      "Basic shipment tracking",
+      "Email support"
+    ],
+    "purchaseBtnTitle": "Get Basic Plan",
+    "purchaseLink": "#contacto"
+  },
+
+  "professionalToolbox": {
+    "name": "Premium Plan",
+    "description": "Perfect for businesses with regular shipments",
+    "price": "299",
+    "cents": ".00",
+    "billingFrequency": "€ / monthly",
+    "features": [
+      "Unlimited shipments",
+      "Coverage throughout Spain",
+      "Real-time tracking",
+      "24/7 priority support",
+      "Same-day pickup"
+    ],
+    "purchaseBtnTitle": "Get Premium Plan",
+    "purchaseLink": "#contacto"
+  }
+}
