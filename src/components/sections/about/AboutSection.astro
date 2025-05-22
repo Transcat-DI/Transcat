@@ -3,7 +3,10 @@
 import { Image } from "astro:assets";
 import IconBlock from "@components/ui/blocks/IconBlock.astro";
 import Icon from "@components/ui/icons/Icon.astro";
-import driverImage from "@images/about/driver.jpg";
+import ImageModal from "@components/ui/modals/ImageModal.astro";
+import truck1Image from "@images/truck/truck-1.jpg";
+import truck2Image from "@images/truck/truck-2.jpg";
+import truck3Image from "@images/truck/truck-3.jpg";
 
 interface Feature {
   heading: string;
@@ -23,13 +26,96 @@ const { title, subTitle, features } = Astro.props;
 <section
   class="mx-auto max-w-[85rem] px-4 py-3 sm:px-6 lg:px-8 lg:py-4 2xl:max-w-full"
 >
+  <!-- Incluir el componente de modal para imágenes -->
+  <ImageModal />
 
   <!-- Displaying the main content consisting of title, subtitle, and several `IconBlock` components -->
-  <div class="mt-2 grid gap-6 lg:mt-8 lg:grid-cols-12 lg:gap-8 text-left">
-    <!-- Columna izquierda con la imagen del conductor (reducida) -->
-    <div class="lg:col-span-3">
-      <!-- Imagen del conductor -->
-      <div class="relative rounded-xl overflow-hidden shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30 max-w-[300px] mx-auto lg:max-w-[350px]">
+  <div class="mt-2 grid gap-6 lg:mt-8 lg:grid-cols-1 lg:gap-8 text-left">
+    <!-- Estructura en columnas para la sección principal -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <!-- Columna izquierda con la imagen principal del camión -->
+      <div class="lg:col-span-3">
+        <!-- Imagen principal del camión ocupando toda la altura -->
+        <div class="h-full">
+          <div 
+            class="relative rounded-xl overflow-hidden shadow-xl shadow-black/40 hover:shadow-black/60 dark:shadow-xl dark:shadow-black/40 dark:hover:shadow-black/60 transition-all duration-300 group cursor-pointer h-full"
+            data-image={truck1Image.src}
+            data-alt="Camión de transporte - Vista frontal"
+            onclick="openImageModal(this.dataset.image, this.dataset.alt)"
+          >
+            <!-- Borde interior decorativo -->
+            <div class="absolute inset-4 border border-white/20 rounded-xl z-10 pointer-events-none"></div>
+            
+            <!-- Elementos decorativos en las esquinas -->
+            <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg z-10 pointer-events-none"></div>
+            <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg z-10 pointer-events-none"></div>
+            <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg z-10 pointer-events-none"></div>
+            <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg z-10 pointer-events-none"></div>
+            
+            <!-- Overlay muy ligero para mantener legibilidad -->
+            <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 z-5"></div>
+            
+            <!-- Icono de ampliar -->
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+              </svg>
+            </div>
+            
+            <Image
+              src={truck1Image}
+              alt="Camión de transporte - Vista frontal"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+              draggable={"false"}
+              format={"avif"}
+              loading={"eager"}
+              width={500}
+              height={800}
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna derecha con el título, subtítulo y los bloques de características -->
+      <div class="lg:col-span-9">
+        <!-- Rendering title -->
+        <h2
+          class="text-balance text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-3xl"
+        >
+          {title}
+        </h2>
+        <!-- Rendering subtitle -->
+        {
+          subTitle && (
+            <p class="mt-2 text-pretty text-neutral-600 dark:text-neutral-400 md:mt-4 mb-8">
+              {subTitle}
+            </p>
+          )
+        }
+        
+        <!-- Bloques de características en dos columnas -->
+        <div class="grid gap-8 sm:grid-cols-2 md:gap-12 mb-8">
+          <!-- Injecting IconBlock components with different properties -->
+          { features &&
+            features.map((feature) => (
+              <IconBlock heading={feature.heading} content={feature.content}>
+                <Icon name={feature.svg} class="h-8 w-8 text-orange-500 dark:text-orange-400" />
+              </IconBlock>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    
+    <!-- Contenedor para las dos imágenes horizontales debajo de la imagen lateral -->
+    <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Segunda imagen del camión -->
+      <div 
+        class="relative rounded-xl overflow-hidden shadow-xl shadow-black/40 hover:shadow-black/60 dark:shadow-xl dark:shadow-black/40 dark:hover:shadow-black/60 transition-all duration-300 group cursor-pointer h-[250px]"
+        data-image={truck2Image.src}
+        data-alt="Camión de transporte - Vista lateral"
+        onclick="openImageModal(this.dataset.image, this.dataset.alt)"
+      >
         <!-- Borde interior decorativo -->
         <div class="absolute inset-4 border border-white/20 rounded-xl z-10 pointer-events-none"></div>
         
@@ -42,46 +128,61 @@ const { title, subTitle, features } = Astro.props;
         <!-- Overlay muy ligero para mantener legibilidad -->
         <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 z-5"></div>
         
+        <!-- Icono de ampliar -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+          </svg>
+        </div>
+        
         <Image
-          src={driverImage}
-          alt="Conductor profesional de camiones"
-          class="w-full h-full object-cover"
+          src={truck2Image}
+          alt="Camión de transporte - Vista lateral"
+          class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
           draggable={"false"}
           format={"avif"}
-          loading={"eager"}
-          width={500}
-          height={650}
+          loading={"lazy"}
+          width={700}
+          height={350}
         />
       </div>
-    </div>
-
-    <!-- Columna derecha con el título, subtítulo y los bloques de características -->
-    <div class="lg:col-span-9">
-      <!-- Rendering title -->
-      <h2
-        class="text-balance text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-3xl"
-      >
-        {title}
-      </h2>
-      <!-- Rendering subtitle -->
-      {
-        subTitle && (
-          <p class="mt-2 text-pretty text-neutral-600 dark:text-neutral-400 md:mt-4 mb-8">
-            {subTitle}
-          </p>
-        )
-      }
       
-      <!-- Bloques de características en dos columnas -->
-      <div class="grid gap-8 sm:grid-cols-2 md:gap-12">
-        <!-- Injecting IconBlock components with different properties -->
-        { features &&
-          features.map((feature) => (
-            <IconBlock heading={feature.heading} content={feature.content}>
-              <Icon name={feature.svg} class="h-8 w-8 text-orange-500 dark:text-orange-400" />
-            </IconBlock>
-          ))
-        }
+      <!-- Tercera imagen del camión -->
+      <div 
+        class="relative rounded-xl overflow-hidden shadow-xl shadow-black/40 hover:shadow-black/60 dark:shadow-xl dark:shadow-black/40 dark:hover:shadow-black/60 transition-all duration-300 group cursor-pointer h-[250px]"
+        data-image={truck3Image.src}
+        data-alt="Camión de transporte - Vista trasera"
+        onclick="openImageModal(this.dataset.image, this.dataset.alt)"
+      >
+        <!-- Borde interior decorativo -->
+        <div class="absolute inset-4 border border-white/20 rounded-xl z-10 pointer-events-none"></div>
+        
+        <!-- Elementos decorativos en las esquinas -->
+        <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg z-10 pointer-events-none"></div>
+        <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg z-10 pointer-events-none"></div>
+        <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg z-10 pointer-events-none"></div>
+        <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg z-10 pointer-events-none"></div>
+        
+        <!-- Overlay muy ligero para mantener legibilidad -->
+        <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 z-5"></div>
+        
+        <!-- Icono de ampliar -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+          </svg>
+        </div>
+        
+        <Image
+          src={truck3Image}
+          alt="Camión de transporte - Vista trasera"
+          class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+          draggable={"false"}
+          format={"avif"}
+          loading={"lazy"}
+          width={700}
+          height={350}
+        />
       </div>
     </div>
   </div>

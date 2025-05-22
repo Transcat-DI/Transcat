@@ -1,0 +1,115 @@
+---
+// Tarjetas de estadísticas para el dashboard
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <!-- Visitantes -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Visitantes</h3>
+        <p class="text-2xl font-semibold text-gray-800 dark:text-white">2,543</p>
+      </div>
+      <div class="p-3 rounded-full bg-blue-500 bg-opacity-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div class="flex items-center">
+        <span class="text-green-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+          <span class="ml-1 text-sm">12.5%</span>
+        </span>
+        <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">vs mes anterior</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Páginas Vistas -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Páginas Vistas</h3>
+        <p class="text-2xl font-semibold text-gray-800 dark:text-white">7,842</p>
+      </div>
+      <div class="p-3 rounded-full bg-green-500 bg-opacity-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div class="flex items-center">
+        <span class="text-green-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+          </svg>
+          <span class="ml-1 text-sm">8.2%</span>
+        </span>
+        <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">vs mes anterior</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Tiempo Promedio -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Tiempo Promedio</h3>
+        <p class="text-2xl font-semibold text-gray-800 dark:text-white">2:35</p>
+      </div>
+      <div class="p-3 rounded-full bg-purple-500 bg-opacity-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div class="flex items-center">
+        <span class="text-red-500 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+          <span class="ml-1 text-sm">3.1%</span>
+        </span>
+        <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">vs mes anterior</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Idiomas Más Usados -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400">Idioma Principal</h3>
+        <p class="text-2xl font-semibold text-gray-800 dark:text-white">Español</p>
+      </div>
+      <div class="p-3 rounded-full bg-yellow-500 bg-opacity-10">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+        </svg>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div class="flex items-center justify-between text-sm text-gray-600 dark:text-gray-400">
+        <span>ES: 45%</span>
+        <span>CA: 30%</span>
+        <span>FR: 15%</span>
+        <span>EN: 10%</span>
+      </div>
+      <div class="w-full h-2 bg-gray-200 rounded-full mt-2 overflow-hidden">
+        <div class="flex h-full">
+          <div class="h-full bg-blue-500 w-[45%]"></div>
+          <div class="h-full bg-green-500 w-[30%]"></div>
+          <div class="h-full bg-yellow-500 w-[15%]"></div>
+          <div class="h-full bg-red-500 w-[10%]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

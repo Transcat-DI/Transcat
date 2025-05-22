@@ -13,14 +13,21 @@ import LanguagePicker from "@components/ui/LanguagePicker.astro";
 
 // Select the correct translation based on the page's lang prop:
 let strings;
-if (Astro.currentLocale === "fr") {
-  strings = frStrings;
-} else if (Astro.currentLocale === "es") {
-  strings = esStrings;
-} else if (Astro.currentLocale === "ca") {
+const path = Astro.url.pathname;
+console.log('[NAVBAR] Astro.currentLocale:', Astro.currentLocale);
+console.log('[NAVBAR] Astro.url.pathname:', path);
+if (path.startsWith("/ca")) {
   strings = caStrings;
+  console.log('[NAVBAR][FORZADO] Usando CA');
+} else if (Astro.currentLocale === "fr" || path.startsWith("/fr")) {
+  strings = frStrings;
+  console.log('[NAVBAR] Usando FR');
+} else if (Astro.currentLocale === "es" || path.startsWith("/es")) {
+  strings = esStrings;
+  console.log('[NAVBAR] Usando ES');
 } else {
   strings = enStrings;
+  console.log('[NAVBAR] Usando EN');
 }
 
 // Set the home URL based on the current locale

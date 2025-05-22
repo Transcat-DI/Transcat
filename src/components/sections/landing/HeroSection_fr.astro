@@ -5,7 +5,7 @@ import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
 import ReviewComponent from "@components/ui/blocks/ReviewComponent.astro";
 
-// Importar las imágenes del carrusel
+// Importer les images du carrousel
 import heroBg1 from "../../../images/hero/hero-bg1.webp";
 import heroBg2 from "../../../images/hero/hero-bg2.webp";
 import heroBg3 from "../../../images/hero/hero-bg3.webp";
@@ -13,7 +13,7 @@ import heroBg4 from "../../../images/hero/hero-bg4.webp";
 import heroBg5 from "../../../images/hero/hero-bg5.webp";
 import heroBg6 from "../../../images/hero/hero-bg6.webp";
 
-// Define props from Astro
+// Définir les props depuis Astro
 const {
   title,
   subTitle,
@@ -32,7 +32,7 @@ const {
   slideSubtitles
 } = Astro.props;
 
-// Define TypeScript interface for props
+// Interface TypeScript pour les props
 interface Props {
   title: string;
   subTitle?: string;
@@ -41,7 +41,7 @@ interface Props {
   secondaryBtn?: string;
   secondaryBtnURL?: string;
   withReview?: boolean;
-  avatars?: Array<any>; // Aceptar tanto ImageMetadata como string
+  avatars?: Array<any>; // Accepte ImageMetadata ou string
   starCount?: number;
   rating?: string;
   reviews?: string;
@@ -52,21 +52,20 @@ interface Props {
 }
 ---
 
-<!-- Hero section con carrusel de imágenes de fondo personalizado -->
+<!-- Section Hero avec carrousel d'images de fond personnalisé -->
 <section
   class="relative mx-auto mt-8 overflow-hidden rounded-3xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32 2xl:max-w-full shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30"
   style="height: 600px;" 
 >
-  <!-- Borde interior decorativo -->
+  <!-- Bordure intérieure décorative -->
   <div class="absolute inset-4 border border-white/20 rounded-2xl z-10 pointer-events-none"></div>
-  
-  <!-- Elementos decorativos en las esquinas -->
+  <!-- Éléments décoratifs dans les coins -->
   <div class="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-white/40 rounded-tl-lg z-10 pointer-events-none"></div>
   <div class="absolute top-3 right-3 w-8 h-8 border-t-2 border-r-2 border-white/40 rounded-tr-lg z-10 pointer-events-none"></div>
   <div class="absolute bottom-3 left-3 w-8 h-8 border-b-2 border-l-2 border-white/40 rounded-bl-lg z-10 pointer-events-none"></div>
   <div class="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-white/40 rounded-br-lg z-10 pointer-events-none"></div>
-  
-  <!-- Carrusel de imágenes de fondo -->
+
+  <!-- Carrousel d'images de fond -->
   <div class="absolute inset-0 overflow-hidden">
     <div id="custom-carousel" class="relative h-full w-full">
       <!-- Slide 1 -->
@@ -74,7 +73,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg1} 
-            alt="Imagen de fondo 1" 
+            alt="Image de fond 1" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 55%;"
           />
@@ -85,7 +84,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg2} 
-            alt="Imagen de fondo 2" 
+            alt="Image de fond 2" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 55%;"
           />
@@ -96,7 +95,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg3} 
-            alt="Imagen de fondo 3" 
+            alt="Image de fond 3" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 60%;"
           />
@@ -107,7 +106,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg4} 
-            alt="Imagen de fondo 4" 
+            alt="Image de fond 4" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 67%;"
           />
@@ -118,7 +117,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg5} 
-            alt="Imagen de fondo 5" 
+            alt="Image de fond 5" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 45%;"
           />
@@ -129,7 +128,7 @@ interface Props {
         <div class="h-full w-full overflow-hidden">
           <Image 
             src={heroBg6} 
-            alt="Imagen de fondo 6" 
+            alt="Image de fond 6" 
             class="h-full w-full object-cover object-center" 
             style="object-position: center 60%;"
           />
@@ -137,41 +136,41 @@ interface Props {
       </div>
     </div>
   </div>
-  
-  <!-- Overlay muy ligero para mantener legibilidad del texto sin oscurecer demasiado las imágenes -->
+
+  <!-- Overlay très léger pour garder la lisibilité du texte -->
   <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20"></div>
-  
-  <!-- Controles del carrusel -->
+
+  <!-- Contrôles du carrousel -->
   <div class="absolute inset-0 flex items-center justify-between px-4">
     <button type="button" id="carousel-prev" class="z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 focus:outline-none dark:bg-neutral-800/30 dark:hover:bg-neutral-800/50">
-      <span class="sr-only">Anterior</span>
+      <span class="sr-only">Précédent</span>
       <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
       </svg>
     </button>
     <button type="button" id="carousel-next" class="z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/30 p-2 text-white backdrop-blur-sm transition hover:bg-white/50 focus:outline-none dark:bg-neutral-800/30 dark:hover:bg-neutral-800/50">
-      <span class="sr-only">Siguiente</span>
+      <span class="sr-only">Suivant</span>
       <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
       </svg>
     </button>
   </div>
-  
-  <!-- Indicadores del carrusel -->
+
+  <!-- Indicateurs du carrousel -->
   <div class="absolute bottom-4 start-1/2 z-10 -translate-x-1/2">
     <div class="flex items-center justify-center space-x-2" id="carousel-indicators">
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white bg-white" data-slide="0" aria-label="Ir a la diapositiva 1"></button>
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="1" aria-label="Ir a la diapositiva 2"></button>
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="2" aria-label="Ir a la diapositiva 3"></button>
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="3" aria-label="Ir a la diapositiva 4"></button>
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="4" aria-label="Ir a la diapositiva 5"></button>
-      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="5" aria-label="Ir a la diapositiva 6"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white bg-white" data-slide="0" aria-label="Aller à la diapositive 1"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="1" aria-label="Aller à la diapositive 2"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="2" aria-label="Aller à la diapositive 3"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="3" aria-label="Aller à la diapositive 4"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="4" aria-label="Aller à la diapositive 5"></button>
+      <button class="carousel-indicator inline-block h-2 w-2 cursor-pointer rounded-full border border-white/50 bg-white/30" data-slide="5" aria-label="Aller à la diapositive 6"></button>
     </div>
   </div>
-  
-  <!-- Contenedor del contenido justificado a la izquierda con altura fija -->
+
+  <!-- Conteneur du contenu aligné à gauche -->
   <div class="relative mx-auto max-w-[85rem] text-left h-[350px] flex flex-col justify-center">
-    <!-- Título con mayor contraste y sombra para legibilidad sobre imagen -->
+    <!-- Titre principal -->
     <h1
       class="max-w-3xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl lg:leading-tight drop-shadow-lg text-shadow-lg slide-title"
       style="text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3); height: 140px; display: block;"
@@ -199,8 +198,7 @@ interface Props {
         </span>
       ))}
     </p>
-    
-    <!-- Botones alineados a la izquierda -->
+    <!-- Boutons alignés à gauche -->
     <div class="mt-10 flex flex-col items-start gap-4 sm:flex-row">
       {primaryBtn && 
       <PrimaryCTA title={primaryBtn} url={primaryBtnURL} />
@@ -209,59 +207,51 @@ interface Props {
       <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
       }
     </div>
-
-    <!-- Se ha eliminado la sección de reseñas con estrellas -->
+    <!-- Section des avis supprimée -->
   </div>
 </section>
 
-<!-- Script para controlar el carrusel personalizado -->
+<!-- Script pour contrôler le carrousel personnalisé -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
-    // Variables para controlar el carrusel
     var slides = document.querySelectorAll('.carousel-slide');
     var indicators = document.querySelectorAll('.carousel-indicator');
     var prevButton = document.getElementById('carousel-prev');
     var nextButton = document.getElementById('carousel-next');
-    
-    // Verificar que los elementos existen antes de continuar
     if (!slides.length || !indicators.length || !prevButton || !nextButton) {
-      console.warn('Algunos elementos del carrusel no se encontraron');
+      console.warn('Certains éléments du carrousel sont manquants');
       return;
     }
-    
     var totalSlides = slides.length;
     var currentSlide = 0;
     var intervalId = null;
-    
-    // Elementos de título y subtítulo para cada diapositiva
+    // Éléments de titre et sous-titre pour chaque diapositive
     var slideTitleContents = document.querySelectorAll('.slide-title-content');
     var slideSubtitleContents = document.querySelectorAll('.slide-subtitle-content');
-    
-    // Función para mostrar una diapositiva específica
     function showSlide(index) {
-      // Ocultar todas las diapositivas
+      // Masquer toutes les diapositives
       for (var i = 0; i < slides.length; i++) {
         slides[i].classList.remove('opacity-100');
         slides[i].classList.add('opacity-0');
       }
       
-      // Actualizar los indicadores
+      // Mettre à jour les indicateurs
       for (var j = 0; j < indicators.length; j++) {
         indicators[j].classList.remove('bg-white', 'border-white');
         indicators[j].classList.add('bg-white/30', 'border-white/50');
       }
       
-      // Mostrar la diapositiva actual
+      // Afficher la diapositive actuelle
       slides[index].classList.remove('opacity-0');
       slides[index].classList.add('opacity-100');
       
-      // Actualizar el indicador actual
+      // Mettre à jour l'indicateur actuel
       indicators[index].classList.remove('bg-white/30', 'border-white/50');
       indicators[index].classList.add('bg-white', 'border-white');
       
-      // Actualizar los títulos y subtítulos
+      // Mettre à jour les titres et sous-titres
       if (slideTitleContents.length > 0 && slideSubtitleContents.length > 0) {
-        // Ocultar todos los títulos y subtítulos
+        // Masquer tous les titres et sous-titres
         slideTitleContents.forEach(function(titleContent) {
           titleContent.classList.remove('active');
           titleContent.classList.add('hidden');
@@ -272,7 +262,7 @@ interface Props {
           subtitleContent.classList.add('hidden');
         });
         
-        // Mostrar el título y subtítulo de la diapositiva actual
+        // Afficher le titre et sous-titre de la diapositive actuelle
         var currentTitleContent = document.querySelector('.slide-title-content[data-slide="' + index + '"]');
         var currentSubtitleContent = document.querySelector('.slide-subtitle-content[data-slide="' + index + '"]');
         
@@ -287,53 +277,39 @@ interface Props {
         }
       }
       
-      // Actualizar el índice de la diapositiva actual
       currentSlide = index;
     }
-    
-    // Función para ir a la diapositiva anterior
     function prevSlide() {
       var newIndex = currentSlide - 1;
       if (newIndex < 0) newIndex = totalSlides - 1;
       showSlide(newIndex);
     }
-    
-    // Función para ir a la siguiente diapositiva
     function nextSlide() {
       var newIndex = currentSlide + 1;
       if (newIndex >= totalSlides) newIndex = 0;
       showSlide(newIndex);
     }
-    
-    // Iniciar la rotación automática
     function startAutoplay() {
       if (!intervalId) {
-        intervalId = window.setInterval(nextSlide, 5000); // Cambiar cada 5 segundos
+        intervalId = window.setInterval(nextSlide, 5000);
       }
     }
-    
-    // Detener la rotación automática
     function stopAutoplay() {
       if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
       }
     }
-    
-    // Configurar los eventos de clic para los botones de navegación
     prevButton.addEventListener('click', function() {
       prevSlide();
       stopAutoplay();
       startAutoplay();
     });
-    
     nextButton.addEventListener('click', function() {
       nextSlide();
       stopAutoplay();
       startAutoplay();
     });
-    
-    // Configurar los eventos de clic para los indicadores
     for (var k = 0; k < indicators.length; k++) {
       (function(index) {
         indicators[index].addEventListener('click', function() {
@@ -343,8 +319,6 @@ interface Props {
         });
       })(k);
     }
-    
-    // Iniciar el carrusel automático al cargar la página
     showSlide(0);
     startAutoplay();
   });

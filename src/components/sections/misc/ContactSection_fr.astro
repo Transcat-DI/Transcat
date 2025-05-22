@@ -1,0 +1,158 @@
+---
+// Import the necessary dependencies.
+import AuthBtn from "@components/ui/buttons/AuthBtn.astro";
+import ContactIconBlock from "@components/ui/blocks/ContactIconBlock.astro";
+import TextInput from "@components/ui/forms/input/TextInput.astro";
+import EmailContactInput from "@components/ui/forms/input/EmailContactInput.astro";
+import PhoneInput from "@components/ui/forms/input/PhoneInput.astro";
+import TextAreaInput from "@components/ui/forms/input/TextAreaInput.astro";
+import Icon from "@components/ui/icons/Icon.astro";
+import SocialMediaLinks from "@components/ui/blocks/SocialMediaLinks.astro";
+
+// Define the variables that will be used in this component
+const title: string = "Contact";
+const subTitle: string =
+  "Vous avez des questions ou besoin d'un service de transport ? Contactez-moi et trouvons ensemble la solution logistique parfaite pour vos besoins.";
+const formTitle: string = "Remplissez le formulaire";
+const formSubTitle: string = "Je vous répondrai dans 1-2 jours ouvrables.";
+---
+
+<!-- Contact Us -->
+<section id="contacto" class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+  <div class="mx-auto max-w-2xl lg:max-w-5xl">
+    <div class="text-center">
+      <h1
+        class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
+      >
+        {title}
+      </h1>
+      <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
+        {subTitle}
+      </p>
+    </div>
+
+    <div class="mt-12 grid items-center gap-6 lg:grid-cols-2 lg:gap-16">
+      <div class="flex flex-col rounded-xl p-4 sm:p-6 lg:p-8 shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30">
+        <h2
+          class="mb-8 text-xl font-bold text-neutral-700 dark:text-neutral-300"
+        >
+          {formTitle}
+        </h2>
+        <!-- Form for user input with various input fields.-->
+        <!-- Each field utilizes a different input component for the specific type of input (text, email, phone, and textarea)-->
+        <form>
+          <div class="grid gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <TextInput
+                id="hs-firstname-contacts"
+                label="Prénom"
+                name="hs-firstname-contacts"
+              />
+              <TextInput
+                id="hs-lastname-contacts"
+                label="Nom"
+                name="hs-firstname-contacts"
+              />
+            </div>
+            <EmailContactInput id="hs-email-contacts" />
+            <PhoneInput id="hs-phone-number" />
+            <TextAreaInput
+              id="hs-about-contacts"
+              label="Détails du service"
+              name="hs-about-contacts"
+            />
+          </div>
+
+          <div class="mt-4 grid">
+            <AuthBtn title="Envoyer le Message" />
+          </div>
+
+          <div class="mt-3 text-center">
+            <p class="text-sm text-neutral-600 dark:text-neutral-400">
+              {formSubTitle}
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <!--ContactIconBlocks are used to display different methods of contacting, including visiting office, email, browsing knowledgebase, and FAQ.-->
+      <div class="divide-y divide-neutral-300 dark:divide-neutral-700">
+        <ContactIconBlock
+          heading="Réseaux Sociaux"
+          content="Suivez-nous sur nos réseaux sociaux pour rester informé."
+          isLinkVisible={false}
+        >
+          <div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="socialMedia" class="h-8 w-8 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
+          </div>
+          <div slot="additional-content" class="mt-2">
+            <SocialMediaLinks />
+          </div>
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="Téléphones de contact"
+          content="Fixe: +34 93 123 45 67 | Mobile: +34 612 345 678"
+          isLinkVisible={true}
+          linkTitle="Appeler maintenant"
+          linkURL="tel:+34612345678"
+          isArrowVisible={false}
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="phone" class="h-8 w-8 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
+          </div>
+          <div slot="additional-content" class="mt-2">
+            <a 
+              href="https://wa.me/34612345678" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-x-2 rounded-lg text-sm font-medium text-zinc-600 outline-hidden ring-zinc-500 transition duration-300 hover:text-zinc-800 focus-visible:ring-3 dark:text-zinc-400 dark:ring-zinc-200 dark:hover:text-zinc-200 dark:focus:outline-hidden dark:focus:ring-1"
+            >
+              <Icon name="whatsappContact" class="h-5 w-5 fill-neutral-600 text-neutral-600 dark:fill-white/70 dark:text-white/70 opacity-90" />
+              <span>Contacter par WhatsApp</span>
+            </a>
+          </div>
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="Visitez notre bureau"
+          content="TransCat"
+          isAddressVisible={true}
+          addressContent="Carrer de la Indústria 140, 08025 Barcelona"
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="mapPin" class="h-8 w-8" />
+          </div>
+        </ContactIconBlock>
+
+        <ContactIconBlock
+          heading="Contact par email"
+          content="Vous préférez nous écrire ? Envoyez-nous un email à"
+          isLinkVisible={true}
+          linkTitle="info@transcat.es"
+          linkURL="#"
+          ><div class="text-neutral-600 dark:text-white/70 opacity-90">
+            <Icon name="envelopeOpen" class="h-8 w-8" />
+          </div>
+        </ContactIconBlock>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Google Maps Section -->
+<section class="mx-auto max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8 lg:pb-14">
+  <div class="mx-auto max-w-2xl lg:max-w-5xl">
+    <div class="overflow-hidden rounded-xl border border-neutral-200 p-1.5 dark:border-neutral-700 shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5984.801128073162!2d2.168872089877018!3d41.40882262066746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2c5258c4961%3A0xf3981972ecd04674!2sCarrer%20de%20la%20Ind%C3%BAstria%2C%20140%2C%20L&#39;Eixample%2C%2008025%20Barcelona%2C%20Espa%C3%B1a!5e0!3m2!1ses!2snl!4v1746655608159!5m2!1ses!2snl"
+        width="100%"
+        height="500"
+        style="border:0; display: block; width: 100%; height: 100%; min-height: 500px;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        class="rounded-lg w-full h-full"
+        title="Emplacement de notre bureau"
+      ></iframe>
+    </div>
+  </div>
+</section>

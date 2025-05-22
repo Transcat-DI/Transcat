@@ -6,12 +6,27 @@ import MegaMenuLink from "@components/ui/links/MegaMenuLink.astro";
 import Authentication from "../misc/Authentication.astro";
 import enStrings from "@utils/navigation.ts";
 import frStrings from "@utils/fr/navigation.ts";
+import esStrings from "@utils/es/navigation.ts";
+import caStrings from "@utils/ca/navigation.ts";
 import BrandLogo from "@components/BrandLogo.astro";
 import LanguagePicker from "@components/ui/LanguagePicker.astro";
 
 // Select the correct translation based on the page's lang prop:
-const strings = Astro.currentLocale === "fr" ? frStrings : enStrings;
-const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
+let strings;
+let homeUrl;
+if (Astro.currentLocale === "fr") {
+  strings = frStrings;
+  homeUrl = "/fr";
+} else if (Astro.currentLocale === "es") {
+  strings = esStrings;
+  homeUrl = "/es";
+} else if (Astro.currentLocale === "ca") {
+  strings = caStrings;
+  homeUrl = "/ca";
+} else {
+  strings = enStrings;
+  homeUrl = "/";
+}
 ---
 
 <!-- Main header component -->
@@ -89,7 +104,9 @@ const homeUrl = Astro.currentLocale === "fr" ? "/fr" : "/";
         <!-- Navigation links and Authentication component -->
         {
           strings.navBarLinks.map((link) => {
-            if (link.name === "Services") {
+            // Detectar el nombre base para el botón MegaMenu en cualquier idioma
+            const isServices = ["Services", "Serveis", "Services"].includes(link.name);
+            if (isServices) {
               return <MegaMenuLink />;
             } else {
               return <NavLink url={link.url} name={link.name} />;

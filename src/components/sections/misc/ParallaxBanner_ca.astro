@@ -1,0 +1,90 @@
+---
+// Import the necessary dependencies
+import { Image } from "astro:assets";
+import aboutImage from "@images/about/about.jpg";
+
+interface Props {
+  title?: string;
+  bannerText?: string;
+}
+// Define props from Astro
+const { title, bannerText = "La teva confiança, la nostra <span class=\"text-yellow-500 dark:text-yellow-400\">Millor Ruta!</span>" } = Astro.props;
+---
+
+<section
+  class="mx-auto max-w-[85rem] px-4 py-3 sm:px-6 lg:px-8 lg:py-4 2xl:max-w-full"
+>
+  <!-- Cinta amb efecte parallax al llarg de tota la secció -->
+  <div class="relative mb-3 overflow-hidden md:mb-4 w-full shadow-xl shadow-black/30 dark:shadow-xl dark:shadow-black/30 rounded-xl">
+    <!-- Contenidor per a l'efecte parallax -->
+    <div class="parallax-container relative h-48 sm:h-56 md:h-64 lg:h-72 overflow-hidden rounded-xl">
+      <!-- Imatge de la cinta -->
+      <div class="parallax-image absolute inset-0 w-full h-[180%] -top-[40%]">
+        <Image
+          src={aboutImage}
+          alt="Serveis de transport professionals a Catalunya"
+          class="w-full h-full object-cover object-center"
+          draggable={"false"}
+          format={"avif"}
+          loading={"eager"}
+          width={1920}
+          height={600}
+        />
+      </div>
+      
+      <!-- Vora interior decorativa -->
+      <div class="absolute inset-4 border border-white/20 rounded-xl z-10 pointer-events-none"></div>
+      
+      <!-- Overlay lleuger per millorar llegibilitat -->
+      <div class="absolute inset-0 bg-neutral-900/10 dark:bg-neutral-900/20 rounded-xl"></div>
+      
+      <!-- Ombra que canvia amb el tema -->
+      <div class="absolute -inset-1 bg-gradient-to-r from-yellow-500/30 to-yellow-400/30 dark:from-yellow-600/20 dark:to-yellow-500/20 blur-xl opacity-70 rounded-xl -z-10"></div>
+      
+      <!-- Text centrat amb estil similar al Hero -->
+      <div class="absolute inset-0 flex items-center justify-center z-20">
+        <h2 
+          class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-white text-center drop-shadow-lg text-shadow-lg"
+          style="text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);"
+        >
+          <Fragment set:html={bannerText} />
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const parallaxImages = document.querySelectorAll('.parallax-image');
+    
+    function handleParallax() {
+      parallaxImages.forEach(image => {
+        const container = image.closest('.parallax-container');
+        if (!container) return;
+        
+        const containerRect = container.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Verificar si el contenedor está visible en la ventana
+        if (containerRect.top < windowHeight && containerRect.bottom > 0) {
+          // Calcular el porcentaje de visibilidad del contenedor
+          const visiblePercentage = 1 - (containerRect.top / windowHeight);
+          
+          // Aplicar el efecto parallax
+          const translateY = Math.min(30, visiblePercentage * 30); // Limitar a 30px máximo
+          image.style.transform = `translateY(-${translateY}%)`;
+        }
+      });
+    }
+    
+    // Inicializar
+    handleParallax();
+    
+    // Actualizar en scroll
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    
+    // Actualizar en resize
+    window.addEventListener('resize', handleParallax, { passive: true });
+  });
+</script>
