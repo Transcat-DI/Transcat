@@ -1,9 +1,13 @@
 const navBarLinks = [
-  { name: "Inici", url: "/ca" },
-  { name: "Sobre", url: "/ca/products" },
-  { name: "Serveis", url: "/ca/services" },
-  { name: "Cobertura", url: "/ca/blog" },
-  { name: "Contacte", url: "/ca/contact" },
+  { name: "Inici", url: "#hero" },
+  { name: "Sobre", url: "#about" },
+  { name: "Serveis", url: "#services" },
+  { name: "Cobertura", url: "/ca/cobertura" },
+  { name: "Clients", url: "#testimonials" },
+  { name: "Tarifes", url: "#pricing" },
+  { name: "FAQ", url: "#faq" },
+  { name: "Contacte", url: "#contact" },
+
 ];
 
 const footerLinks = [

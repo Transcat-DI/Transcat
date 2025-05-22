@@ -1,10 +1,14 @@
 
 const navBarLinks = [
-  { name: "Accueil", url: "/fr" },
-  { name: "Produits", url: "/fr/products" },
-  { name: "Services", url: "/fr/services" },
-  { name: "Blog", url: "/fr/blog" },
-  { name: "Contact", url: "/fr/contact" },
+  { name: "Accueil", url: "#hero" },
+  { name: "À propos", url: "#about" },
+  { name: "Services", url: "#services" },
+  { name: "Couverture", url: "/fr/couverture" },
+  { name: "Clients", url: "#testimonials" },
+  { name: "Tarifs", url: "#pricing" },
+  { name: "FAQ", url: "#faq" },
+  { name: "Contact", url: "#contact" },
+
 ];
 
 const footerLinks = [

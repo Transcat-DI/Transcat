@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import dashboardImage from "@images/dashboard-image.avif";
+import AdminSidebar from "@components/admin/AdminSidebar.astro";
+import AdminHeader from "@components/admin/AdminHeader.astro";
+import StatsCards from "@components/admin/StatsCards.astro";
+import RecentActivity from "@components/admin/RecentActivity.astro";
+import ContentEditor from "@components/admin/ContentEditor.astro";
+---
+
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-100 dark:bg-gray-900">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcat - Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    @media (min-width: 768px) {
+      body {
+        padding-left: 16rem; /* 256px = 16rem, ancho de la barra lateral */
+      }
+    }
+  </style>
+</head>
+<body class="h-full">
+  <!-- Sidebar - Posición fija, siempre visible en pantallas medianas y grandes -->
+  <div class="fixed inset-y-0 left-0 z-30 w-64 transition-transform duration-300 transform md:translate-x-0 -translate-x-full">
+    <AdminSidebar />
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="flex flex-col min-h-screen">
+    <!-- Header - Fijo en la parte superior -->
+    <header class="sticky top-0 z-20 bg-white dark:bg-gray-800 shadow-sm">
+      <AdminHeader />
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="flex-1 px-3 py-4 md:px-4 lg:px-6 bg-gray-100 dark:bg-gray-900 overflow-auto">
+      <div class="w-full">
+        <h1 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Panel de Control</h1>
+        
+        <!-- Stats Cards -->
+        <StatsCards />
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+          <!-- Recent Activity -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+            <RecentActivity />
+          </div>
+          
+          <!-- Welcome Card -->
+          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Bienvenido al Panel de Administración</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              Desde aquí puedes gestionar todos los aspectos de tu sitio web multilingüe. Utiliza la barra lateral para navegar entre las diferentes secciones.
+            </p>
+            <div class="mt-auto">
+              <Image 
+                src={dashboardImage} 
+                alt="Dashboard illustration" 
+                class="w-full h-auto rounded-lg shadow-sm" 
+              />
+            </div>
+          </div>
+        </div>
+        
+        <!-- Content Editor Section -->
+        <div class="mt-6 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+          <ContentEditor />
+        </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 py-4 px-4 shadow-inner mt-auto">
+      <div class="max-w-7xl mx-auto">
+        <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+          &copy; 2025 TransCat Admin. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Script para controlar la visibilidad del sidebar en móviles -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarToggle = document.getElementById('sidebar-toggle');
+      const sidebar = document.querySelector('.fixed');
+      
+      if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+        });
+      }
+    });
+  </script>
+
+  <script>
+    // Inicializar el dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+      // Manejar el cambio de tema (claro/oscuro)
+      const themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+          document.documentElement.classList.toggle('dark');
+          localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+      }
+      
+      // Manejar la visibilidad del menú móvil
+      const menuToggle = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+          sidebar.classList.toggle('-translate-x-full');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

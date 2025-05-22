@@ -6,6 +6,8 @@ import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
 import ContactSection_es from "../../components/sections/misc/ContactSection_es.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
+import SectionDivider from "@components/sections/misc/SectionDivider.astro";
+import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
@@ -22,10 +24,10 @@ import featureImage from "@images/features-image.avif";
 import construction from "@images/construction-image.avif";
 import tools from "@images/automated-tools.avif";
 import dashboard from "@images/dashboard-image.avif";
-import service1 from "@images/services/service-1.jpg";
-import service2 from "@images/services/service-2.jpg";
-import service3 from "@images/services/service-3.jpg";
-import service4 from "@images/services/service-4.jpg";
+import service1 from "@images/services/service-1.webp";
+import service2 from "@images/services/service-2.webp";
+import service3 from "@images/services/service-3.webp";
+import service4 from "@images/services/service-4.webp";
 import { partnersData } from "@/data_files/constants";
 
 import testimonial1 from "@images/testimonials/01-samantha.jpg";
@@ -43,16 +45,31 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
 
   <div id="hero">
     <HeroSection
-      title=`Lo llevamos del punto "A" al punto <span
-          class="text-yellow-500 dark:text-yellow-400">¡Hecho!</span>`
+      title=`Lo llevamos del punto<br/> "A" al punto <span class="text-yellow-500 dark:text-yellow-400">¡Hecho!</span>`
       subTitle="Soluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional."
       primaryBtn="Servicios"
       primaryBtnURL="#services"
       secondaryBtn="Contáctame"
-      secondaryBtnURL="#contacto"
+      secondaryBtnURL="#contact"
       withReview={false}
       src={heroImage.src}
-      alt="Stack of ScrewFast product boxes containing assorted hardware tools"
+      alt="Servicios de transporte en Cataluña"
+      slideTitles={[
+        `Lo llevamos del punto<br/> "A" al punto <span class="text-yellow-500 dark:text-yellow-400">¡Hecho!</span>`,
+        `Cada ruta, una<br/>misión <span class="text-yellow-500 dark:text-yellow-400">cumplida.</span>`,
+        `Donde la confianza<br/>también <span class="text-yellow-500 dark:text-yellow-400">viaja.</span>`,
+        `Directo, rápido y<br/>con sello <span class="text-yellow-500 dark:text-yellow-400">catalán.</span>`,
+        `Soluciones a tu medida<br/> en cada <span class="text-yellow-500 dark:text-yellow-400">envío.</span>`,
+        `Más que transporte,<br/>compañía en el <span class="text-yellow-500 dark:text-yellow-400">camino.</span>`
+      ]}
+      slideSubtitles={[
+        "Soluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional.",
+        "Profesionalidad y compromiso en cada kilómetro. Confía en un servicio de transporte que cumple lo que promete, sin excusas ni retrasos.",
+        "Cercano, responsable y siempre a tu servicio. Transporte personalizado con la garantía de alguien que cuida tu carga como si fuera propia.",
+        "Transporte de mercancías desde Tarragona y Barcelona con compromiso, puntualidad y trato cercano.",
+        "Adaptabilidad y flexibilidad para cubrir tus necesidades logísticas, sin importar el tamaño o destino de tu carga.",
+        "Tu tranquilidad es nuestro destino. Servicio cercano, seguro y siempre a tiempo para que tu carga llegue como debe."
+      ]}
     />
   </div>
 
@@ -74,6 +91,13 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       features={features}
     />
   </div>
+
+  <!-- Separador visual con íconos SVG animados entre secciones -->
+  <BlackBannerDivider 
+    title="Confianza en Cada Kilómetro"
+    subTitle="Tu carga, mi compromiso. Seguridad, puntualidad y control en todo momento"
+    showIcons={true}
+  />
 
   <div id="services">
     <FeaturesNavs
@@ -181,7 +205,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   />
   </div>
 
-  <ParallaxBanner />
+  <ParallaxBanner bannerText={`Tu confianza, nuestra <span class="text-yellow-500 dark:text-yellow-400">Mejor Ruta!</span>`} />
 
   <div id="pricing">
     <PricingSection pricing={pricing} />

@@ -1,0 +1,224 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection_en.astro";
+import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
+import ContactSection_en from "../../components/sections/misc/ContactSection_en.astro";
+import ClientsSection from "@components/sections/landing/ClientsSection.astro";
+import AboutSection from "@components/sections/about/AboutSection.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
+import PricingSection from "@components/sections/pricing/PricingSection.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import ParallaxBanner from "@components/sections/misc/ParallaxBanner.astro";
+import DownloadModal from "@components/ui/modals/DownloadModal_en.astro";
+
+import heroImage from "@images/hero-image.avif";
+import faqs from "../../data_files/en/faqs.json";
+import statsImage from "@images/stats/stats.jpg";
+import features from "../../data_files/en/features.json";
+import pricing from "../../data_files/en/pricing.json";
+import featureImage from "@images/features-image.avif";
+import construction from "@images/construction-image.avif";
+import tools from "@images/automated-tools.avif";
+import dashboard from "@images/dashboard-image.avif";
+import service1 from "@images/services/service-1.webp";
+import service2 from "@images/services/service-2.webp";
+import service3 from "@images/services/service-3.webp";
+import service4 from "@images/services/service-4.webp";
+import { partnersData } from "@/data_files/constants";
+
+import testimonial1 from "@images/testimonials/01-samantha.jpg";
+import testimonial2 from "@images/testimonials/02-carlos.jpg";
+import testimonial3 from "@images/testimonials/03-elena.jpg";
+import testimonial4 from "@images/testimonials/04-miguel.jpg";
+import testimonial5 from "@images/testimonials/05-laura.jpg";
+
+// Usando imágenes locales para los avatares del hero section
+// Convertimos los objetos ImageMetadata a strings para el componente HeroSection
+const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testimonial4.src];
+---
+
+<MainLayout lang="en">
+
+  <div id="hero">
+    <HeroSection
+      title=`We take you from point<br/>"A" to point <span
+          class="text-yellow-500 dark:text-yellow-400">Done!</span>`
+      subTitle="Fast and secure transport solutions in Catalonia. Trust in agile logistics, without detours and with regional coverage."
+      primaryBtn="Services"
+      primaryBtnURL="#services"
+      secondaryBtn="Contact Me"
+      secondaryBtnURL="#contact"
+      withReview={false}
+      src={heroImage.src}
+      alt="Transport services in Catalonia"
+      slideTitles={[
+        `We take you from point<br/>"A" to point <span class="text-yellow-500 dark:text-yellow-400">Done!</span>`,
+        `Every route, a mission<br/><span class="text-yellow-500 dark:text-yellow-400">accomplished.</span>`,
+        `Where trust also<br/><span class="text-yellow-500 dark:text-yellow-400">travels.</span>`,
+        `Direct, fast, and with<br/>a Catalan <span class="text-yellow-500 dark:text-yellow-400">touch.</span>`,
+        `Tailored solutions<br/>for every <span class="text-yellow-500 dark:text-yellow-400">shipment.</span>`,
+        `More than transport,<br/>company on the <span class="text-yellow-500 dark:text-yellow-400">road.</span>`
+      ]}
+      slideSubtitles={[
+        "Fast and secure transport solutions in Catalonia. Trust in agile logistics, without detours and with regional coverage.",
+        "Professionalism and commitment in every kilometer. Trust in a transport service that delivers on its promises, without excuses or delays.",
+        "Approachable, responsible, and always at your service. Personalized transport with the guarantee of someone who cares for your cargo as if it were their own.",
+        "Freight transport from Tarragona and Barcelona with commitment, punctuality, and personalized service.",
+        "Adaptability and flexibility to cover your logistics needs, no matter the size or destination of your cargo.",
+        "Your peace of mind is our destination. Friendly, safe service always on time so your cargo arrives as it should."
+      ]}
+    />
+  </div>
+
+  {/* Espacio de separación entre secciones */}
+  <div class="py-6 md:py-8"></div>
+
+  <div id="testimonials">
+    <ClientsSection
+      title="Trusted by Major Clients"
+      subTitle="My commitment to efficient and responsible service."
+      partners={partnersData}
+    />
+  </div>
+
+  <div id="about">
+    <AboutSection
+      title="About my Services"
+      subTitle="Hello! I'm Jordi, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises."
+      features={features}
+    />
+  </div>
+
+  <!-- Visual separator with icons between sections -->
+  <BlackBannerDivider 
+    title="Trust in Every Mile"
+    subTitle="Your cargo, my commitment. Safety, punctuality and control at all times"
+    showIcons={true}
+  />
+
+  <div id="services">
+    <FeaturesNavs
+      title=`<span class="text-yellow-500 dark:text-yellow-400">Professional Transport</span> Services adapted to your logistics needs<br/>in Catalonia.`
+      tabs={[
+      {
+        heading: "Freight Transport",
+        content:
+          "General freight transport service for companies and individuals. We guarantee punctual and safe deliveries of all types of products, from small packages to full loads, throughout the Catalonia region.",
+        svg: "truck",
+        src: service1,
+        alt: "Freight truck on the road",
+        first: true,
+      },
+      {
+        heading: "Urgent Logistics",
+        content:
+          "Urgent transport solutions for shipments that cannot wait. We offer immediate pickup and same-day delivery for situations where time is crucial, with real-time tracking of your shipment.",
+        svg: "clock",
+        src: service2,
+        alt: "Urgent package delivery",
+        second: true,
+      },
+      {
+        heading: "Scheduled Distribution",
+        content:
+          "Regular and scheduled distribution service for businesses with recurring needs. We establish optimized routes and fixed schedules adapted to your operations, reducing costs and improving logistics efficiency.",
+        svg: "list",
+        src: service3,
+        alt: "Distribution route planning",
+      },
+      {
+        heading: "Specialized Transport",
+        content:
+          "Specialized transport service for goods that require specific conditions. We offer tailored solutions for fragile, bulky products or those that need controlled temperature, guaranteeing their integrity throughout the journey.",
+        svg: "diploma",
+        src: service4,
+        alt: "Specialized transport with specific conditions",
+      },
+    ]}
+  />
+
+  <div id="clientes">
+  <TestimonialsSection
+    title="Trust Earned on the Road"
+    subTitle="Each testimonial is a shared route. Discover what our clients say about the treatment, service, and experience of working with TransCat."
+    testimonials={[
+      {
+        content:
+          "Transcat dramatically increased the efficiency of our project. The setup was instantaneous and their quick response times are phenomenal. Truly a game changer in transport and logistics support!",
+        author: "Samantha Ruiz",
+        role: "Operations Director | LogísticaTotal S.A.",
+        avatarSrc: testimonial1,
+      },
+      {
+        content:
+          "As a perishable product distribution company, we needed a reliable and punctual transport service. Francisco has exceeded all our expectations, keeping the cold chain intact and always meeting the agreed schedules.",
+        author: "Carlos Mendoza",
+        role: "Logistics Manager | FreshMarket",
+        avatarSrc: testimonial2,
+      },
+      {
+        content:
+          "Francisco's flexibility and adaptability have been crucial for our business. When we need last-minute changes or urgent deliveries, he always finds a way to solve it. A logistics partner we can truly trust.",
+        author: "Elena Martínez",
+        role: "Owner | Muebles Martínez",
+        avatarSrc: testimonial3,
+      },
+      {
+        content:
+          "We worked with several carriers before finding Francisco. The difference is notable: constant communication, exceptional care of merchandise, and a personalized service that perfectly understands the needs of our industry.",
+        author: "Miguel Ángel Sánchez",
+        role: "Director | Cerámicas Artesanales S.L.",
+        avatarSrc: testimonial4,
+      },
+      {
+        content:
+          "As an e-commerce company, speed in deliveries is fundamental for us. Francisco not only meets deadlines, but his professionalism and close treatment have significantly improved the experience of our end customers.",
+        author: "Laura Gómez",
+        role: "Shipping Manager | TechShop Online",
+        avatarSrc: testimonial5,
+      },
+    ]}
+    statistics={[
+      {
+        count: "70+",
+        description:
+          "Equipped clients — from small businesses to large logistics companies",
+      },
+      {
+        count: "35%",
+        description:
+          "Increase in project efficiency with Transcat tools and services",
+      },
+      {
+        count: "15.3%",
+        description:
+          "Reduction in maintenance costs reported by long-term clients",
+      },
+      {
+        count: "2x",
+        description: "Faster delivery using innovative transport solutions",
+      },
+    ]}
+  />
+  </div>
+
+  <ParallaxBanner bannerText={`Your trust, our <span class="text-yellow-500 dark:text-yellow-400">Best Route!</span>`} />
+
+  <div id="pricing">
+    <PricingSection pricing={pricing} />
+  </div>
+
+  <div id="faq">
+    <FAQ title="Frequently Asked Questions" faqs={faqs} image={statsImage} />
+  </div>
+
+  <div id="contacto">
+    <ContactSection_en />
+  </div>
+
+  <!-- Modal para descargar tarifas -->
+  <DownloadModal />
+</MainLayout>

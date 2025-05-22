@@ -1,0 +1,197 @@
+---
+// Import the necessary components
+import MainLayout from "@/layouts/MainLayout.astro";
+import HeroSection from "@components/sections/landing/HeroSection_ca.astro";
+import ContactSection_ca from "../../components/sections/misc/ContactSection_ca.astro";
+import ClientsSection from "@components/sections/landing/ClientsSection.astro";
+import AboutSection from "@components/sections/about/AboutSection.astro";
+import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
+import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
+import PricingSection from "@components/sections/pricing/PricingSection.astro";
+import FAQ from "@components/sections/misc/FAQ.astro";
+import ParallaxBanner from "@components/sections/misc/ParallaxBanner_ca_simple2.astro";
+import DownloadModal from "@components/ui/modals/DownloadModal_ca.astro";
+
+import heroImage from "@images/hero-image.avif";
+import faqs from "@/data_files/ca/faqs.json";
+import statsImage from "@images/stats/stats.jpg";
+import features from "@/data_files/ca/features.json";
+import pricing from "@/data_files/ca/pricing.json";
+import service1 from "@images/services/service-1.jpg";
+import service2 from "@images/services/service-2.jpg";
+import service3 from "@images/services/service-3.jpg";
+import service4 from "@images/services/service-4.jpg";
+import { partnersData } from "@/data_files/constants";
+
+import testimonial1 from "@images/testimonials/01-samantha.jpg";
+import testimonial2 from "@images/testimonials/02-carlos.jpg";
+import testimonial3 from "@images/testimonials/03-elena.jpg";
+import testimonial4 from "@images/testimonials/04-miguel.jpg";
+import testimonial5 from "@images/testimonials/05-laura.jpg";
+
+// Usant imatges locals per als avatars del hero section
+const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testimonial4.src];
+---
+
+<MainLayout lang="ca">
+  <div id="hero">
+    <HeroSection
+      title="Et portem del punt<br/>A al punt <span class=\"text-yellow-500 dark:text-yellow-400\">Fet!</span>"
+      subTitle="Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional."
+      primaryBtn="Serveis"
+      primaryBtnURL="#services"
+      secondaryBtn="Contacta'm"
+      secondaryBtnURL="#contact"
+      withReview={false}
+      src={heroImage.src}
+      alt="Serveis de transport a Catalunya"
+    />
+  </div>
+
+  <!-- Espai de separació entre seccions -->
+  <div class="py-6 md:py-8"></div>
+
+  <div id="testimonials">
+    <ClientsSection
+      title="Confiança dels Grans Clients"
+      subTitle="El meu compromís per un servei eficient i responsable."
+      partners={partnersData}
+    />
+  </div>
+
+  <div id="about">
+    <AboutSection
+      title="Sobre els meus Serveis"
+      subTitle="Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya."
+      features={features}
+    />
+  </div>
+
+  <div id="services">
+    <FeaturesNavs
+      title="Serveis de Transport Professional adaptats a les teves necessitats logístiques a Catalunya."
+      tabs={[
+        {
+          heading: "Transport de Mercaderies",
+          content:
+            "Servei de transport de mercaderies general per a empreses i particulars. Garantim lliuraments puntuals i segurs de tot tipus de productes.",
+          svg: "truck",
+          src: service1,
+          alt: "Camió de transport de mercaderies a la carretera",
+          first: true,
+        },
+        {
+          heading: "Logística Urgent",
+          content:
+            "Solucions de transport urgent per a enviaments que no poden esperar. Oferim una recollida immediata i un lliurament el mateix dia.",
+          svg: "clock",
+          src: service2,
+          alt: "Lliurament urgent de paquets",
+          second: true,
+        },
+        {
+          heading: "Distribució Programada",
+          content:
+            "Servei de distribució regular i programada per a empreses amb necessitats recurrents. Establim rutes optimitzades i horaris fixos.",
+          svg: "list",
+          src: service3,
+          alt: "Planificació de rutes de distribució",
+        },
+        {
+          heading: "Transport Especialitzat",
+          content:
+            "Servei de transport especialitzat per a mercaderies que requereixen condicions específiques. Proposem solucions a mida per a productes fràgils.",
+          svg: "diploma",
+          src: service4,
+          alt: "Transport especialitzat amb condicions específiques",
+        }
+      ]}
+    />
+  </div>
+
+  <div id="clientes">
+    <TestimonialsSection
+      title="Confiança guanyada a la Carretera"
+      subTitle="Cada testimoni és una ruta compartida. Descobreix el que diuen els nostres clients."
+      testimonials={[
+        {
+          content:
+            "TransCat ha augmentat considerablement l'eficiència del nostre projecte. La configuració va ser instantània i els seus temps de resposta ràpids són fenomenals.",
+          author: "Samantha Ruiz",
+          role: "Directora d'Operacions | LogísticaTotal S.A.",
+          avatarSrc: testimonial1,
+        },
+        {
+          content:
+            "Com a empresa de distribució de productes peribles, necessitàvem un servei de transport fiable i puntual. En Jordi ha superat totes les nostres expectatives.",
+          author: "Carlos Mendoza",
+          role: "Responsable Logístic | FreshMarket",
+          avatarSrc: testimonial2,
+        },
+        {
+          content:
+            "La flexibilitat i la capacitat d'adaptació d'en Jordi han estat crucials per a la nostra empresa. Un soci logístic en qui realment podem confiar.",
+          author: "Elena Martínez",
+          role: "Propietària | Mobles Martínez",
+          avatarSrc: testimonial3,
+        },
+        {
+          content:
+            "Hem treballat amb diversos transportistes abans de trobar en Jordi. La diferència és notable: comunicació constant i cura excepcional de les mercaderies.",
+          author: "Miquel Àngel Sánchez",
+          role: "Director | Ceràmiques Artesanals S.L.",
+          avatarSrc: testimonial4,
+        },
+        {
+          content:
+            "Com a empresa de comerç electrònic, la rapidesa dels lliuraments és fonamental per a nosaltres. En Jordi no només respecta els terminis, sinó que millora l'experiència.",
+          author: "Laura Gómez",
+          role: "Responsable d'Expedicions | TechShop Online",
+          avatarSrc: testimonial5,
+        },
+      ]}
+      statistics={[
+        {
+          count: "70+",
+          description:
+            "Clients equipats — des de petites empreses fins a grans companyies",
+        },
+        {
+          count: "35%",
+          description:
+            "Augment de l'eficiència dels projectes amb TransCat",
+        },
+        {
+          count: "15.3%",
+          description:
+            "Reducció dels costos de manteniment reportada pels clients",
+        },
+        {
+          count: "2x",
+          description: "Lliurament més ràpid utilitzant solucions innovadores",
+        },
+      ]}
+    />
+  </div>
+
+  <ParallaxBanner 
+    bannerText="La teva confiança, la nostra Millor Ruta!" 
+    backgroundImage={statsImage} 
+    btnText="Sol·licita un Pressupost" 
+    btnLink="#contact" 
+  />
+
+  <div id="pricing">
+    <PricingSection pricing={pricing} />
+  </div>
+
+  <div id="faq">
+    <FAQ title="Preguntes Freqüents" faqs={faqs} image={statsImage} />
+  </div>
+
+  <div id="contact">
+    <ContactSection_ca />
+  </div>
+
+  <DownloadModal />
+</MainLayout>

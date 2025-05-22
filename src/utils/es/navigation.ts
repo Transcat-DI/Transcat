@@ -7,6 +7,7 @@ const navBarLinks = [
   { name: "Planes", url: "#pricing" },
   { name: "FAQ", url: "#faq" },
   { name: "Contacto", url: "#contacto" },
+
 ];
 
 const footerLinks = [

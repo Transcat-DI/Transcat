@@ -1,142 +1,224 @@
 ---
 // Import the necessary components
 import MainLayout from "@/layouts/MainLayout.astro";
-import HeroSection from "@components/sections/landing/HeroSection.astro";
+import HeroSection from "@components/sections/landing/HeroSection_fr.astro";
 import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
+import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
+import ContactSection_fr from "../../components/sections/misc/ContactSection_fr.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
-import FeaturesGeneral from "@components/sections/features/FeaturesGeneral.astro";
+import AboutSection from "@components/sections/about/AboutSection.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
 import FAQ from "@components/sections/misc/FAQ.astro";
+import ParallaxBanner from "@components/sections/misc/ParallaxBanner.astro";
+import DownloadModal from "@components/ui/modals/DownloadModal_fr.astro";
 
 import heroImage from "@images/hero-image.avif";
-import faqs from "@data/fr/faqs.json";
-import features from "@data/fr/features.json";
-import pricing from "@data/fr/pricing.json";
+import faqs from "@/data_files/fr/faqs.json";
+import statsImage from "@images/stats/stats.jpg";
+import features from "@/data_files/fr/features.json";
+import pricing from "@/data_files/fr/pricing.json";
 import featureImage from "@images/features-image.avif";
 import construction from "@images/construction-image.avif";
 import tools from "@images/automated-tools.avif";
 import dashboard from "@images/dashboard-image.avif";
-import { getRelativeLocaleUrl } from "astro:i18n";
+import service1 from "@images/services/service-1.webp";
+import service2 from "@images/services/service-2.webp";
+import service3 from "@images/services/service-3.webp";
+import service4 from "@images/services/service-4.webp";
 import { partnersData } from "@/data_files/constants";
 
-const avatarSrcs: Array<string> = [
-  "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&&auto=format&fit=facearea&facepad=3&w=300&h=300&q=80",
-  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-];
+import testimonial1 from "@images/testimonials/01-samantha.jpg";
+import testimonial2 from "@images/testimonials/02-carlos.jpg";
+import testimonial3 from "@images/testimonials/03-elena.jpg";
+import testimonial4 from "@images/testimonials/04-miguel.jpg";
+import testimonial5 from "@images/testimonials/05-laura.jpg";
+
+// Usando imágenes locales para los avatares del hero section
+// Convertimos los objetos ImageMetadata a strings para el componente HeroSection
+const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testimonial4.src];
 ---
 
 <MainLayout lang="fr">
 
-  <HeroSection
-    title=`Équipez vos projets avec <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span>`
-    subTitle="Outils matériels de haute qualité et services de construction experts pour tous les besoins en projet."
-    primaryBtn="Commencez à explorer"
-    primaryBtnURL={getRelativeLocaleUrl("fr", "products")}
-    secondaryBtn="Contacter l'équipe commerciale"
-    secondaryBtnURL={getRelativeLocaleUrl("fr", "contact")}
-    withReview={true}
-    avatars={avatarSrcs}
-    rating=`<span class="font-bold">4.8</span> / 5`
-    starCount={4}
-    reviews=`À partir de plus de <span class="font-bold">12,8k</span> avis`
-    src={heroImage}
-    alt="Pile de boîtes de produits ScrewFast contenant des outils matériels assortis"
+  <div id="hero">
+    <HeroSection
+      title=`Nous vous emmenons du point "A" au point <span
+          class="text-yellow-500 dark:text-yellow-400">Terminé!</span>`
+      subTitle="Solutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale."
+      primaryBtn="Services"
+      primaryBtnURL="#services"
+      secondaryBtn="Contactez-moi"
+      secondaryBtnURL="#contact"
+      withReview={false}
+      src={heroImage.src}
+      alt="Services de transport en Catalogne"
+      slideTitles={[
+        `Nous vous emmenons du point "A" au point <span class="text-yellow-500 dark:text-yellow-400">Terminé!</span>`,
+        `Chaque route, une<br/>mission <span class="text-yellow-500 dark:text-yellow-400">accomplie.</span>`,
+        `Là où la confiance<br/>voyage <span class="text-yellow-500 dark:text-yellow-400">aussi.</span>`,
+        `Direct, rapide et avec<br/>une touche <span class="text-yellow-500 dark:text-yellow-400">catalane.</span>`,
+        `Des solutions sur mesure<br/> pour chaque <span class="text-yellow-500 dark:text-yellow-400">envoi.</span>`,
+        `Plus qu'un transport,<br/>un compagnon de <span class="text-yellow-500 dark:text-yellow-400">route.</span>`
+      ]}
+      slideSubtitles={[
+        "Solutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale.",
+        "Professionnalisme et engagement à chaque kilomètre. Faites confiance à un service de transport qui tient ses promesses, sans excuses ni retards.",
+        "Proche, responsable et toujours à votre service. Transport personnalisé avec la garantie de quelqu'un qui prend soin de votre cargaison comme si c'était la sienne.",
+        "Transport de marchandises depuis Tarragone et Barcelone avec engagement, ponctualité et service personnalisé.",
+        "Adaptabilité et flexibilité pour répondre à vos besoins logistiques, quelle que soit la taille ou la destination de votre cargaison.",
+        "Votre tranquillité est notre destination. Service proche, sûr et toujours à l'heure pour que votre cargaison arrive comme il se doit."
+      ]}
+    />
+  </div>
+
+  {/* Espace de séparation entre sections */}
+  <div class="py-6 md:py-8"></div>
+
+  <div id="testimonials">
+    <ClientsSection
+      title="Confiance des Grands Clients"
+      subTitle="Mon engagement pour un service efficace et responsable."
+      partners={partnersData}
+    />
+  </div>
+
+  <div id="about">
+    <AboutSection
+      title="À propos de mes Services"
+      subTitle="Bonjour! Je suis Jordi, transporteur professionnel engagé à l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettées, charges complètes ou partielles, et livraisons porte-à-porte. Dans chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses."
+      features={features}
+    />
+  </div>
+
+  <!-- Séparateur visuel avec icônes entre sections -->
+  <BlackBannerDivider 
+    title="Confiance à Chaque Kilomètre"
+    subTitle="Votre chargement, mon engagement. Sécurité, ponctualité et contrôle à tout moment"
+    showIcons={true}
   />
 
-  <ClientsSection
-    title="Faites confiance aux leaders de l'industrie"
-    subTitle="Découvrez la fiabilité choisie par les géants de l'industrie."
-    partners={partnersData}
-  />
-
-  <FeaturesGeneral
-    title="Répondre aux exigences de l'industrie"
-    subTitle="Chez ScrewFast, nous relevons les défis uniques rencontrés dans les secteurs du matériel et de la construction. Des outils de pointe aux services experts, nous sommes déterminés à vous aider à surmonter les obstacles et à atteindre vos objectifs."
-    src={featureImage}
-    alt="Produits ScrewFast dans des boîtes flottantes"
-    features={features}
-  />
-
-  <FeaturesNavs
-    title=`Personnalisez les offres de <span class="text-yellow-500 dark:text-yellow-400">ScrewFast</span> pour répondre parfaitement à vos besoins en matériel et en construction.`
-    tabs={[
+  <div id="services">
+    <FeaturesNavs
+      title=`<span class="text-yellow-500 dark:text-yellow-400">Services de Transport Professionnel</span> adaptés à vos besoins logistiques<br/>en Catalogne.`
+      tabs={[
       {
-        heading: "Outils de pointe",
+        heading: "Transport de Marchandises",
         content:
-          "Optimisez vos projets avec les outils de pointe de ScrewFast. Faites l'expérience d'une efficacité accrue dans la gestion de la construction avec nos solutions automatisées sophistiquées.",
-        svg: "tools",
-        src: tools,
-        alt: "Équipement lourd jaune et noir sur un champ d'herbe brune",
+          "Service de transport de marchandises général pour entreprises et particuliers. Nous garantissons des livraisons ponctuelles et sécurisées de tous types de produits, des petits colis aux charges complètes, dans toute la région de Catalogne.",
+        svg: "truck",
+        src: service1,
+        alt: "Camion de transport de marchandises sur la route",
         first: true,
       },
       {
-        heading: "Tableaux de bord intuitifs",
+        heading: "Logistique Urgente",
         content:
-          "Naviguez facilement avec les tableaux de bord intuitifs de ScrewFast. Configurez et supervisez vos projets de manière transparente, avec des interfaces conviviales conçues pour une gestion efficace des flux de travail rapide et efficace.",
-        svg: "dashboard",
-        src: dashboard,
-        alt: "Capture d'écran ou représentation graphique du tableau de bord intuitif",
+          "Solutions de transport urgent pour les envois qui ne peuvent pas attendre. Nous offrons un enlèvement immédiat et une livraison le jour même pour les situations où le temps est crucial, avec un suivi en temps réel de votre envoi.",
+        svg: "clock",
+        src: service2,
+        alt: "Livraison urgente de colis",
         second: true,
       },
       {
-        heading: "Fonctionnalités robustes",
+        heading: "Distribution Programmée",
         content:
-          "Minimisez la complexité, maximisez la productivité. Les fonctionnalités robustes de ScrewFast sont conçues pour rationaliser votre processus de construction, offrant des résultats qui se distinguent par leur excellence.",
-        svg: "house",
-        src: construction,
-        alt: "Structure métallique grise d'un bâtiment près d'une grue à tour pendant la journée",
+          "Service de distribution régulière et programmée pour les entreprises ayant des besoins récurrents. Nous établissons des routes optimisées et des horaires fixes adaptés à votre activité, réduisant les coûts et améliorant l'efficacité logistique.",
+        svg: "list",
+        src: service3,
+        alt: "Planification des itinéraires de distribution",
+      },
+      {
+        heading: "Transport Spécialisé",
+        content:
+          "Service de transport spécialisé pour les marchandises nécessitant des conditions spécifiques. Nous proposons des solutions sur mesure pour les produits fragiles, volumineux ou nécessitant une température contrôlée, garantissant leur intégrité tout au long du trajet.",
+        svg: "diploma",
+        src: service4,
+        alt: "Transport spécialisé avec des conditions spécifiques",
       },
     ]}
   />
 
+  <div id="clientes">
   <TestimonialsSection
-    title="Accélérez vos projets"
-    subTitle="Chez ScrewFast, nous assurons un démarrage rapide avec une configuration de compte instantanée. Découvrez la vitesse de la construction redéfinie."
+    title="Confiance gagnée sur la Route"
+    subTitle="Chaque témoignage est un itinéraire partagé. Découvrez ce que nos clients disent sur le traitement, le service et l'expérience de travailler avec TransCat."
     testimonials={[
       {
         content:
-          "ScrewFast a considérablement augmenté l'efficacité de notre projet. La configuration a été instantanée et leurs temps de réponse rapides sont phénoménaux. Vraiment un changement de jeu dans le support matériel et de construction !",
+          "Transcat a considérablement augmenté l'efficacité de notre projet. La configuration a été instantanée et leurs temps de réponse rapides sont phénoménaux. Vraiment un changement de jeu dans le support de transport et logistique !",
         author: "Samantha Ruiz",
-        role: "Directrice des opérations | ConstructIt Inc.",
-        avatarSrc:
-          "https://images.unsplash.com/photo-1593104547489-5cfb3839a3b5?q=80&w=1453&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80",
+        role: "Directrice des Opérations | LogísticaTotal S.A.",
+        avatarSrc: testimonial1,
+      },
+      {
+        content:
+          "En tant qu'entreprise de distribution de produits périssables, nous avions besoin d'un service de transport fiable et ponctuel. Francisco a dépassé toutes nos attentes, en maintenant la chaîne du froid intacte et en respectant toujours les horaires convenus.",
+        author: "Carlos Mendoza",
+        role: "Responsable Logistique | FreshMarket",
+        avatarSrc: testimonial2,
+      },
+      {
+        content:
+          "La flexibilité et la capacité d'adaptation de Francisco ont été cruciales pour notre entreprise. Lorsque nous avons besoin de changements de dernière minute ou de livraisons urgentes, il trouve toujours un moyen de résoudre le problème. Un partenaire logistique en qui nous pouvons vraiment avoir confiance.",
+        author: "Elena Martínez",
+        role: "Propriétaire | Muebles Martínez",
+        avatarSrc: testimonial3,
+      },
+      {
+        content:
+          "Nous avons travaillé avec plusieurs transporteurs avant de trouver Francisco. La différence est notable : communication constante, soin exceptionnel des marchandises et un service personnalisé qui comprend parfaitement les besoins de notre industrie.",
+        author: "Miguel Ángel Sánchez",
+        role: "Directeur | Cerámicas Artesanales S.L.",
+        avatarSrc: testimonial4,
+      },
+      {
+        content:
+          "En tant qu'entreprise de e-commerce, la rapidité des livraisons est fondamentale pour nous. Francisco non seulement respecte les délais, mais son professionnalisme et son traitement proche ont considérablement amélioré l'expérience de nos clients finaux.",
+        author: "Laura Gómez",
+        role: "Responsable des Expéditions | TechShop Online",
+        avatarSrc: testimonial5,
       },
     ]}
     statistics={[
       {
         count: "70+",
         description:
-          "clients équipés — des bricoleurs aux grandes entreprises de construction",
+          "Clients équipés — des petites entreprises aux grandes compagnies de logistique",
       },
       {
         count: "35%",
         description:
-          "hausse de l'efficacité des projets avec les outils et services de ScrewFast",
+          "Augmentation de l'efficacité des projets avec les outils et services de Transcat",
       },
       {
-        count: "15,3%",
+        count: "15.3%",
         description:
-          "réduction des coûts de maintenance rapportée par des clients à long terme",
+          "Réduction des coûts de maintenance rapportée par les clients à long terme",
       },
       {
         count: "2x",
-        description:
-          "assemblage plus rapide grâce à des solutions de fixation innovantes",
+        description: "Livraison plus rapide utilisant des solutions de transport innovantes",
       },
     ]}
   />
+  </div>
 
-  <PricingSection pricing={pricing} />
+  <ParallaxBanner bannerText={`Votre confiance, notre <span class="text-yellow-500 dark:text-yellow-400">Meilleure Route!</span>`} />
 
-  <FAQ title="Questions<br />fréquemment posées" faqs={faqs} />
+  <div id="pricing">
+    <PricingSection pricing={pricing} />
+  </div>
 
-  <HeroSectionAlt
-    title="Construisons ensemble"
-    subTitle="ScrewFast est un modèle open source, méticuleusement conçu avec les frameworks Astro, Tailwind CSS et Preline UI."
-    url="https://github.com/mearashadowfax/ScrewFast"
-  />
+  <div id="faq">
+    <FAQ title="Questions Fréquemment Posées" faqs={faqs} image={statsImage} />
+  </div>
+
+  <div id="contact">
+    <ContactSection_fr />
+  </div>
+
+  <!-- Modal pour télécharger les tarifs -->
+  <DownloadModal />
 </MainLayout>

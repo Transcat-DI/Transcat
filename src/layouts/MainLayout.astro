@@ -3,6 +3,9 @@
 import Meta from "@components/Meta.astro";
 import Navbar from "@components/sections/navbar&footer/Navbar.astro";
 import FooterSection from "@components/sections/navbar&footer/FooterSection.astro";
+import FooterSection_en from "@components/sections/navbar&footer/FooterSection_en.astro";
+import FooterSection_fr from "@components/sections/navbar&footer/FooterSection_fr.astro";
+import FooterSection_ca from "@components/sections/navbar&footer/FooterSection_ca.astro";
 import { SITE } from "@data/constants";
 import "@styles/global.css";
 import "../assets/styles/smooth-scroll.css";
@@ -69,7 +72,7 @@ interface Props {
         <slot />
       </main>
     </div>
-    <FooterSection />
+    {lang === "en" ? <FooterSection_en /> : lang === "fr" ? <FooterSection_fr /> : lang === "ca" ? <FooterSection_ca /> : <FooterSection />}
     <script>
       // https://preline.co
       import "preline/preline.js";

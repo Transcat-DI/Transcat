@@ -3,7 +3,6 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection_ca.astro";
 import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
-import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
 import ContactSection_ca from "../../components/sections/misc/ContactSection_ca.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
@@ -11,7 +10,7 @@ import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
 import FAQ from "@components/sections/misc/FAQ.astro";
-import ParallaxBanner from "@components/sections/misc/ParallaxBanner.astro";
+import ParallaxBanner from "@components/sections/misc/ParallaxBanner_ca_simple.astro";
 import DownloadModal from "@components/ui/modals/DownloadModal_ca.astro";
 
 import heroImage from "@images/hero-image.avif";
@@ -23,10 +22,10 @@ import featureImage from "@images/features-image.avif";
 import construction from "@images/construction-image.avif";
 import tools from "@images/automated-tools.avif";
 import dashboard from "@images/dashboard-image.avif";
-import service1 from "@images/services/service-1.webp";
-import service2 from "@images/services/service-2.webp";
-import service3 from "@images/services/service-3.webp";
-import service4 from "@images/services/service-4.webp";
+import service1 from "@images/services/service-1.jpg";
+import service2 from "@images/services/service-2.jpg";
+import service3 from "@images/services/service-3.jpg";
+import service4 from "@images/services/service-4.jpg";
 import { partnersData } from "@/data_files/constants";
 
 import testimonial1 from "@images/testimonials/01-samantha.jpg";
@@ -36,7 +35,7 @@ import testimonial4 from "@images/testimonials/04-miguel.jpg";
 import testimonial5 from "@images/testimonials/05-laura.jpg";
 
 // Usant imatges locals per als avatars del hero section
-// Convertim els objectes ImageMetadata a strings pel component HeroSection
+// Pel component HeroSection necessitem les URLs com a strings
 const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testimonial4.src];
 ---
 
@@ -54,26 +53,10 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       withReview={false}
       src={heroImage.src}
       alt="Serveis de transport a Catalunya"
-      slideTitles={[
-        `Et portem del punt<br/>"A" al punt <span class="text-yellow-500 dark:text-yellow-400">Fet!</span>`,
-        `Cada trajecte, una<br/>missió <span class="text-yellow-500 dark:text-yellow-400">complerta.</span>`,
-        `On la confiança<br/>també <span class="text-yellow-500 dark:text-yellow-400">viatja.</span>`,
-        `Directe, ràpid i amb<br/>un toc <span class="text-yellow-500 dark:text-yellow-400">català.</span>`,
-        `Solucions a mida per<br/>a cada <span class="text-yellow-500 dark:text-yellow-400">enviament.</span>`,
-        `Més que transport,<br/>companyia a la <span class="text-yellow-500 dark:text-yellow-400">carretera.</span>`
-      ]}
-      slideSubtitles={[
-        "Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.",
-        "Professionalitat i compromís a cada quilòmetre. Confia en un servei de transport que compleix, sense excuses ni retards.",
-        "A prop, responsable i sempre al teu servei. Transport personalitzat amb la garantia d'algú que cuida la teva càrrega com si fos seva.",
-        "Transport de mercaderies des de Tarragona i Barcelona amb compromís, puntualitat i servei personalitzat.",
-        "Adaptabilitat i flexibilitat per cobrir les teves necessitats logístiques, sigui quina sigui la mida o destinació de la teva càrrega.",
-        "La teva tranquil·litat és la nostra destinació. Servei proper, segur i sempre puntual perquè la teva càrrega arribi com ha d'arribar."
-      ]}
     />
   </div>
 
-  {/* Espai de separació entre seccions */}
+  <!-- Espai de separació entre seccions -->
   <div class="py-6 md:py-8"></div>
 
   <div id="testimonials">
@@ -91,13 +74,6 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       features={features}
     />
   </div>
-
-  <!-- Separador visual amb icones entre seccions -->
-  <BlackBannerDivider 
-    title="Confiança en Cada Quilòmetre"
-    subTitle="La teva càrrega, el meu compromís. Seguretat, puntualitat i control en tot moment"
-    showIcons={true}
-  />
 
   <div id="services">
     <FeaturesNavs
@@ -138,6 +114,14 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
         alt: "Transport especialitzat amb condicions específiques",
       }
     ]}
+  />
+
+  <ParallaxBanner
+    title="Eficiència en Moviment"
+    subTitle="La meva flota moderna i la meva experiència garanteixen que les teves mercaderies arribin sempre a temps i en perfectes condicions."
+    btnText="Sol·licita un Pressupost"
+    btnLink="#contact"
+    backgroundImage={statsImage}
   />
 
   <div id="clientes">
@@ -205,7 +189,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   />
   </div>
 
-  <ParallaxBanner />
+  <ParallaxBanner bannerText="La teva confiança, la nostra <span class=\"text-yellow-500 dark:text-yellow-400\">Millor Ruta!</span>" backgroundImage={statsImage} btnText="Sol·licita un Pressupost" btnLink="#contact" />
 
   <div id="pricing">
     <PricingSection pricing={pricing} />

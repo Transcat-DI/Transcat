@@ -1,0 +1,1782 @@
+---
+import { Image } from "astro:assets";
+import dashboardImage from "@images/dashboard-image.avif";
+import truckImage from "@images/logos/icon.png";
+import AdminSidebar from "../components/admin/AdminSidebar.astro";
+---
+
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-100 dark:bg-gray-900">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcat - Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="h-full">
+  <div class="min-h-screen flex flex-col">
+    <!-- Sidebar -->
+    <AdminSidebar />
+    
+    <div class="md:pl-64 flex flex-col flex-1">
+      <!-- Header -->
+      <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center space-x-3">
+              <!-- Título Admin Dashboard -->
+              <div class="flex items-center">
+                <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Editor de Contenido Multilingüe</h1>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <!-- Texto Admin Dashboard a la derecha -->
+            <span class="text-xl font-bold text-orange-500 dark:text-orange-400" style="font-family: 'Arial', sans-serif; letter-spacing: 1px;">Admin Dashboard</span>
+            
+            <!-- Botón de notificaciones con menú desplegable -->
+            <div class="relative">
+              <button id="notification-button" class="p-1 rounded-full text-orange-500 hover:text-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400">
+                <span class="sr-only">Ver notificaciones</span>
+                <div class="relative">
+                  <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                </div>
+              </button>
+              <!-- Menú desplegable de notificaciones -->
+              <div id="notification-menu" class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10">
+                <div class="py-1">
+                  <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">Notificaciones</h3>
+                  </div>
+                  <div class="max-h-60 overflow-y-auto">
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
+                      <div class="flex">
+                        <div class="flex-shrink-0">
+                          <svg class="h-5 w-5 text-orange-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-900 dark:text-white">Nuevo pedido de transporte</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">Cliente: Empresa ABC - Hace 5 minutos</p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700">
+                      <div class="flex">
+                        <div class="flex-shrink-0">
+                          <svg class="h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-900 dark:text-white">Entrega completada</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">Ruta: Barcelona a Tarragona - Hace 30 minutos</p>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="#" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <div class="flex">
+                        <div class="flex-shrink-0">
+                          <svg class="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                          </svg>
+                        </div>
+                        <div class="ml-3">
+                          <p class="text-sm font-medium text-gray-900 dark:text-white">Actualización del sistema</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">Nueva versión disponible - Hace 1 hora</p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
+                    <a href="#" class="text-sm text-orange-500 hover:text-orange-600 font-medium">Ver todas las notificaciones</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <button id="top-close-button" type="button" style="background-color: #f97316; color: white;" class="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+              Cerrar
+            </button>
+            
+            <!-- Menú de usuario con opciones -->
+            <div class="ml-3 relative">
+              <div>
+                <button id="user-menu-button" class="max-w-xs bg-white dark:bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400">
+                  <span class="sr-only">Abrir menú de usuario</span>
+                  <img class="h-8 w-8 rounded-full" src="https://ui-avatars.com/api/?name=TC&background=f97316&color=fff" alt="TransCat">
+                </button>
+              </div>
+              <!-- Menú desplegable de usuario -->
+              <div id="user-menu" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10">
+                <div class="py-1">
+                  <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white">Administrador TransCat</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">admin@transcat.com</p>
+                  </div>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Perfil</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Configuración</a>
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border-t border-gray-200 dark:border-gray-700">Cerrar sesión</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 py-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Panel de Control</h2>
+        
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 bg-blue-500 rounded-md p-3">
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Visitantes</dt>
+                    <dd>
+                      <div class="text-lg font-medium text-gray-900 dark:text-white">2,543</div>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 bg-green-500 rounded-md p-3">
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Páginas Vistas</dt>
+                    <dd>
+                      <div class="text-lg font-medium text-gray-900 dark:text-white">7,842</div>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Tiempo Promedio</dt>
+                    <dd>
+                      <div class="text-lg font-medium text-gray-900 dark:text-white">2:35</div>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+            <div class="p-5">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 bg-yellow-500 rounded-md p-3">
+                  <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                  </svg>
+                </div>
+                <div class="ml-5 w-0 flex-1">
+                  <dl>
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Idioma Principal</dt>
+                    <dd>
+                      <div class="text-lg font-medium text-gray-900 dark:text-white">Español</div>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Content Editor -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg mb-6">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Editor de Contenido Multilingüe</h3>
+            <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+              <div>
+                <label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Idioma</label>
+                <select id="language" name="language" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                  <option value="es" selected>Español</option>
+                  <option value="en">Inglés</option>
+                  <option value="fr">Francés</option>
+                  <option value="ca">Catalán</option>
+                </select>
+              </div>
+              <div>
+                <label for="section" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sección</label>
+                <select id="section" name="section" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                  <!-- Las opciones se cargarán dinámicamente según el idioma seleccionado -->
+                </select>
+              </div>
+            </div>
+            <!-- Tarjetas de diapositivas del carrusel (visible solo cuando se selecciona la sección Inicio/Home) -->
+            <div id="carousel-slides-editor" class="mt-6">
+              <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+                Diapositivas del Carrusel
+              </h3>
+              <p class="text-sm text-gray-500 mb-4 ml-8 border-l-2 border-orange-400 pl-2">Edita los títulos y subtítulos de cada diapositiva del carrusel de la página de inicio.</p>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="carousel-slides-container">
+                <!-- Las tarjetas de diapositivas se generarán dinámicamente con JavaScript -->
+              </div>
+            </div>
+            
+            <!-- Editor de la sección Acerca (visible solo cuando se selecciona la sección Acerca/About) -->
+            <div id="about-section-editor" class="mt-6 hidden">
+              <!-- El contenido de este div se generará dinámicamente con JavaScript -->
+            </div>
+            
+            <!-- Editor de la sección Servicios (visible solo cuando se selecciona la sección Servicios) -->
+            <div id="services-section-editor" class="mt-6 hidden">
+              <!-- El contenido de este div se generará dinámicamente con JavaScript -->
+            </div>
+            </div>
+            <div class="mt-5 flex justify-end space-x-4">
+              <button id="save-button" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300">
+                Guardar Cambios
+              </button>
+              <button id="close-button" type="button" style="background-color: #f97316; color: white;" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                Cerrar
+              </button>
+            </div>
+            
+            <script>
+              // Función para guardar cambios y cerrar la pestaña
+              document.getElementById('save-button').addEventListener('click', function() {
+                // Aquí iría la lógica para guardar los cambios
+                alert('Cambios guardados correctamente');
+                
+                // Cerrar la pestaña actual y volver a la pestaña original
+                if (window.opener && !window.opener.closed) {
+                  window.opener.focus(); // Devolver el foco a la pestaña original
+                  window.close(); // Cerrar la pestaña actual
+                }
+              });
+              
+              // Función para cerrar la pestaña sin guardar
+              function cerrarDashboard() {
+                // Cerrar la pestaña actual y volver a la pestaña original
+                if (window.opener && !window.opener.closed) {
+                  window.opener.focus(); // Devolver el foco a la pestaña original
+                  window.close(); // Cerrar la pestaña actual
+                } else {
+                  // Si no hay ventana padre, redirigir a la página principal
+                  window.location.href = '/';
+                }
+              }
+              
+              // Asignar la función a ambos botones de cerrar
+              document.getElementById('close-button').addEventListener('click', cerrarDashboard);
+              document.getElementById('top-close-button').addEventListener('click', cerrarDashboard);
+              
+              // Funcionalidad para el menú de notificaciones
+              const notificationButton = document.getElementById('notification-button');
+              const notificationMenu = document.getElementById('notification-menu');
+              
+              if (notificationButton && notificationMenu) {
+                notificationButton.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  notificationMenu.classList.toggle('hidden');
+                  // Cerrar el menú de usuario si está abierto
+                  if (userMenu && !userMenu.classList.contains('hidden')) {
+                    userMenu.classList.add('hidden');
+                  }
+                });
+              }
+              
+              // Funcionalidad para el menú de usuario
+              const userMenuButton = document.getElementById('user-menu-button');
+              const userMenu = document.getElementById('user-menu');
+              
+              if (userMenuButton && userMenu) {
+                userMenuButton.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  userMenu.classList.toggle('hidden');
+                  // Cerrar el menú de notificaciones si está abierto
+                  if (notificationMenu && !notificationMenu.classList.contains('hidden')) {
+                    notificationMenu.classList.add('hidden');
+                  }
+                });
+              }
+              
+              // Cerrar menús al hacer clic fuera de ellos
+              document.addEventListener('click', function(e) {
+                if (notificationMenu && !notificationMenu.contains(e.target) && !notificationButton.contains(e.target)) {
+                  notificationMenu.classList.add('hidden');
+                }
+                
+                if (userMenu && !userMenu.contains(e.target) && !userMenuButton.contains(e.target)) {
+                  userMenu.classList.add('hidden');
+                }
+              });
+            </script>
+          </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Actividad Reciente</h3>
+            <div class="mt-5 flow-root">
+              <ul role="list" class="-mb-8">
+                <li>
+                  <div class="relative pb-8">
+                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                    <div class="relative flex space-x-3">
+                      <div>
+                        <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white dark:ring-gray-800">
+                          <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                        <div>
+                          <p class="text-sm text-gray-500 dark:text-gray-400">Se actualizó el texto de la sección Hero en <span class="font-medium text-gray-900 dark:text-white">Catalán</span></p>
+                        </div>
+                        <div class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                          <time datetime="2023-01-23">Hace 10 minutos</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="relative pb-8">
+                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                    <div class="relative flex space-x-3">
+                      <div>
+                        <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white dark:ring-gray-800">
+                          <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                        <div>
+                          <p class="text-sm text-gray-500 dark:text-gray-400">Se subió una nueva imagen para la sección de <span class="font-medium text-gray-900 dark:text-white">Servicios</span></p>
+                        </div>
+                        <div class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                          <time datetime="2023-01-23">Hace 35 minutos</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="relative pb-8">
+                    <div class="relative flex space-x-3">
+                      <div>
+                        <span class="h-8 w-8 rounded-full bg-yellow-500 flex items-center justify-center ring-8 ring-white dark:ring-gray-800">
+                          <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                        <div>
+                          <p class="text-sm text-gray-500 dark:text-gray-400">Se actualizó la sección de <span class="font-medium text-gray-900 dark:text-white">Precios</span> en Francés</p>
+                        </div>
+                        <div class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                          <time datetime="2023-01-23">Hace 2 horas</time>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="mt-6">
+              <a href="#" class="flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700">
+                Ver toda la actividad
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+          &copy; 2025 TransCat Admin. Todos los derechos reservados.
+        </p>
+        <div class="flex justify-center mb-4">
+          <button id="theme-toggle-light" class="bg-orange-400 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded-l">
+            <svg id="sun-icon" class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707" />
+            </svg>
+          </button>
+          <button id="theme-toggle-dark" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-r">
+            <svg id="moon-icon" class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+    </div>
+  </div>
+  
+  <script>
+    // Inicializar cuando el DOM esté cargado
+    document.addEventListener('DOMContentLoaded', () => {
+      // Obtener elementos del DOM
+      const languageSelect = document.getElementById('language') as HTMLSelectElement;
+      const sectionSelect = document.getElementById('section') as HTMLSelectElement;
+      const carouselEditor = document.getElementById('carousel-slides-editor') as HTMLDivElement;
+      const slidesContainer = document.getElementById('carousel-slides-container') as HTMLDivElement;
+      const saveButton = document.getElementById('save-button') as HTMLButtonElement;
+      const closeButton = document.getElementById('close-button') as HTMLButtonElement;
+      const themeToggleLight = document.getElementById('theme-toggle-light') as HTMLButtonElement;
+      const themeToggleDark = document.getElementById('theme-toggle-dark') as HTMLButtonElement;
+      const sunIcon = document.getElementById('sun-icon') as HTMLElement;
+      const moonIcon = document.getElementById('moon-icon') as HTMLElement;
+      
+      // Inicializar el tema según la preferencia guardada
+      initializeTheme();
+      
+      // Agregar event listeners para los botones de tema
+      if (themeToggleLight && themeToggleDark) {
+        themeToggleLight.addEventListener('click', () => setTheme('light'));
+        themeToggleDark.addEventListener('click', () => setTheme('dark'));
+      }
+      
+      // Función para inicializar el tema
+      function initializeTheme() {
+        // Verificar si hay una preferencia guardada en localStorage
+        const savedTheme = localStorage.getItem('theme');
+        
+        // Si hay una preferencia guardada, aplicarla
+        if (savedTheme === 'dark') {
+          setTheme('dark');
+        } else {
+          // Si no hay preferencia guardada, usar la preferencia del sistema
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark');
+          } else {
+            setTheme('light');
+          }
+        }
+      }
+      
+      // Función para cambiar el tema
+      function setTheme(theme: 'light' | 'dark') {
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+          if (sunIcon && moonIcon) {
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+          }
+        } else {
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
+          if (sunIcon && moonIcon) {
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+          }
+        }
+      }
+      
+      // Definir las opciones de navegación para cada idioma
+      const navOptions: Record<string, Array<{value: string, text: string}>> = {
+        en: [
+          { value: 'hero', text: 'Home' },
+          { value: 'about', text: 'About' },
+          { value: 'services', text: 'Services' },
+          { value: 'coverage', text: 'Coverage' },
+          { value: 'testimonials', text: 'Clients' },
+          { value: 'pricing', text: 'Plans' },
+          { value: 'faq', text: 'FAQ' },
+          { value: 'contact', text: 'Contact' }
+        ],
+        es: [
+          { value: 'hero', text: 'Inicio' },
+          { value: 'about', text: 'Acerca' },
+          { value: 'services', text: 'Servicios' },
+          { value: 'coverage', text: 'Cobertura' },
+          { value: 'testimonials', text: 'Clientes' },
+          { value: 'pricing', text: 'Planes' },
+          { value: 'faq', text: 'FAQ' },
+          { value: 'contact', text: 'Contacto' }
+        ],
+        ca: [
+          { value: 'hero', text: 'Inici' },
+          { value: 'about', text: 'Sobre' },
+          { value: 'services', text: 'Serveis' },
+          { value: 'coverage', text: 'Cobertura' },
+          { value: 'testimonials', text: 'Clients' },
+          { value: 'pricing', text: 'Tarifes' },
+          { value: 'faq', text: 'FAQ' },
+          { value: 'contact', text: 'Contacte' }
+        ],
+        fr: [
+          { value: 'hero', text: 'Accueil' },
+          { value: 'about', text: 'À propos' },
+          { value: 'services', text: 'Services' },
+          { value: 'coverage', text: 'Couverture' },
+          { value: 'testimonials', text: 'Clients' },
+          { value: 'pricing', text: 'Tarifs' },
+          { value: 'faq', text: 'FAQ' },
+          { value: 'contact', text: 'Contact' }
+        ]
+      };
+      
+      // Definir los elementos de la interfaz para cada sección
+      const sectionEditors = {
+        hero: document.getElementById('carousel-slides-editor'),
+        about: document.getElementById('about-section-editor'),
+        services: document.getElementById('services-section-editor')
+        // Agregar más secciones aquí cuando se implementen
+      };
+      
+      // Datos del carrusel para cada idioma
+      const carouselData: Record<string, {slideTitles: string[], slideSubtitles: string[]}> = {
+        en: {
+          slideTitles: [
+            `We take you from point<br/>"A" to point <span class="text-yellow-500 dark:text-yellow-400">Done!</span>`,
+            `Every route, a mission<br/><span class="text-yellow-500 dark:text-yellow-400">accomplished.</span>`,
+            `Where trust also<br/><span class="text-yellow-500 dark:text-yellow-400">travels.</span>`,
+            `Direct, fast, and with<br/>a Catalan <span class="text-yellow-500 dark:text-yellow-400">touch.</span>`,
+            `Tailored solutions<br/>for every <span class="text-yellow-500 dark:text-yellow-400">shipment.</span>`,
+            `More than transport,<br/>company on the <span class="text-yellow-500 dark:text-yellow-400">road.</span>`
+          ],
+          slideSubtitles: [
+            "Fast and secure transport solutions in Catalonia. Trust in agile logistics, without detours and with regional coverage.",
+            "Professionalism and commitment in every kilometer. Trust in a transport service that delivers on its promises, without excuses or delays.",
+            "Approachable, responsible, and always at your service. Personalized transport with the guarantee of someone who cares for your cargo as if it were their own.",
+            "Freight transport from Tarragona and Barcelona with commitment, punctuality, and personalized service.",
+            "Adaptability and flexibility to cover your logistics needs, no matter the size or destination of your cargo.",
+            "Your peace of mind is our destination. Friendly, safe service always on time so your cargo arrives as it should."
+          ]
+        },
+        es: {
+          slideTitles: [
+            `Lo llevamos del punto<br/> "A" al punto <span class="text-yellow-500 dark:text-yellow-400">¡Hecho!</span>`,
+            `Cada ruta, una<br/>misión <span class="text-yellow-500 dark:text-yellow-400">cumplida.</span>`,
+            `Donde la confianza<br/>también <span class="text-yellow-500 dark:text-yellow-400">viaja.</span>`,
+            `Directo, rápido y<br/>con sello <span class="text-yellow-500 dark:text-yellow-400">catalán.</span>`,
+            `Soluciones a tu medida<br/> en cada <span class="text-yellow-500 dark:text-yellow-400">envío.</span>`,
+            `Más que transporte,<br/>compañía en el <span class="text-yellow-500 dark:text-yellow-400">camino.</span>`
+          ],
+          slideSubtitles: [
+            "Soluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional.",
+            "Profesionalidad y compromiso en cada kilómetro. Confía en un servicio de transporte que cumple lo que promete, sin excusas ni retrasos.",
+            "Cercano, responsable y siempre a tu servicio. Transporte personalizado con la garantía de alguien que cuida tu carga como si fuera propia.",
+            "Transporte de mercancías desde Tarragona y Barcelona con compromiso, puntualidad y trato cercano.",
+            "Adaptabilidad y flexibilidad para cubrir tus necesidades logísticas, sin importar el tamaño o destino de tu carga.",
+            "Tu tranquilidad es nuestro destino. Servicio cercano, seguro y siempre a tiempo para que tu carga llegue como debe."
+          ]
+        },
+        ca: {
+          slideTitles: [
+            `Et portem del punt<br/>"A" al punt <span class="text-yellow-500 dark:text-yellow-400">Fet!</span>`,
+            `Cada trajecte, una<br/>missió <span class="text-yellow-500 dark:text-yellow-400">complerta.</span>`,
+            `On la confiança<br/>també <span class="text-yellow-500 dark:text-yellow-400">viatja.</span>`,
+            `Directe, ràpid i amb<br/>un toc <span class="text-yellow-500 dark:text-yellow-400">català.</span>`,
+            `Solucions a mida per<br/>a cada <span class="text-yellow-500 dark:text-yellow-400">enviament.</span>`,
+            `Més que transport,<br/>companyia a la <span class="text-yellow-500 dark:text-yellow-400">carretera.</span>`
+          ],
+          slideSubtitles: [
+            "Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.",
+            "Professionalitat i compromís a cada quilòmetre. Confia en un servei de transport que compleix, sense excuses ni retards.",
+            "A prop, responsable i sempre al teu servei. Transport personalitzat amb la garantia d'algú que cuida la teva càrrega com si fos seva.",
+            "Transport de mercaderies des de Tarragona i Barcelona amb compromís, puntualitat i servei personalitzat.",
+            "Adaptabilitat i flexibilitat per cobrir les teves necessitats logístiques, sigui quina sigui la mida o destinació de la teva càrrega.",
+            "La teva tranquil·litat és la nostra destinació. Servei proper, segur i sempre puntual perquè la teva càrrega arribi com ha d'arribar."
+          ]
+        },
+        fr: {
+          slideTitles: [
+            `Nous vous emmenons du point "A" au point <span class="text-yellow-500 dark:text-yellow-400">Terminé!</span>`,
+            `Chaque route, une<br/>mission <span class="text-yellow-500 dark:text-yellow-400">accomplie.</span>`,
+            `Là où la confiance<br/>voyage <span class="text-yellow-500 dark:text-yellow-400">aussi.</span>`,
+            `Direct, rapide et avec<br/>une touche <span class="text-yellow-500 dark:text-yellow-400">catalane.</span>`,
+            `Des solutions sur mesure<br/> pour chaque <span class="text-yellow-500 dark:text-yellow-400">envoi.</span>`,
+            `Plus qu'un transport,<br/>un compagnon de <span class="text-yellow-500 dark:text-yellow-400">route.</span>`
+          ],
+          slideSubtitles: [
+            "Solutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale.",
+            "Professionnalisme et engagement à chaque kilomètre. Faites confiance à un service de transport qui tient ses promesses, sans excuses ni retards.",
+            "Proche, responsable et toujours à votre service. Transport personnalisé avec la garantie de quelqu'un qui prend soin de votre cargaison comme si c'était la sienne.",
+            "Transport de marchandises depuis Tarragone et Barcelone avec engagement, ponctualité et service personnalisé.",
+            "Adaptabilité et flexibilité pour répondre à vos besoins logistiques, quelle que soit la taille ou la destination de votre cargaison.",
+            "Votre tranquillité est notre destination. Service proche, sûr et toujours à l'heure pour que votre cargaison arrive comme il se doit."
+          ]
+        }
+      };
+      
+
+      
+      // Función para crear tarjetas de diapositivas del carrusel
+      function createCarouselSlideCards(language: string): void {
+        if (!slidesContainer || !carouselEditor) {
+          console.error('No se encontraron los elementos necesarios para crear las tarjetas del carrusel');
+          return;
+        }
+        
+        // Limpiar el contenedor de tarjetas
+        slidesContainer.innerHTML = '';
+        
+        // Obtener los datos del carrusel para el idioma seleccionado
+        const slides = carouselData[language];
+        if (!slides) {
+          console.error(`No se encontraron datos del carrusel para el idioma: ${language}`);
+          return;
+        }
+        
+        // Crear un elemento de estilo para permitir el uso de HTML en las tarjetas
+        const styleEl = document.createElement('style');
+        styleEl.textContent = `
+          .text-yellow-highlight {
+            color: #f59e0b; /* yellow-500 */
+          }
+          .dark .text-yellow-highlight {
+            color: #fbbf24; /* yellow-400 */
+          }
+          .text-orange-highlight {
+            color: #fb923c; /* orange-400 */
+          }
+          .dark .text-orange-highlight {
+            color: #f97316; /* orange-500 */
+          }
+        `;
+        document.head.appendChild(styleEl);
+        
+        // Crear una tarjeta para cada diapositiva
+        slides.slideTitles.forEach((title, index) => {
+          const subtitle = slides.slideSubtitles[index];
+          
+          // Crear la tarjeta principal
+          const card = document.createElement('div');
+          card.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-500 dark:border-blue-600 mb-4';
+          
+          // Crear el encabezado de la diapositiva
+          const slideHeader = document.createElement('div');
+          slideHeader.className = 'mb-3';
+          slideHeader.innerHTML = `
+            <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Diapositiva ${index + 1}
+            </span>
+          `;
+          card.appendChild(slideHeader);
+          
+          // Crear la sección del título
+          const titleSection = document.createElement('div');
+          titleSection.className = 'mb-3';
+          titleSection.innerHTML = `
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+            <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <div class="prose prose-sm dark:prose-invert" id="preview-title-${index}"></div>
+            </div>
+          `;
+          
+          // Crear el textarea para el título
+          const titleTextarea = document.createElement('textarea');
+          titleTextarea.setAttribute('data-slide', index.toString());
+          titleTextarea.setAttribute('data-type', 'title');
+          titleTextarea.setAttribute('rows', '3');
+          titleTextarea.className = 'shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md';
+          titleTextarea.value = title.replace(/<span class="text-yellow-500 dark:text-yellow-400">/g, '<span class="text-yellow-highlight">');
+          titleSection.appendChild(titleTextarea);
+          card.appendChild(titleSection);
+          
+          // Crear la sección del subtítulo
+          const subtitleSection = document.createElement('div');
+          subtitleSection.className = 'mb-3';
+          subtitleSection.innerHTML = `
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtítulo</label>
+            <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <div class="prose prose-sm dark:prose-invert" id="preview-subtitle-${index}"></div>
+            </div>
+          `;
+          
+          // Crear el textarea para el subtítulo
+          const subtitleTextarea = document.createElement('textarea');
+          subtitleTextarea.setAttribute('data-slide', index.toString());
+          subtitleTextarea.setAttribute('data-type', 'subtitle');
+          subtitleTextarea.setAttribute('rows', '3');
+          subtitleTextarea.className = 'shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md';
+          subtitleTextarea.value = subtitle;
+          subtitleSection.appendChild(subtitleTextarea);
+          card.appendChild(subtitleSection);
+          
+          // Crear el botón de guardar cambios
+          const buttonContainer = document.createElement('div');
+          buttonContainer.className = 'mt-3 text-right';
+          buttonContainer.style.display = 'block'; // Forzar visualización
+          
+          const saveButton = document.createElement('button');
+          saveButton.setAttribute('type', 'button');
+          saveButton.className = 'inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-400 hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-300';
+          saveButton.style.display = 'inline-flex'; // Forzar visualización
+          saveButton.style.backgroundColor = '#fb923c'; // Naranja (orange-400)
+          saveButton.style.color = 'white';
+          saveButton.textContent = 'Guardar cambios';
+          
+          // Agregar evento al botón
+          saveButton.addEventListener('click', function() {
+            alert(`Guardando cambios para la diapositiva ${index + 1}`);
+            // Aquí puedes agregar la lógica para guardar los cambios
+          });
+          
+          buttonContainer.appendChild(saveButton);
+          card.appendChild(buttonContainer);
+          
+          // Añadir un separador visual antes del botón para mayor visibilidad
+          const separator = document.createElement('hr');
+          separator.className = 'my-3 border-t border-gray-200 dark:border-gray-700';
+          card.insertBefore(separator, buttonContainer);
+          
+          // Agregar la tarjeta al contenedor
+          slidesContainer.appendChild(card);
+        });
+        
+        // Inicializar las vistas previas con el HTML correcto después de que se hayan creado todas las tarjetas
+        setTimeout(() => {
+          slides.slideTitles.forEach((title, index) => {
+            const subtitle = slides.slideSubtitles[index];
+            const previewTitle = document.getElementById(`preview-title-${index}`);
+            const previewSubtitle = document.getElementById(`preview-subtitle-${index}`);
+            
+            // Reemplazar las clases de Tailwind con nuestras propias clases
+            const formattedTitle = title.replace(/<span class="text-yellow-500 dark:text-yellow-400">/g, '<span class="text-yellow-highlight">');
+            const formattedSubtitle = subtitle;
+            
+            if (previewTitle) {
+              previewTitle.innerHTML = formattedTitle;
+            }
+            
+            if (previewSubtitle) {
+              previewSubtitle.innerHTML = formattedSubtitle;
+            }
+            
+            // Agregar event listeners para actualizar las vistas previas cuando se editen los textos
+            const titleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="title"]`) as HTMLTextAreaElement;
+            const subtitleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="subtitle"]`) as HTMLTextAreaElement;
+            
+            if (titleTextarea && previewTitle) {
+              titleTextarea.addEventListener('input', (e) => {
+                const target = e.target as HTMLTextAreaElement;
+                previewTitle.innerHTML = target.value;
+              });
+            }
+            
+            if (subtitleTextarea && previewSubtitle) {
+              subtitleTextarea.addEventListener('input', (e) => {
+                const target = e.target as HTMLTextAreaElement;
+                previewSubtitle.innerHTML = target.value;
+              });
+            }
+          });
+        }, 100);
+        
+        // Mostrar el editor de diapositivas
+        carouselEditor.classList.remove('hidden');
+      }
+      // Función para actualizar las opciones de sección según el idioma seleccionado
+      function updateSectionOptions(language: string): void {
+        if (!sectionSelect) {
+          console.error('No se encontró el elemento select de sección');
+          return;
+        }
+        
+        // Limpiar las opciones actuales
+        sectionSelect.innerHTML = '';
+        
+        // Obtener las opciones para el idioma seleccionado
+        const options = navOptions[language];
+        if (!options) {
+          console.error(`No se encontraron opciones para el idioma: ${language}`);
+          return;
+        }
+        
+        // Agregar las nuevas opciones
+        options.forEach(option => {
+          const optionElement = document.createElement('option');
+          optionElement.value = option.value;
+          optionElement.textContent = option.text;
+          sectionSelect.appendChild(optionElement);
+        });
+        
+        // Actualizar el contenido según la sección seleccionada
+        updateContent(language, sectionSelect.value);
+      }
+      
+      // Función para actualizar el contenido basado en el idioma y la sección seleccionados
+      // Datos de los servicios para cada idioma
+      const servicesData: Record<string, {title: string, services: Array<{heading: string, content: string, svg: string, alt: string}>}> = {
+        es: {
+          title: "Servicios de <span class=\"text-yellow-500 dark:text-yellow-400\">Transporte Profesional</span> adaptados a tus necesidades logísticas<br/>en Cataluña.",
+          services: [
+            {
+              heading: "Transporte de Mercancías",
+              content: "Servicio de transporte de mercancías general para empresas y particulares. Garantizamos entregas puntuales y seguras de todo tipo de productos, desde pequeños paquetes hasta cargas completas, en toda la región de Cataluña.",
+              svg: "truck",
+              alt: "Camión de transporte de mercancías en carretera"
+            },
+            {
+              heading: "Logística Urgente",
+              content: "Soluciones de transporte urgente para envíos que no pueden esperar. Ofrecemos recogida inmediata y entrega en el mismo día para situaciones donde el tiempo es crucial, con seguimiento en tiempo real de su envío.",
+              svg: "clock",
+              alt: "Entrega urgente de paquetería"
+            },
+            {
+              heading: "Distribución Programada",
+              content: "Servicio de distribución regular y programada para negocios con necesidades recurrentes. Establecemos rutas optimizadas y horarios fijos adaptados a su operativa, reduciendo costes y mejorando la eficiencia logística.",
+              svg: "list",
+              alt: "Planificación de rutas de distribución"
+            },
+            {
+              heading: "Transporte Especializado",
+              content: "Servicio de transporte especializado para mercancías que requieren condiciones específicas. Ofrecemos soluciones a medida para productos frágiles, voluminosos o que necesitan temperatura controlada, garantizando su integridad durante todo el trayecto.",
+              svg: "diploma",
+              alt: "Transporte especializado con condiciones específicas"
+            }
+          ]
+        },
+        en: {
+          title: "<span class=\"text-yellow-500 dark:text-yellow-400\">Professional Transport</span> Services adapted to your logistics needs<br/>in Catalonia.",
+          services: [
+            {
+              heading: "Freight Transport",
+              content: "General freight transport service for companies and individuals. We guarantee punctual and safe deliveries of all types of products, from small packages to full loads, throughout the Catalonia region.",
+              svg: "truck",
+              alt: "Freight truck on the road"
+            },
+            {
+              heading: "Urgent Logistics",
+              content: "Urgent transport solutions for shipments that cannot wait. We offer immediate pickup and same-day delivery for situations where time is crucial, with real-time tracking of your shipment.",
+              svg: "clock",
+              alt: "Urgent package delivery"
+            },
+            {
+              heading: "Scheduled Distribution",
+              content: "Regular and scheduled distribution service for businesses with recurring needs. We establish optimized routes and fixed schedules adapted to your operations, reducing costs and improving logistics efficiency.",
+              svg: "list",
+              alt: "Distribution route planning"
+            },
+            {
+              heading: "Specialized Transport",
+              content: "Specialized transport service for goods that require specific conditions. We offer tailored solutions for fragile, bulky products or those that need controlled temperature, guaranteeing their integrity throughout the journey.",
+              svg: "diploma",
+              alt: "Specialized transport with specific conditions"
+            }
+          ]
+        },
+        fr: {
+          title: "<span class=\"text-yellow-500 dark:text-yellow-400\">Services de Transport Professionnel</span> adaptés à vos besoins logistiques<br/>en Catalogne.",
+          services: [
+            {
+              heading: "Transport de Marchandises",
+              content: "Service de transport de marchandises général pour entreprises et particuliers. Nous garantissons des livraisons ponctuelles et sécurisées de tous types de produits, des petits colis aux charges complètes, dans toute la région de Catalogne.",
+              svg: "truck",
+              alt: "Camion de transport de marchandises sur la route"
+            },
+            {
+              heading: "Logistique Urgente",
+              content: "Solutions de transport urgent pour les envois qui ne peuvent pas attendre. Nous offrons un enlèvement immédiat et une livraison le jour même pour les situations où le temps est crucial, avec un suivi en temps réel de votre envoi.",
+              svg: "clock",
+              alt: "Livraison urgente de colis"
+            },
+            {
+              heading: "Distribution Programmée",
+              content: "Service de distribution régulière et programmée pour les entreprises ayant des besoins récurrents. Nous établissons des routes optimisées et des horaires fixes adaptés à votre activité, réduisant les coûts et améliorant l'efficacité logistique.",
+              svg: "list",
+              alt: "Planification des itinéraires de distribution"
+            },
+            {
+              heading: "Transport Spécialisé",
+              content: "Service de transport spécialisé pour les marchandises nécessitant des conditions spécifiques. Nous proposons des solutions sur mesure pour les produits fragiles, volumineux ou nécessitant une température contrôlée, garantissant leur intégrité tout au long du trajet.",
+              svg: "diploma",
+              alt: "Transport spécialisé avec des conditions spécifiques"
+            }
+          ]
+        },
+        ca: {
+          title: "<span class=\"text-yellow-500 dark:text-yellow-400\">Serveis de Transport Professional</span> adaptats a les teves necessitats logístiques<br/>a Catalunya.",
+          services: [
+            {
+              heading: "Transport de Mercaderies",
+              content: "Servei de transport de mercaderies general per a empreses i particulars. Garantim lliuraments puntuals i segurs de tot tipus de productes, des de petits paquets fins a càrregues completes, a tota la regió de Catalunya.",
+              svg: "truck",
+              alt: "Camió de transport de mercaderies a la carretera"
+            },
+            {
+              heading: "Logística Urgent",
+              content: "Solucions de transport urgent per a enviaments que no poden esperar. Oferim una recollida immediata i un lliurament el mateix dia per a situacions on el temps és crucial, amb un seguiment en temps real del teu enviament.",
+              svg: "clock",
+              alt: "Lliurament urgent de paquets"
+            },
+            {
+              heading: "Distribució Programada",
+              content: "Servei de distribució regular i programada per a empreses amb necessitats recurrents. Establim rutes optimitzades i horaris fixos adaptats a la teva activitat, reduint costos i millorant l'eficiència logística.",
+              svg: "list",
+              alt: "Planificació de rutes de distribució"
+            },
+            {
+              heading: "Transport Especialitzat",
+              content: "Servei de transport especialitzat per a mercaderies que requereixen condicions específiques. Proposem solucions a mida per a productes fràgils, voluminosos o que necessiten temperatura controlada, garantint la seva integritat durant tot el trajecte.",
+              svg: "diploma",
+              alt: "Transport especialitzat amb condicions específiques"
+            }
+          ]
+        }
+      };
+      
+      // Datos de las características (features) para cada idioma
+      const featuresData: Record<string, Array<{heading: string, content: string, svg: string}>> = {
+        es: [
+          {
+            heading: "Experiencia y Profesionalidad",
+            content: "Con más de 15 años de experiencia en el sector del transporte, ofrezco un servicio profesional y confiable para todas sus necesidades logísticas en Cataluña.",
+            svg: "verified"
+          },
+          {
+            heading: "Flota Moderna",
+            content: "Dispongo de vehículos modernos y bien mantenidos, equipados con la última tecnología para garantizar entregas seguras y puntuales en cualquier condición.",
+            svg: "truck"
+          },
+          {
+            heading: "Servicios Personalizados",
+            content: "Cada cliente tiene necesidades únicas. Ofrezco soluciones de transporte adaptadas a sus requerimientos específicos, desde entregas urgentes hasta transportes programados.",
+            svg: "groups"
+          },
+          {
+            heading: "Cobertura Regional",
+            content: "Servicio completo en toda Cataluña, con especial atención a Barcelona y sus alrededores. Conozco cada ruta y acceso para optimizar tiempos de entrega.",
+            svg: "mapPin"
+          },
+          {
+            heading: "Atención al Cliente",
+            content: "Comunicación constante y directa con el cliente antes, durante y después del servicio. Siempre disponible para resolver dudas y atender necesidades específicas.",
+            svg: "phone"
+          },
+          {
+            heading: "Compromiso Medioambiental",
+            content: "Comprometido con la reducción de la huella de carbono mediante rutas optimizadas, mantenimiento riguroso de vehículos y prácticas de conducción eficiente.",
+            svg: "recycle"
+          }
+        ],
+        en: [
+          {
+            heading: "Experience and Professionalism",
+            content: "With over 15 years of experience in the transport sector, I offer a professional and reliable service for all your logistics needs in Catalonia.",
+            svg: "verified"
+          },
+          {
+            heading: "Modern Fleet",
+            content: "I have modern and well-maintained vehicles, equipped with the latest technology to ensure safe and punctual deliveries in any condition.",
+            svg: "truck"
+          },
+          {
+            heading: "Personalized Services",
+            content: "Each client has unique needs. I offer transport solutions adapted to your specific requirements, from urgent deliveries to scheduled transports.",
+            svg: "groups"
+          },
+          {
+            heading: "Regional Coverage",
+            content: "Complete service throughout Catalonia, with special attention to Barcelona and its surroundings. I know every route and access to optimize delivery times.",
+            svg: "mapPin"
+          },
+          {
+            heading: "Customer Service",
+            content: "Constant and direct communication with the client before, during, and after the service. Always available to resolve doubts and attend to specific needs.",
+            svg: "phone"
+          },
+          {
+            heading: "Environmental Commitment",
+            content: "Committed to reducing the carbon footprint through optimized routes, rigorous vehicle maintenance, and efficient driving practices.",
+            svg: "recycle"
+          }
+        ],
+        fr: [
+          {
+            heading: "Expérience et Professionnalisme",
+            content: "Avec plus de 15 ans d'expérience dans le secteur du transport, j'offre un service professionnel et fiable pour tous vos besoins logistiques en Catalogne.",
+            svg: "verified"
+          },
+          {
+            heading: "Flotte Moderne",
+            content: "Je dispose de véhicules modernes et bien entretenus, équipés des dernières technologies pour garantir des livraisons sûres et ponctuelles dans toutes les conditions.",
+            svg: "truck"
+          },
+          {
+            heading: "Services Personnalisés",
+            content: "Chaque client a des besoins uniques. J'offre des solutions de transport adaptées à vos exigences spécifiques, des livraisons urgentes aux transports programmés.",
+            svg: "groups"
+          },
+          {
+            heading: "Couverture Régionale",
+            content: "Service complet dans toute la Catalogne, avec une attention particulière à Barcelone et ses environs. Je connais chaque route et accès pour optimiser les délais de livraison.",
+            svg: "mapPin"
+          },
+          {
+            heading: "Service Client",
+            content: "Communication constante et directe avec le client avant, pendant et après le service. Toujours disponible pour résoudre les doutes et répondre aux besoins spécifiques.",
+            svg: "phone"
+          },
+          {
+            heading: "Engagement Environnemental",
+            content: "Engagé à réduire l'empreinte carbone grâce à des itinéraires optimisés, un entretien rigoureux des véhicules et des pratiques de conduite efficaces.",
+            svg: "recycle"
+          }
+        ],
+        ca: [
+          {
+            heading: "Experiència i Professionalitat",
+            content: "Amb més de 15 anys d'experiència en el sector del transport, ofereixo un servei professional i fiable per a totes les seves necessitats logístiques a Catalunya.",
+            svg: "verified"
+          },
+          {
+            heading: "Flota Moderna",
+            content: "Disposo de vehicles moderns i ben mantinguts, equipats amb la darrera tecnologia per garantir lliuraments segurs i puntuals en qualsevol condició.",
+            svg: "truck"
+          },
+          {
+            heading: "Serveis Personalitzats",
+            content: "Cada client té necessitats úniques. Ofereixo solucions de transport adaptades als seus requeriments específics, des de lliuraments urgents fins a transports programats.",
+            svg: "groups"
+          },
+          {
+            heading: "Cobertura Regional",
+            content: "Servei complet a tot Catalunya, amb especial atenció a Barcelona i els seus voltants. Conec cada ruta i accés per optimitzar temps de lliurament.",
+            svg: "mapPin"
+          },
+          {
+            heading: "Atenció al Client",
+            content: "Comunicació constant i directa amb el client abans, durant i després del servei. Sempre disponible per resoldre dubtes i atendre necessitats específiques.",
+            svg: "phone"
+          },
+          {
+            heading: "Compromís Mediambiental",
+            content: "Compromès amb la reducció de la petjada de carboni mitjançant rutes optimitzades, manteniment rigorós de vehicles i pràctiques de conducció eficient.",
+            svg: "recycle"
+          }
+        ]
+      };
+      
+      // Datos de la sección Acerca para cada idioma con los textos reales del sitio
+      const aboutData: Record<string, {title: string, description: string}> = {
+        en: {
+          title: "About my Services",
+          description: "Hello! I'm Jordi, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises."
+        },
+        es: {
+          title: "Acerca de mis Servicios",
+          description: "Hola!, soy Jordi, transportista profesional comprometido con la excelencia. Ofrezco soluciones de transporte eficientes y confiables para empresas y particulares en toda Cataluña. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la carretera y un servicio de transporte que cumple con lo que promete."
+        },
+        fr: {
+          title: "À propos de mes Services",
+          description: "Bonjour! Je suis Jordi, transporteur professionnel engagé à l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettisées, charges complètes ou partielles, et livraisons porte-à-porte. Dans chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses."
+        },
+        ca: {
+          title: "Sobre els meus Serveis",
+          description: "Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses."
+        }
+      };
+      
+      // Función para crear el editor de la sección Acerca
+      function createAboutEditor(language: string): void {
+        const aboutEditor = document.getElementById('about-section-editor');
+        if (!aboutEditor) {
+          console.error('No se encontró el editor de la sección Acerca');
+          return;
+        }
+        
+        // Obtener los datos de la sección Acerca para el idioma seleccionado
+        const about = aboutData[language];
+        if (!about) {
+          console.error(`No se encontraron datos de la sección Acerca para el idioma: ${language}`);
+          return;
+        }
+        
+        // Obtener las características para el idioma seleccionado
+        const features = featuresData[language];
+        if (!features) {
+          console.error(`No se encontraron características para el idioma: ${language}`);
+          return;
+        }
+        
+        // Crear el encabezado del editor
+        aboutEditor.innerHTML = `
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Sección Acerca
+          </h3>
+          <p class="text-sm text-gray-500 mb-4 ml-8 border-l-2 border-blue-500 pl-2">Edita el contenido de la sección Acerca/About de la página web.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="about-cards-container">
+            <!-- Las tarjetas se generarán dinámicamente -->
+          </div>
+          
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2 flex items-center mt-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            Características
+          </h3>
+          <p class="text-sm text-gray-500 mb-4 ml-8 border-l-2 border-blue-500 pl-2">Edita las características que se muestran en la sección Acerca/About.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="features-cards-container">
+            <!-- Las tarjetas de características se generarán dinámicamente -->
+          </div>
+        `;
+        
+        // Obtener el contenedor de tarjetas
+        const cardsContainer = document.getElementById('about-cards-container');
+        if (!cardsContainer) {
+          console.error('No se encontró el contenedor de tarjetas para la sección Acerca');
+          return;
+        }
+        
+        // Obtener el contenedor de tarjetas de características
+        const featuresContainer = document.getElementById('features-cards-container');
+        if (!featuresContainer) {
+          console.error('No se encontró el contenedor de tarjetas para las características');
+          return;
+        }
+        
+        // Crear la tarjeta para el título principal
+        const titleCard = document.createElement('div');
+        titleCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-400 dark:border-blue-500 mb-4';
+        titleCard.innerHTML = `
+          <div class="mb-3">
+            <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Título Principal
+            </span>
+          </div>
+          <div class="mb-3">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+            <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <div class="prose prose-sm dark:prose-invert" id="preview-about-title">${about.title}</div>
+            </div>
+            <input type="text" id="about-title" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${about.title}">
+          </div>
+          <hr class="my-3 border-t border-gray-200 dark:border-gray-700">
+          <div class="mt-3 text-right">
+            <button type="button" id="save-title-button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400" style="display: inline-flex !important; background-color: #f97316 !important;">
+              Guardar cambios
+            </button>
+          </div>
+        `;
+        cardsContainer.appendChild(titleCard);
+        
+        // Crear la tarjeta para la descripción
+        const descriptionCard = document.createElement('div');
+        descriptionCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-400 dark:border-blue-500 mb-4';
+        descriptionCard.innerHTML = `
+          <div class="mb-3">
+            <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+              </svg>
+              Descripción
+            </span>
+          </div>
+          <div class="mb-3">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Contenido</label>
+            <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <div class="prose prose-sm dark:prose-invert" id="preview-about-description">${about.description}</div>
+            </div>
+            <textarea id="about-description" rows="4" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600">${about.description}</textarea>
+          </div>
+          <hr class="my-3 border-t border-gray-200 dark:border-gray-700">
+          <div class="mt-3 text-right">
+            <button type="button" id="save-description-button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400" style="display: inline-flex !important; background-color: #f97316 !important;">
+              Guardar cambios
+            </button>
+          </div>
+        `;
+        cardsContainer.appendChild(descriptionCard);
+        
+        // Crear tarjetas para cada característica
+        features.forEach((feature, index) => {
+          const featureCard = document.createElement('div');
+          featureCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-500 dark:border-blue-600 mb-4';
+          featureCard.innerHTML = `
+            <div class="mb-3">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Característica ${index + 1}
+              </span>
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+              <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                <div class="prose prose-sm dark:prose-invert" id="preview-feature-title-${index}">${feature.heading}</div>
+              </div>
+              <input type="text" id="feature-title-${index}" class="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${feature.heading}">
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descripción</label>
+              <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                <div class="prose prose-sm dark:prose-invert" id="preview-feature-description-${index}">${feature.content}</div>
+              </div>
+              <textarea id="feature-description-${index}" rows="3" class="shadow-sm focus:ring-orange-500 focus:border-orange-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600">${feature.content}</textarea>
+            </div>
+            <hr class="my-3 border-t border-gray-200 dark:border-gray-700">
+            <div class="mt-3 text-right">
+              <button type="button" id="save-feature-button-${index}" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400" style="display: inline-flex !important; background-color: #f97316 !important;">
+                Guardar cambios
+              </button>
+            </div>
+          `;
+          featuresContainer.appendChild(featureCard);
+        });
+        
+        // Agregar event listeners para actualizar la vista previa
+        setTimeout(() => {
+          const titleInput = document.getElementById('about-title') as HTMLInputElement;
+          const descriptionTextarea = document.getElementById('about-description') as HTMLTextAreaElement;
+          const previewTitle = document.getElementById('preview-about-title');
+          const previewDescription = document.getElementById('preview-about-description');
+          const saveTitleButton = document.getElementById('save-title-button');
+          const saveDescriptionButton = document.getElementById('save-description-button');
+          
+          if (titleInput && previewTitle) {
+            titleInput.addEventListener('input', (e) => {
+              const target = e.target as HTMLInputElement;
+              if (previewTitle) {
+                previewTitle.textContent = target.value;
+              }
+            });
+          }
+          
+          if (descriptionTextarea && previewDescription) {
+            descriptionTextarea.addEventListener('input', (e) => {
+              const target = e.target as HTMLTextAreaElement;
+              if (previewDescription) {
+                previewDescription.textContent = target.value;
+              }
+            });
+          }
+          
+          // Manejar clic en los botones de guardar individuales
+          if (saveTitleButton) {
+            saveTitleButton.addEventListener('click', () => {
+              if (titleInput && languageSelect) {
+                const language = languageSelect.value;
+                aboutData[language].title = titleInput.value;
+                alert(`Título de la sección Acerca guardado correctamente para el idioma: ${language}`);
+              }
+            });
+          }
+          
+          if (saveDescriptionButton) {
+            saveDescriptionButton.addEventListener('click', () => {
+              if (descriptionTextarea && languageSelect) {
+                const language = languageSelect.value;
+                aboutData[language].description = descriptionTextarea.value;
+                alert(`Descripción de la sección Acerca guardada correctamente para el idioma: ${language}`);
+              }
+            });
+          }
+          
+          // Agregar event listeners para las tarjetas de características
+          features.forEach((feature, index) => {
+            const featureTitleInput = document.getElementById(`feature-title-${index}`) as HTMLInputElement;
+            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`) as HTMLTextAreaElement;
+            const previewFeatureTitle = document.getElementById(`preview-feature-title-${index}`);
+            const previewFeatureDescription = document.getElementById(`preview-feature-description-${index}`);
+            const saveFeatureButton = document.getElementById(`save-feature-button-${index}`);
+            
+            if (featureTitleInput && previewFeatureTitle) {
+              featureTitleInput.addEventListener('input', (e) => {
+                const target = e.target as HTMLInputElement;
+                if (previewFeatureTitle) {
+                  previewFeatureTitle.textContent = target.value;
+                }
+              });
+            }
+            
+            if (featureDescriptionTextarea && previewFeatureDescription) {
+              featureDescriptionTextarea.addEventListener('input', (e) => {
+                const target = e.target as HTMLTextAreaElement;
+                if (previewFeatureDescription) {
+                  previewFeatureDescription.textContent = target.value;
+                }
+              });
+            }
+            
+            if (saveFeatureButton) {
+              saveFeatureButton.addEventListener('click', () => {
+                if (featureTitleInput && featureDescriptionTextarea && languageSelect) {
+                  const language = languageSelect.value;
+                  if (featuresData[language] && featuresData[language][index]) {
+                    featuresData[language][index].heading = featureTitleInput.value;
+                    featuresData[language][index].content = featureDescriptionTextarea.value;
+                    alert(`Característica ${index + 1} guardada correctamente para el idioma: ${language}`);
+                  }
+                }
+              });
+            }
+          });
+        }, 100);
+        
+        // Mostrar el editor de la sección Acerca
+        aboutEditor.classList.remove('hidden');
+      }
+      
+      function updateContent(language: string, section: string): void {
+        if (!languageSelect || !sectionSelect) {
+          console.error('No se encontraron los elementos necesarios para actualizar el contenido');
+          return;
+        }
+        
+        // Ocultar todos los editores de sección
+        Object.values(sectionEditors).forEach(editor => {
+          if (editor) {
+            (editor as HTMLElement).classList.add('hidden');
+          }
+        });
+        
+        // Mostrar el editor correspondiente a la sección seleccionada
+        if (section === 'hero') {
+          createCarouselSlideCards(language);
+        } else if (section === 'about') {
+          createAboutEditor(language);
+        } else if (section === 'services') {
+          createServicesEditor(language);
+        }
+      }
+      
+      // Función para crear el editor de la sección Servicios
+      function createServicesEditor(language: string): void {
+        const servicesEditor = document.getElementById('services-section-editor');
+        if (!servicesEditor) {
+          console.error('No se encontró el editor de la sección Servicios');
+          return;
+        }
+        
+        // Obtener los datos de la sección Servicios para el idioma seleccionado
+        const services = servicesData[language];
+        if (!services) {
+          console.error(`No se encontraron datos de la sección Servicios para el idioma: ${language}`);
+          return;
+        }
+        
+        // Crear el encabezado del editor
+        servicesEditor.innerHTML = `
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Sección Servicios
+          </h3>
+          <p class="text-sm text-gray-500 mb-4 ml-8 border-l-2 border-green-500 pl-2">Edita el contenido de la sección Servicios de la página web.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="services-title-container">
+            <!-- La tarjeta del título se generará dinámicamente -->
+          </div>
+          
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2 flex items-center mt-8">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            Servicios Individuales
+          </h3>
+          <p class="text-sm text-gray-500 mb-4 ml-8 border-l-2 border-green-500 pl-2">Edita los servicios que se muestran en la sección Servicios.</p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6" id="services-cards-container">
+            <!-- Las tarjetas de servicios se generarán dinámicamente -->
+          </div>
+        `;
+        
+        // Obtener el contenedor de tarjetas para el título
+        const titleContainer = document.getElementById('services-title-container');
+        if (!titleContainer) {
+          console.error('No se encontró el contenedor para el título de la sección Servicios');
+          return;
+        }
+        
+        // Obtener el contenedor de tarjetas para los servicios
+        const servicesContainer = document.getElementById('services-cards-container');
+        if (!servicesContainer) {
+          console.error('No se encontró el contenedor de tarjetas para los servicios');
+          return;
+        }
+        
+        // Crear la tarjeta para el título principal
+        const titleCard = document.createElement('div');
+        titleCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-500 dark:border-blue-600 mb-4 col-span-2';
+        titleCard.innerHTML = `
+          <div class="mb-3">
+            <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Título Principal
+            </span>
+          </div>
+          <div class="mb-3">
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+            <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+              <div class="prose prose-sm dark:prose-invert" id="preview-services-title">${services.title}</div>
+            </div>
+            <input type="text" id="services-title" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${services.title}">
+          </div>
+          <hr class="my-3 border-t border-gray-200 dark:border-gray-700">
+          <div class="mt-3 text-right">
+            <button type="button" id="save-services-title-button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400" style="display: inline-flex !important; background-color: #f97316 !important;">
+              Guardar cambios
+            </button>
+          </div>
+        `;
+        titleContainer.appendChild(titleCard);
+        
+        // Crear tarjetas para cada servicio
+        services.services.forEach((service, index) => {
+          const serviceCard = document.createElement('div');
+          serviceCard.className = 'bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-l-4 border border-blue-500 dark:border-blue-600 mb-4';
+          serviceCard.innerHTML = `
+            <div class="mb-3">
+              <span style="display: inline-flex; align-items: center; padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; border-radius: 9999px; background-color: #3b82f6; color: #ffffff; border: 1px solid #3b82f6;">
+                <svg xmlns="http://www.w3.org/2000/svg" style="height: 0.75rem; width: 0.75rem; margin-right: 0.25rem; color: #ffffff;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Servicio ${index + 1}
+              </span>
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+              <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                <div class="prose prose-sm dark:prose-invert" id="preview-service-title-${index}">${service.heading}</div>
+              </div>
+              <input type="text" id="service-title-${index}" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${service.heading}">
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descripción</label>
+              <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                <div class="prose prose-sm dark:prose-invert" id="preview-service-description-${index}">${service.content}</div>
+              </div>
+              <textarea id="service-description-${index}" rows="3" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600">${service.content}</textarea>
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Icono SVG</label>
+              <div class="flex items-center space-x-2">
+                <input type="text" id="service-icon-${index}" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${service.svg}" readonly>
+                <span class="text-xs text-gray-500">(No editable)</span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Texto Alternativo (para accesibilidad)</label>
+              <input type="text" id="service-alt-${index}" class="shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:text-white dark:border-gray-600" value="${service.alt}">
+            </div>
+            <hr class="my-3 border-t border-gray-200 dark:border-gray-700">
+            <div class="mt-3 text-right">
+              <button type="button" id="save-service-button-${index}" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-400" style="display: inline-flex !important; background-color: #f97316 !important;">
+                Guardar cambios
+              </button>
+            </div>
+          `;
+          servicesContainer.appendChild(serviceCard);
+        });
+        
+        // Agregar event listeners para actualizar la vista previa
+        setTimeout(() => {
+          const titleInput = document.getElementById('services-title') as HTMLInputElement;
+          const previewTitle = document.getElementById('preview-services-title');
+          const saveTitleButton = document.getElementById('save-services-title-button');
+          
+          if (titleInput && previewTitle) {
+            titleInput.addEventListener('input', (e) => {
+              const target = e.target as HTMLInputElement;
+              if (previewTitle) {
+                previewTitle.innerHTML = target.value;
+              }
+            });
+          }
+          
+          if (saveTitleButton) {
+            saveTitleButton.addEventListener('click', () => {
+              if (titleInput && languageSelect) {
+                const language = languageSelect.value;
+                servicesData[language].title = titleInput.value;
+                alert(`Título de la sección Servicios guardado correctamente para el idioma: ${language}`);
+              }
+            });
+          }
+          
+          // Agregar event listeners para las tarjetas de servicios
+          services.services.forEach((service, index) => {
+            const serviceTitleInput = document.getElementById(`service-title-${index}`) as HTMLInputElement;
+            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`) as HTMLTextAreaElement;
+            const serviceAltInput = document.getElementById(`service-alt-${index}`) as HTMLInputElement;
+            const previewServiceTitle = document.getElementById(`preview-service-title-${index}`);
+            const previewServiceDescription = document.getElementById(`preview-service-description-${index}`);
+            const saveServiceButton = document.getElementById(`save-service-button-${index}`);
+            
+            if (serviceTitleInput && previewServiceTitle) {
+              serviceTitleInput.addEventListener('input', (e) => {
+                const target = e.target as HTMLInputElement;
+                if (previewServiceTitle) {
+                  previewServiceTitle.textContent = target.value;
+                }
+              });
+            }
+            
+            if (serviceDescriptionTextarea && previewServiceDescription) {
+              serviceDescriptionTextarea.addEventListener('input', (e) => {
+                const target = e.target as HTMLTextAreaElement;
+                if (previewServiceDescription) {
+                  previewServiceDescription.textContent = target.value;
+                }
+              });
+            }
+            
+            if (saveServiceButton) {
+              saveServiceButton.addEventListener('click', () => {
+                if (serviceTitleInput && serviceDescriptionTextarea && serviceAltInput && languageSelect) {
+                  const language = languageSelect.value;
+                  if (servicesData[language] && servicesData[language].services[index]) {
+                    servicesData[language].services[index].heading = serviceTitleInput.value;
+                    servicesData[language].services[index].content = serviceDescriptionTextarea.value;
+                    servicesData[language].services[index].alt = serviceAltInput.value;
+                    alert(`Servicio ${index + 1} guardado correctamente para el idioma: ${language}`);
+                  }
+                }
+              });
+            }
+          });
+        }, 100);
+        
+        // Mostrar el editor de la sección Servicios
+        servicesEditor.classList.remove('hidden');
+      }
+      
+      // Función para guardar los cambios de la sección Servicios
+      function saveServicesChanges(language: string): void {
+        const titleInput = document.getElementById('services-title') as HTMLInputElement;
+        
+        if (!titleInput) {
+          console.error('No se encontraron los elementos necesarios para guardar los cambios de la sección Servicios');
+          return;
+        }
+        
+        // Actualizar los datos de la sección Servicios para el idioma seleccionado
+        servicesData[language].title = titleInput.value;
+        
+        // Actualizar las vistas previas
+        const previewTitle = document.getElementById('preview-services-title');
+        
+        if (previewTitle) {
+          previewTitle.innerHTML = titleInput.value;
+        }
+        
+        // Guardar los cambios en los servicios
+        const services = servicesData[language].services;
+        if (services) {
+          services.forEach((service, index) => {
+            const serviceTitleInput = document.getElementById(`service-title-${index}`) as HTMLInputElement;
+            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`) as HTMLTextAreaElement;
+            const serviceAltInput = document.getElementById(`service-alt-${index}`) as HTMLInputElement;
+            
+            if (serviceTitleInput && serviceDescriptionTextarea && serviceAltInput) {
+              servicesData[language].services[index].heading = serviceTitleInput.value;
+              servicesData[language].services[index].content = serviceDescriptionTextarea.value;
+              servicesData[language].services[index].alt = serviceAltInput.value;
+              
+              // Actualizar las vistas previas
+              const previewServiceTitle = document.getElementById(`preview-service-title-${index}`);
+              const previewServiceDescription = document.getElementById(`preview-service-description-${index}`);
+              
+              if (previewServiceTitle) {
+                previewServiceTitle.textContent = serviceTitleInput.value;
+              }
+              
+              if (previewServiceDescription) {
+                previewServiceDescription.textContent = serviceDescriptionTextarea.value;
+              }
+            }
+          });
+        }
+        
+        // Mostrar mensaje de éxito
+        alert(`Cambios en la sección Servicios guardados correctamente para el idioma: ${language}`);
+      }
+      
+      // Función para guardar los cambios de la sección Acerca
+      function saveAboutChanges(language: string): void {
+        const titleInput = document.getElementById('about-title') as HTMLInputElement;
+        const descriptionTextarea = document.getElementById('about-description') as HTMLTextAreaElement;
+        
+        if (!titleInput || !descriptionTextarea) {
+          console.error('No se encontraron los elementos necesarios para guardar los cambios de la sección Acerca');
+          return;
+        }
+        
+        // Actualizar los datos de la sección Acerca para el idioma seleccionado
+        aboutData[language] = {
+          title: titleInput.value,
+          description: descriptionTextarea.value
+        };
+        
+        // Actualizar las vistas previas
+        const previewTitle = document.getElementById('preview-about-title');
+        const previewDescription = document.getElementById('preview-about-description');
+        
+        if (previewTitle) {
+          previewTitle.textContent = titleInput.value;
+        }
+        
+        if (previewDescription) {
+          previewDescription.textContent = descriptionTextarea.value;
+        }
+        
+        // Guardar los cambios en las características
+        const features = featuresData[language];
+        if (features) {
+          features.forEach((feature, index) => {
+            const featureTitleInput = document.getElementById(`feature-title-${index}`) as HTMLInputElement;
+            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`) as HTMLTextAreaElement;
+            
+            if (featureTitleInput && featureDescriptionTextarea) {
+              featuresData[language][index].heading = featureTitleInput.value;
+              featuresData[language][index].content = featureDescriptionTextarea.value;
+              
+              // Actualizar las vistas previas
+              const previewFeatureTitle = document.getElementById(`preview-feature-title-${index}`);
+              const previewFeatureDescription = document.getElementById(`preview-feature-description-${index}`);
+              
+              if (previewFeatureTitle) {
+                previewFeatureTitle.textContent = featureTitleInput.value;
+              }
+              
+              if (previewFeatureDescription) {
+                previewFeatureDescription.textContent = featureDescriptionTextarea.value;
+              }
+            }
+          });
+        }
+        
+        // Mostrar mensaje de éxito
+        alert(`Cambios en la sección Acerca guardados correctamente para el idioma: ${language}`);
+      }
+      
+      // Función para cerrar el dashboard
+      function cerrarDashboard(): void {
+        // Cerrar la pestaña actual y volver a la pestaña original
+        if (window.opener && !window.opener.closed) {
+          window.opener.focus(); // Devolver el foco a la pestaña original
+          window.close(); // Cerrar la pestaña actual
+        } else {
+          // Si no hay ventana padre, redirigir a la página principal
+          window.location.href = '/';
+        }
+      }
+      
+      // Inicializar la interfaz cuando todos los elementos existen
+      function initializeInterface(): void {
+        if (!languageSelect || !sectionSelect) {
+          console.error('No se encontraron todos los elementos necesarios para inicializar la interfaz');
+          return;
+        }
+        
+        // Cargar opciones iniciales
+        updateSectionOptions(languageSelect.value);
+        
+        // Manejar cambio de idioma
+        languageSelect.addEventListener('change', () => {
+          if (languageSelect) {
+            const language = languageSelect.value;
+            const section = sectionSelect.value;
+            updateSectionOptions(language);
+            updateContent(language, section);
+          }
+        });
+        
+        // Manejar cambio de sección
+        sectionSelect.addEventListener('change', () => {
+          if (languageSelect && sectionSelect) {
+            const language = languageSelect.value;
+            const section = sectionSelect.value;
+            updateContent(language, section);
+          }
+        });
+        
+        // Manejar clic en el botón de guardar
+        if (saveButton) {
+          saveButton.addEventListener('click', () => {
+            if (languageSelect && sectionSelect) {
+              const language = languageSelect.value;
+              const section = sectionSelect.value;
+              
+              if (section === 'hero') {
+                // Guardar cambios del carrusel
+                alert('Cambios en el carrusel guardados correctamente');
+              } else if (section === 'about') {
+                // Guardar cambios de la sección Acerca
+                saveAboutChanges(language);
+              } else if (section === 'services') {
+                // Guardar cambios de la sección Servicios
+                saveServicesChanges(language);
+              }
+            }
+          });
+        }
+        
+        // Manejar clic en el botón de cerrar
+        if (closeButton) {
+          closeButton.addEventListener('click', cerrarDashboard);
+        }
+        
+        // También asignar la función al botón de cerrar superior si existe
+        const topCloseButton = document.getElementById('top-close-button');
+        if (topCloseButton) {
+          topCloseButton.addEventListener('click', cerrarDashboard);
+        }
+      }
+      
+      // Iniciar la aplicación
+      initializeInterface();
+    });
+  </script>
+</body>
+</html>
