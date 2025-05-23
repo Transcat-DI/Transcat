@@ -101,25 +101,13 @@ const config = {
               </div>
             </form>
             
-            <script>
-              // Declaración para TypeScript para la biblioteca Preline
-              declare global {
-                interface Window {
-                  HSOverlay?: {
-                    close: (element: HTMLElement) => void;
-                  }
-                }
-              }
-              
+            <script is:inline>
               document.addEventListener('DOMContentLoaded', () => {
                 const loginForm = document.getElementById('login-form');
                 const emailInput = document.getElementById('login-email');
                 const passwordInput = document.getElementById('password');
                 
                 if (loginForm && emailInput && passwordInput) {
-                  // Asegurar que los elementos son inputs para acceder a sus valores
-                  const emailValue = emailInput instanceof HTMLInputElement ? emailInput.value : '';
-                  const passwordValue = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
                   loginForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     
