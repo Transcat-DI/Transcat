@@ -274,45 +274,58 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
               </button>
             </div>
             
-            <script>
-              // Función para guardar cambios y cerrar la pestaña
-              document.getElementById('save-button').addEventListener('click', function() {
-                // Aquí iría la lógica para guardar los cambios
-                alert('Cambios guardados correctamente');
+            <script is:inline>
+              document.addEventListener('DOMContentLoaded', function() {
+                // Obtener referencias a los elementos
+                const saveButton = document.getElementById('save-button');
+                const closeButton = document.getElementById('close-button');
+                const topCloseButton = document.getElementById('top-close-button');
+                const notificationButton = document.getElementById('notification-button');
+                const notificationMenu = document.getElementById('notification-menu');
                 
-                // Cerrar la pestaña actual y volver a la pestaña original
-                if (window.opener && !window.opener.closed) {
-                  window.opener.focus(); // Devolver el foco a la pestaña original
-                  window.close(); // Cerrar la pestaña actual
+                // Función para guardar cambios y cerrar la pestaña
+                if (saveButton) {
+                  saveButton.addEventListener('click', function() {
+                    // Aquí iría la lógica para guardar los cambios
+                    alert('Cambios guardados correctamente');
+                    
+                    // Cerrar la pestaña actual y volver a la pestaña original
+                    if (window.opener && !window.opener.closed) {
+                      window.opener.focus(); // Devolver el foco a la pestaña original
+                      window.close(); // Cerrar la pestaña actual
+                    }
+                  });
                 }
-              });
-              
-              // Función para cerrar la pestaña sin guardar
-              function cerrarDashboard() {
-                // Cerrar la pestaña actual y volver a la pestaña original
-                if (window.opener && !window.opener.closed) {
-                  window.opener.focus(); // Devolver el foco a la pestaña original
-                  window.close(); // Cerrar la pestaña actual
-                } else {
-                  // Si no hay ventana padre, redirigir a la página principal
-                  window.location.href = '/';
+                
+                // Función para cerrar la pestaña sin guardar
+                function cerrarDashboard() {
+                  // Cerrar la pestaña actual y volver a la pestaña original
+                  if (window.opener && !window.opener.closed) {
+                    window.opener.focus(); // Devolver el foco a la pestaña original
+                    window.close(); // Cerrar la pestaña actual
+                  } else {
+                    // Si no hay ventana padre, redirigir a la página principal
+                    window.location.href = '/';
+                  }
                 }
-              }
-              
-              // Asignar la función a ambos botones de cerrar
-              document.getElementById('close-button').addEventListener('click', cerrarDashboard);
-              document.getElementById('top-close-button').addEventListener('click', cerrarDashboard);
-              
-              // Funcionalidad para el menú de notificaciones
-              const notificationButton = document.getElementById('notification-button');
-              const notificationMenu = document.getElementById('notification-menu');
-              
-              if (notificationButton && notificationMenu) {
-                notificationButton.addEventListener('click', function(e) {
-                  e.stopPropagation();
-                  notificationMenu.classList.toggle('hidden');
-                  // Cerrar el menú de usuario si está abierto
-                  if (userMenu && !userMenu.classList.contains('hidden')) {
+                
+                // Asignar la función a ambos botones de cerrar
+                if (closeButton) {
+                  closeButton.addEventListener('click', cerrarDashboard);
+                }
+                
+                if (topCloseButton) {
+                  topCloseButton.addEventListener('click', cerrarDashboard);
+                }
+                
+                // Funcionalidad para el menú de notificaciones
+                if (notificationButton && notificationMenu) {
+                  notificationButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    notificationMenu.classList.toggle('hidden');
+                    // Cerrar el menú de usuario si está abierto
+                    const userMenu = document.getElementById('user-menu');
+                    if (userMenu && !userMenu.classList.contains('hidden')) {
                     userMenu.classList.add('hidden');
                   }
                 });
@@ -335,11 +348,15 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
               
               // Cerrar menús al hacer clic fuera de ellos
               document.addEventListener('click', function(e) {
-                if (notificationMenu && !notificationMenu.contains(e.target) && !notificationButton.contains(e.target)) {
+                if (notificationMenu && !notificationMenu.contains(e.target) && notificationButton && !notificationButton.contains(e.target)) {
                   notificationMenu.classList.add('hidden');
                 }
                 
-                if (userMenu && !userMenu.contains(e.target) && !userMenuButton.contains(e.target)) {
+                // Obtener referencia al menú de usuario y su botón
+                const userMenu = document.getElementById('user-menu');
+                const userMenuButton = document.getElementById('user-menu-button');
+                
+                if (userMenu && userMenuButton && !userMenu.contains(e.target) && !userMenuButton.contains(e.target)) {
                   userMenu.classList.add('hidden');
                 }
               });
