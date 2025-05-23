@@ -143,7 +143,7 @@ Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència.
   </div>
 </div>
 
-<script>
+<script is:inline>
   // Funcionalidad para actualizar la vista previa en tiempo real
   document.addEventListener('DOMContentLoaded', () => {
     const contentEditor = document.getElementById('content-editor');
@@ -168,33 +168,35 @@ Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència.
           
           if (language === 'ca') {
             if (section === 'hero') {
-              content = `La teva confiança, la nostra Millor Ruta!
-
-Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.`;
+              content = "La teva confiança, la nostra Millor Ruta!\n\nSolucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.";
             } else if (section === 'about') {
-              content = `Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses.`;
+              content = "Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses.";
             } else if (section === 'services') {
-              content = `Serveis de Transport Professional adaptats a les teves necessitats logístiques a Catalunya.`;
+              content = "Serveis de Transport Professional adaptats a les teves necessitats logístiques a Catalunya.";
             }
           } else if (language === 'es') {
             if (section === 'hero') {
-              content = `Tu confianza, nuestra Mejor Ruta!
-
-Soluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional.`;
+              content = "Tu confianza, nuestra Mejor Ruta!\n\nSoluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional.";
             } else if (section === 'about') {
-              content = `¡Hola! Soy Jordi, transportista profesional comprometido con la excelencia. Ofrezco soluciones de transporte eficientes y fiables para empresas y particulares en toda Cataluña. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la ruta y un servicio de transporte que cumple sus promesas.`;
+              content = "¡Hola! Soy Jordi, transportista profesional comprometido con la excelencia. Ofrezco soluciones de transporte eficientes y fiables para empresas y particulares en toda Cataluña. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la ruta y un servicio de transporte que cumple sus promesas.";
             } else if (section === 'services') {
-              content = `Servicios de Transporte Profesional adaptados a tus necesidades logísticas en Cataluña.`;
+              content = "Servicios de Transporte Profesional adaptados a tus necesidades logísticas en Cataluña.";
             }
           } else if (language === 'fr') {
             if (section === 'hero') {
-              content = `Votre confiance, notre Meilleure Route!
-
-Solutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale.`;
+              content = "Votre confiance, notre Meilleure Route!\n\nSolutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale.";
             } else if (section === 'about') {
-              content = `Bonjour! Je suis Jordi, transporteur professionnel engagé dans l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettisées, de charges complètes ou partielles, et de livraisons porte-à-porte. À chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses.`;
+              content = "Bonjour! Je suis Jordi, transporteur professionnel engagé dans l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettées, de charges complètes ou partielles, et de livraisons porte-à-porte. À chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses.";
             } else if (section === 'services') {
-              content = `Services de Transport Professionnel adaptés à vos besoins logistiques en Catalogne.`;
+              content = "Services de Transport Professionnel adaptés à vos besoins logistiques en Catalogne.";
+            }
+          } else if (language === 'en') {
+            if (section === 'hero') {
+              content = "Your trust, our Best Route!\n\nFast and secure transport solutions in Catalonia. Trust in agile logistics, without detours and with regional coverage.";
+            } else if (section === 'about') {
+              content = "Hello! I'm Jordi, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises.";
+            } else if (section === 'services') {
+              content = "Professional Transport Services adapted to your logistics needs in Catalonia.";
             }
           }
           
