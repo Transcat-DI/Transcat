@@ -1,0 +1,209 @@
+---
+// Editor de contenido multilingüe para el dashboard
+import { Image } from "astro:assets";
+import dashboardImage from "@images/dashboard-image.avif";
+---
+
+<div>
+  <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Editor de Contenido Multilingüe</h2>
+  
+  <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-blue-700 dark:text-blue-300">
+          Esta herramienta te permite editar el contenido del sitio web en todos los idiomas disponibles. Selecciona una sección y un idioma para comenzar.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Selector de idioma y sección -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div>
+      <label for="language" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Idioma</label>
+      <select id="language" class="w-full rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <option value="es">Español</option>
+        <option value="ca">Catalán</option>
+        <option value="fr">Francés</option>
+        <option value="en">Inglés</option>
+      </select>
+    </div>
+    
+    <div>
+      <label for="section" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sección</label>
+      <select id="section" class="w-full rounded-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+        <option value="hero">Hero Section</option>
+        <option value="about">Sobre Nosotros</option>
+        <option value="services">Servicios</option>
+        <option value="testimonials">Testimonios</option>
+        <option value="pricing">Precios</option>
+        <option value="faq">Preguntas Frecuentes</option>
+        <option value="contact">Contacto</option>
+      </select>
+    </div>
+  </div>
+  
+  <!-- Editor de contenido -->
+  <div class="mb-6">
+    <div class="flex justify-between items-center mb-2">
+      <label for="content-editor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenido</label>
+      <div class="flex space-x-2">
+        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-700 shadow-sm text-xs font-medium rounded text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Importar
+        </button>
+        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 dark:border-gray-700 shadow-sm text-xs font-medium rounded text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+          </svg>
+          Copiar
+        </button>
+      </div>
+    </div>
+    
+    <!-- Barra de herramientas del editor -->
+    <div class="flex flex-wrap gap-1 mb-2 p-2 border border-gray-300 dark:border-gray-700 rounded-t-md bg-gray-50 dark:bg-gray-800">
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h10M4 18h16" />
+        </svg>
+      </button>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+        </svg>
+      </button>
+      <div class="h-6 border-r border-gray-300 dark:border-gray-700 mx-1"></div>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded font-bold">B</button>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded italic">I</button>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded underline">U</button>
+      <div class="h-6 border-r border-gray-300 dark:border-gray-700 mx-1"></div>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+        </svg>
+      </button>
+      <button type="button" class="p-1.5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </button>
+    </div>
+    
+    <!-- Campo de texto del editor -->
+    <div class="relative">
+      <textarea
+        id="content-editor"
+        rows="10"
+        class="block w-full rounded-b-md border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        placeholder="Edita el contenido aquí..."
+      >La teva confiança, la nostra Millor Ruta!
+
+Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.
+
+Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses.</textarea>
+      
+      <!-- Indicador de carga (normalmente oculto) -->
+      <div class="hidden absolute inset-0 flex items-center justify-center bg-white/75 dark:bg-gray-800/75">
+        <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Vista previa -->
+  <div class="mb-6">
+    <h3 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Vista Previa</h3>
+    <div class="p-4 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 min-h-[100px]">
+      <div class="prose prose-sm max-w-none dark:prose-invert">
+        <p>La teva confiança, la nostra <span class="text-yellow-500">Millor Ruta!</span></p>
+        <p>Solucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.</p>
+        <p>Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Botones de acción -->
+  <div class="flex justify-end space-x-3">
+    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 shadow-sm text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Cancelar
+    </button>
+    <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+      Guardar Cambios
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  // Funcionalidad para actualizar la vista previa en tiempo real
+  document.addEventListener('DOMContentLoaded', () => {
+    const contentEditor = document.getElementById('content-editor');
+    const languageSelector = document.getElementById('language');
+    const sectionSelector = document.getElementById('section');
+    
+    if (contentEditor && languageSelector && sectionSelector) {
+      // Simular carga de contenido al cambiar idioma o sección
+      languageSelector.addEventListener('change', updateContent);
+      sectionSelector.addEventListener('change', updateContent);
+      
+      function updateContent() {
+        const language = languageSelector.value;
+        const section = sectionSelector.value;
+        
+        // Simular carga de datos
+        contentEditor.disabled = true;
+        
+        // En una implementación real, aquí se haría una petición AJAX para obtener el contenido
+        setTimeout(() => {
+          let content = '';
+          
+          if (language === 'ca') {
+            if (section === 'hero') {
+              content = "La teva confiança, la nostra Millor Ruta!\n\nSolucions de transport ràpides i segures a Catalunya. Confia en una logística àgil, sense desviaments i amb cobertura regional.";
+            } else if (section === 'about') {
+              content = "Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses.";
+            } else if (section === 'services') {
+              content = "Serveis de Transport Professional adaptats a les teves necessitats logístiques a Catalunya.";
+            }
+          } else if (language === 'es') {
+            if (section === 'hero') {
+              content = "Tu confianza, nuestra Mejor Ruta!\n\nSoluciones de transporte rápidas y seguras en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional.";
+            } else if (section === 'about') {
+              content = "¡Hola! Soy Jordi, transportista profesional comprometido con la excelencia. Ofrezco soluciones de transporte eficientes y fiables para empresas y particulares en toda Cataluña. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la ruta y un servicio de transporte que cumple sus promesas.";
+            } else if (section === 'services') {
+              content = "Servicios de Transporte Profesional adaptados a tus necesidades logísticas en Cataluña.";
+            }
+          } else if (language === 'fr') {
+            if (section === 'hero') {
+              content = "Votre confiance, notre Meilleure Route!\n\nSolutions de transport rapides et sécurisées en Catalogne. Faites confiance à une logistique agile, sans détours et avec une couverture régionale.";
+            } else if (section === 'about') {
+              content = "Bonjour! Je suis Jordi, transporteur professionnel engagé dans l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettées, de charges complètes ou partielles, et de livraisons porte-à-porte. À chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses.";
+            } else if (section === 'services') {
+              content = "Services de Transport Professionnel adaptés à vos besoins logistiques en Catalogne.";
+            }
+          } else if (language === 'en') {
+            if (section === 'hero') {
+              content = "Your trust, our Best Route!\n\nFast and secure transport solutions in Catalonia. Trust in agile logistics, without detours and with regional coverage.";
+            } else if (section === 'about') {
+              content = "Hello! I'm Jordi, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises.";
+            } else if (section === 'services') {
+              content = "Professional Transport Services adapted to your logistics needs in Catalonia.";
+            }
+          }
+          
+          contentEditor.value = content;
+          contentEditor.disabled = false;
+        }, 500);
+      }
+    }
+  });
+</script>
