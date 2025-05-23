@@ -348,16 +348,22 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
               
               // Cerrar menús al hacer clic fuera de ellos
               document.addEventListener('click', function(e) {
-                if (notificationMenu && !notificationMenu.contains(e.target) && notificationButton && !notificationButton.contains(e.target)) {
-                  notificationMenu.classList.add('hidden');
+                // Verificar el menú de notificaciones
+                if (notificationMenu && notificationButton) {
+                  if (!notificationMenu.contains(e.target) && !notificationButton.contains(e.target)) {
+                    notificationMenu.classList.add('hidden');
+                  }
                 }
                 
                 // Obtener referencia al menú de usuario y su botón
                 const userMenu = document.getElementById('user-menu');
                 const userMenuButton = document.getElementById('user-menu-button');
                 
-                if (userMenu && userMenuButton && !userMenu.contains(e.target) && !userMenuButton.contains(e.target)) {
-                  userMenu.classList.add('hidden');
+                // Verificar que existan antes de acceder a sus métodos
+                if (userMenu && userMenuButton) {
+                  if (!userMenu.contains(e.target) && !userMenuButton.contains(e.target)) {
+                    userMenu.classList.add('hidden');
+                  }
                 }
               });
             </script>
