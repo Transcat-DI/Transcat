@@ -63,38 +63,37 @@ const { title, bannerText = "La teva confiança, la nostra <span class=\"text-ye
   )}
 </section>
 
-<script>
-  // Script para el efecto parallax
+<script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
-    const parallaxImage = document.querySelector('.parallax-image');
+    const parallaxImages = document.querySelectorAll('.parallax-image');
     
-    if (parallaxImage) {
-      window.addEventListener('scroll', () => {
-        // Calcular la posición de desplazamiento basada en el scroll
-        const scrollPosition = window.scrollY;
-        const container = parallaxImage.closest('.parallax-container');
+    function handleParallax() {
+      parallaxImages.forEach(image => {
+        const container = image.closest('.parallax-container');
+        if (!container) return;
         
-        if (container) {
-          const containerTop = container.getBoundingClientRect().top + window.scrollY;
-          const containerHeight = container.getBoundingClientRect().height;
+        const containerRect = container.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Check if container is visible in the viewport
+        if (containerRect.top < windowHeight && containerRect.bottom > 0) {
+          // Calculate the percentage of visibility
+          const visiblePercentage = 1 - (containerRect.top / windowHeight);
           
-          // Verificar si el contenedor está visible en la pantalla
-          if (scrollPosition + window.innerHeight > containerTop && 
-              scrollPosition < containerTop + containerHeight) {
-            
-            // Calcular el desplazamiento para el efecto parallax
-            // Limitamos el desplazamiento para evitar que se vea el fondo
-            const maxOffset = containerHeight * 0.15; // 15% del contenedor (reducido del 25%)
-            let offset = (scrollPosition - containerTop) * 0.2; // Reducido de 0.3 para un movimiento más suave
-            
-            // Limitar el offset para que no exceda el máximo permitido
-            offset = Math.min(offset, maxOffset);
-            
-            // Aplicar la transformación
-            (parallaxImage as HTMLElement).style.transform = `translateY(${offset}px)`;
-          }
+          // Apply parallax effect
+          const translateY = Math.min(30, visiblePercentage * 30); // Limit to 30px max
+          image.style.transform = 'translateY(-' + translateY + '%)';
         }
       });
     }
+    
+    // Initialize
+    handleParallax();
+    
+    // Update on scroll
+    window.addEventListener('scroll', handleParallax, { passive: true });
+    
+    // Update on resize
+    window.addEventListener('resize', handleParallax, { passive: true });
   });
 </script>

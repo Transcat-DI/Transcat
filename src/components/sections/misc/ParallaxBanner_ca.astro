@@ -54,7 +54,7 @@ const { title, bannerText = "La teva confiança, la nostra <span class=\"text-ye
   </div>
 </section>
 
-<script>
+<script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const parallaxImages = document.querySelectorAll('.parallax-image');
     
@@ -73,7 +73,7 @@ const { title, bannerText = "La teva confiança, la nostra <span class=\"text-ye
           
           // Aplicar el efecto parallax
           const translateY = Math.min(30, visiblePercentage * 30); // Limitar a 30px máximo
-          image.style.transform = `translateY(-${translateY}%)`;
+          image.style.transform = 'translateY(-' + translateY + '%)';
         }
       });
     }
