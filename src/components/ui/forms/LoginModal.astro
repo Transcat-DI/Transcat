@@ -8,6 +8,15 @@ import GoogleBtn from "@components/ui/buttons/GoogleBtn.astro";
 import { loginTranslations } from "@utils/loginTranslations";
 import type { LanguageCode } from "@utils/ui";
 
+// Declaración para TypeScript para la biblioteca Preline
+declare global {
+  interface Window {
+    HSOverlay?: {
+      close: (element: HTMLElement) => void;
+    }
+  }
+}
+
 // Obtener el idioma actual de la URL
 const pathname = Astro.url.pathname;
 let currentLang: LanguageCode = 'es';
@@ -101,16 +110,7 @@ const config = {
               </div>
             </form>
             
-            <script>
-              // Declaración para TypeScript para la biblioteca Preline
-              declare global {
-                interface Window {
-                  HSOverlay?: {
-                    close: (element: HTMLElement) => void;
-                  }
-                }
-              }
-              
+            <script is:inline>
               document.addEventListener('DOMContentLoaded', () => {
                 const loginForm = document.getElementById('login-form');
                 const emailInput = document.getElementById('login-email');
