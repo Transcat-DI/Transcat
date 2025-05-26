@@ -1,12 +1,12 @@
 import ogImageSrc from "@images/hero-image.avif";
 
 export const SITE = {
-  title: "TransCat",
+  title: "TransCar",
   tagline: "Servicios de Transporte Profesional",
   description: "Servicios de transporte rápidos y seguros en Cataluña. Confía en una logística ágil, sin desvíos y con cobertura regional para todas tus necesidades de transporte y distribución.",
   description_short: "Servicios de transporte rápidos y seguros en Cataluña con cobertura regional y entregas puntuales.",
-  url: "https://transcat.netlify.app",
-  author: "Francisco J. Arrazola Méndez",
+  url: "https://transcar.netlify.app",
+  author: "Carmen Constantín",
 };
 
 export const SEO = {

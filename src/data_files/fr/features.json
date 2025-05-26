@@ -1,22 +1,32 @@
 [
   {
-    "heading": "Équipes dédiées",
-    "content": "Bénéficiez de nos équipes engagées qui veillent à ce que votre réussite soit personnelle. Comptez sur un accompagnement expert et des résultats exceptionnels tout au long de votre parcours de projet.",
-    "svg": "groups"
-  },
-  {
-    "heading": "Simplicité et accessibilité",
-    "content": "Trouvez des solutions faciles à utiliser et abordables avec la gamme d'outils et d'équipements de ScrewFast. Nos produits simplifient l'approvisionnement et permettent de respecter les budgets de projet.",
+    "heading": "Expérience et Professionnalisme",
+    "content": "Avec plus de 15 ans d'expérience dans le secteur du transport, j'offre un service professionnel et fiable pour tous vos besoins logistiques en Catalogne.",
     "svg": "verified"
   },
   {
-    "heading": "Documentation complète",
-    "content": "Intégrez facilement grâce aux guides exhaustifs et aux bibliothèques de ScrewFast. Réalisez une adoption de produit sans faille avec notre ensemble complet de documentation conçu pour votre succès.",
-    "svg": "books"
+    "heading": "Flotte Moderne",
+    "content": "Je dispose de véhicules modernes et bien entretenus, équipés des dernières technologies pour garantir des livraisons sûres et ponctuelles dans toutes les conditions.",
+    "svg": "truck"
   },
   {
-    "heading": "Conception centrée sur l'utilisateur",
-    "content": "Faites l'expérience de la différence avec la conception axée sur l'utilisateur de ScrewFast, où la fonctionnalité rencontre la praticité pour une expérience de travail améliorée.",
-    "svg": "frame"
+    "heading": "Services Personnalisés",
+    "content": "Chaque client a des besoins uniques. J'offre des solutions de transport adaptées à vos exigences spécifiques, des livraisons urgentes aux transports programmés.",
+    "svg": "groups"
+  },
+  {
+    "heading": "Couverture Nationale et Internationale",
+    "content": "Service complet sur tout le territoire espagnol et les régions frontalières de la France. Un vaste réseau logistique qui garantit des livraisons efficaces dans toutes les provinces espagnoles et les zones frontalières françaises.",
+    "svg": "mapPin"
+  },
+  {
+    "heading": "Service Client",
+    "content": "Communication constante et directe avec le client avant, pendant et après le service. Toujours disponible pour répondre aux questions et répondre aux besoins spécifiques.",
+    "svg": "phone"
+  },
+  {
+    "heading": "Engagement Environnemental",
+    "content": "Engagé dans la réduction de l'empreinte carbone grâce à l'optimisation des itinéraires, à l'entretien rigoureux des véhicules et à des pratiques de conduite efficaces.",
+    "svg": "recycle"
   }
 ]

@@ -2,8 +2,8 @@
   "subTitle": "We answer your questions about our transport and logistics services.",
   "faqs": [
     {
-      "question": "What geographic areas does TransCat cover?",
-      "answer": "TransCat offers transport services primarily in Catalonia, with complete coverage in Barcelona, Girona, Lleida, and Tarragona. With our Premium Plan, we also offer services throughout mainland Spain."
+      "question": "What geographic areas does TransCar cover?",
+      "answer": "TransCar offers transport services primarily in Catalonia, with complete coverage in Barcelona, Girona, Lleida, and Tarragona. With our Premium Plan, we also offer services throughout mainland Spain."
     },
     {
       "question": "How can I track my shipment?",
@@ -22,7 +22,7 @@
       "answer": "We have a dedicated team for incident resolution. Basic Plan customers can contact us by email, while Premium customers have access to priority telephone support 24/7. Our incident resolution rate in less than 24 hours exceeds 95%."
     },
     {
-      "question": "Does TransCat offer customized services for businesses?",
+      "question": "Does TransCar offer customized services for businesses?",
       "answer": "Yes, in addition to our standard plans, we offer tailored solutions for companies with specific logistics needs. This includes scheduled pickups, dedicated fleet management, or integration with management systems. Request a personalized consultation and we will offer you a budget adapted to your needs."
     }
   ]

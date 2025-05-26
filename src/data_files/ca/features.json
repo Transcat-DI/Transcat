@@ -1,22 +1,32 @@
 [
   {
-    "heading": "Equips dedicats",
-    "content": "Gaudeix dels nostres equips compromesos que s'asseguren que el teu èxit sigui personal. Compta amb un acompanyament expert i resultats excepcionals al llarg del teu recorregut de projecte.",
-    "svg": "groups"
-  },
-  {
-    "heading": "Simplicitat i accessibilitat",
-    "content": "Troba solucions fàcils d'utilitzar i assequibles amb la gamma d'eines i equips de ScrewFast. Els nostres productes simplifiquen l'aprovisionament i permeten respectar els pressupostos de projecte.",
+    "heading": "Experiència i Professionalitat",
+    "content": "Amb més de 15 anys d'experiència en el sector del transport, ofereixo un servei professional i fiable per a totes les seves necessitats logístiques a Catalunya.",
     "svg": "verified"
   },
   {
-    "heading": "Documentació completa",
-    "content": "Integra fàcilment gràcies a les guies exhaustives i les biblioteques de ScrewFast. Aconsegueix una adopció de producte sense problemes amb el nostre conjunt complet de documentació dissenyat per al teu èxit.",
-    "svg": "books"
+    "heading": "Flota Moderna",
+    "content": "Disposo de vehicles moderns i ben mantinguts, equipats amb la darrera tecnologia per garantir lliuraments segurs i puntuals en qualsevol condició.",
+    "svg": "truck"
   },
   {
-    "heading": "Disseny centrat en l'usuari",
-    "content": "Experimenta la diferència amb el disseny centrat en l'usuari de ScrewFast, on la funcionalitat es troba amb la practicitat per a una experiència de treball millorada.",
-    "svg": "frame"
+    "heading": "Serveis Personalitzats",
+    "content": "Cada client té necessitats úniques. Ofereixo solucions de transport adaptades als seus requeriments específics, des de lliuraments urgents fins a transports programats.",
+    "svg": "groups"
+  },
+  {
+    "heading": "Cobertura Nacional i Internacional",
+    "content": "Servei complet a tot el territori espanyol i regions fronterereres de França. Àmplia xarxa logística que garanteix lliuraments eficients a totes les províncies espanyoles i zones limítrofes franceses.",
+    "svg": "mapPin"
+  },
+  {
+    "heading": "Atenció al Client",
+    "content": "Comunicació constant i directa amb el client abans, durant i després del servei. Sempre disponible per resoldre dubtes i atendre necessitats específiques.",
+    "svg": "phone"
+  },
+  {
+    "heading": "Compromís Mediambiental",
+    "content": "Compromès amb la reducció de la petjada de carboni mitjançant rutes optimitzades, manteniment rigorós de vehicles i pràctiques de conducció eficient.",
+    "svg": "recycle"
   }
 ]
