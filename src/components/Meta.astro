@@ -1,8 +1,20 @@
 ---
 import { getImage } from "astro:assets";
-import { OG, SEO, SITE } from "@data/constants";
+import { OG as OG_ES, SEO as SEO_ES, SITE as SITE_ES } from "../data_files/constants";
+import { OG as OG_FR, SEO as SEO_FR, SITE as SITE_FR } from "../data_files/fr/constants";
 import faviconSvgSrc from "@images/icon.svg";
 import faviconSrc from "@images/icon.png";
+
+// Select the appropriate constants based on language
+let SITE = SITE_ES;
+let SEO = SEO_ES;
+let OG = OG_ES;
+
+if (Astro.url.pathname.startsWith("/fr")) {
+  SITE = SITE_FR;
+  SEO = SEO_FR;
+  OG = OG_FR;
+}
 
 // Default properties for the Meta component. These values are used if props are not provided.
 // 'meta' sets a default description meta tag to describe the page content.
@@ -12,6 +24,7 @@ const defaultProps = {
   structuredData: SEO.structuredData,
   customDescription: null,
   customOgTitle: null,
+  noIndex: false,
 };
 
 // Extract props with default values assigned from defaultProps. Values can be overridden when the component is used.
@@ -22,6 +35,7 @@ const {
   structuredData = defaultProps.structuredData,
   customDescription = defaultProps.customDescription,
   customOgTitle = defaultProps.customOgTitle,
+  noIndex = defaultProps.noIndex,
 } = Astro.props;
 
 // Use custom description if provided, otherwise use default meta
@@ -45,6 +59,7 @@ const socialImage = Astro.url.origin + socialImageRes.src; // Get the full URL o
 const languages: { [key: string]: string } = {
   es: "",
   ca: "ca",
+  fr: "fr",
 };
 
 function createHref(lang: string, prefix: string, path: string): string {
@@ -102,6 +117,7 @@ const appleTouchIcon = await getImage({
 />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <link rel="canonical" href={canonical} />
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
 <Fragment set:html={alternateLanguageLinks} />
 
 {/* Facebook Meta Tags */}
