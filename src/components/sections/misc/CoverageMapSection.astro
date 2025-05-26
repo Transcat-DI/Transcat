@@ -1,6 +1,27 @@
 ---
 // Import necessary dependencies
 import { SITE } from "@data/constants";
+import { Image } from "astro:assets";
+
+// Importar las imágenes de las ciudades
+import barcelona from "@images/cities/01 - barcelona.webp";
+import madrid from "@images/cities/02 - madrid.webp";
+import valencia from "@images/cities/03 - valencia.webp";
+import sevilla from "@images/cities/04 - sevilla.webp";
+import bilbao from "@images/cities/05 - bilbao.webp";
+import zaragoza from "@images/cities/06 - zaragoza.webp";
+import malaga from "@images/cities/07 - malaga.webp";
+import murcia from "@images/cities/08 - murcia.webp";
+import coruna from "@images/cities/09 - coruña.webp";
+import valladolid from "@images/cities/10 - valladolid.webp";
+import palmas from "@images/cities/11 - palmas.webp";
+import pamplona from "@images/cities/12 - pamplona.webp";
+import paris from "@images/cities/13 - paris.webp";
+import toulouse from "@images/cities/14 - toulouse.webp";
+import lyon from "@images/cities/15 - lyon.webp";
+import montpellier from "@images/cities/16 - montpellier.webp";
+import burdeos from "@images/cities/17 - burdeos.webp";
+import perpignan from "@images/cities/18 - perpiñán.webp";
 
 // Detectar el idioma actual basado en la URL
 const pathname = Astro.url.pathname;
@@ -135,24 +156,24 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
 
     <div class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
       {[
-        { name: "Barcelona", img: "01 - barcelona.webp" },
-        { name: "Madrid", img: "02 - madrid.webp" },
-        { name: "Valencia", img: "03 - valencia.webp" },
-        { name: "Sevilla", img: "04 - sevilla.webp" },
-        { name: "Bilbao", img: "05 - bilbao.webp" },
-        { name: "Zaragoza", img: "06 - zaragoza.webp" },
-        { name: "Málaga", img: "07 - malaga.webp" },
-        { name: "Murcia", img: "08 - murcia.webp" },
-        { name: "A Coruña", img: "09 - coruña.webp" },
-        { name: "Valladolid", img: "10 - valladolid.webp" },
-        { name: "Las Palmas", img: "11 - palmas.webp" },
-        { name: "Pamplona", img: "12 - pamplona.webp" },
-        { name: "París", img: "13 - paris.webp" },
-        { name: "Toulouse", img: "14 - toulouse.webp" },
-        { name: "Lyon", img: "15 - lyon.webp" },
-        { name: "Montpellier", img: "16 - montpellier.webp" },
-        { name: "Burdeos", img: "17 - burdeos.webp" },
-        { name: "Perpiñán", img: "18 - perpiñán.webp" }
+        { name: "Barcelona", img: barcelona },
+        { name: "Madrid", img: madrid },
+        { name: "Valencia", img: valencia },
+        { name: "Sevilla", img: sevilla },
+        { name: "Bilbao", img: bilbao },
+        { name: "Zaragoza", img: zaragoza },
+        { name: "Málaga", img: malaga },
+        { name: "Murcia", img: murcia },
+        { name: "A Coruña", img: coruna },
+        { name: "Valladolid", img: valladolid },
+        { name: "Las Palmas", img: palmas },
+        { name: "Pamplona", img: pamplona },
+        { name: "París", img: paris },
+        { name: "Toulouse", img: toulouse },
+        { name: "Lyon", img: lyon },
+        { name: "Montpellier", img: montpellier },
+        { name: "Burdeos", img: burdeos },
+        { name: "Perpiñán", img: perpignan }
       ].map((cityImg, index) => {
         // Buscar la ciudad correspondiente en coverageCities
         const city = coverageCities.find(c => c.name === cityImg.name) || coverageCities[index];
@@ -177,18 +198,24 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg overflow-hidden">
               {cityImg.name === "París" ? (
                 <div class="w-full h-full relative">
-                  <img 
-                    src={`/src/images/cities/${cityImg.img}`} 
+                  <Image 
+                    src={cityImg.img} 
                     alt={`${t.city} ${city.name}`} 
                     class="absolute w-full h-[140%] object-cover object-top"
                     style="top: -20%;"
+                    width={300}
+                    height={200}
+                    loading="lazy"
                   />
                 </div>
               ) : (
-                <img 
-                  src={`/src/images/cities/${cityImg.img}`} 
+                <Image 
+                  src={cityImg.img} 
                   alt={`${t.city} ${city.name}`} 
                   class="w-full h-full object-cover"
+                  width={300}
+                  height={200}
+                  loading="lazy"
                 />
               )}
             </div>
