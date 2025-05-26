@@ -78,6 +78,28 @@ if (pathname.startsWith('/en')) {
   type TLanguage = "en" | "fr" | "es" | "ca";
   // array of supported languages
   const languages: TLanguage[] = ["en", "fr", "es", "ca"];
+  
+  // Mapeo de rutas entre idiomas
+  const routeTranslations: Record<string, Record<TLanguage, string>> = {
+    "cobertura": {
+      "en": "coverage",
+      "es": "cobertura",
+      "fr": "couverture",
+      "ca": "cobertura"
+    },
+    "couverture": {
+      "en": "coverage",
+      "es": "cobertura",
+      "fr": "couverture",
+      "ca": "cobertura"
+    },
+    "coverage": {
+      "en": "coverage",
+      "es": "cobertura",
+      "fr": "couverture",
+      "ca": "cobertura"
+    }
+  };
 
   document.addEventListener("DOMContentLoaded", function () {
     // Only target language picker links
@@ -113,16 +135,34 @@ if (pathname.startsWith('/en')) {
           .split("/")
           .filter((part) => part && !languages.includes(part as TLanguage));
         
+        // Traducir las partes de la ruta si es necesario
+        const translatedParts = pathParts.map(part => {
+          // Detectar el idioma actual
+          let currentLang: TLanguage = 'es';
+          if (url.pathname.startsWith('/en')) currentLang = 'en';
+          else if (url.pathname.startsWith('/fr')) currentLang = 'fr';
+          else if (url.pathname.startsWith('/ca')) currentLang = 'ca';
+          
+          // Buscar traducción para la parte actual
+          for (const [originalRoute, translations] of Object.entries(routeTranslations)) {
+            if (part === originalRoute || Object.values(translations).includes(part)) {
+              // Si encontramos una coincidencia, devolver la traducción para el idioma destino
+              return translations[lang] || part;
+            }
+          }
+          return part;
+        });
+        
         // Construir la nueva ruta según el idioma seleccionado
         let newPath;
         if (lang === 'en') {
-          newPath = '/en/' + pathParts.join('/');
+          newPath = '/en/' + translatedParts.join('/');
         } else if (lang === 'fr') {
-          newPath = '/fr/' + pathParts.join('/');
+          newPath = '/fr/' + translatedParts.join('/');
         } else if (lang === 'ca') {
-          newPath = '/ca/' + pathParts.join('/');
+          newPath = '/ca/' + translatedParts.join('/');
         } else {
-          newPath = '/es/' + pathParts.join('/');
+          newPath = '/es/' + translatedParts.join('/');
         }
         
         // Limpiar la ruta (eliminar barras duplicadas)

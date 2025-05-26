@@ -101,13 +101,25 @@ const config = {
               </div>
             </form>
             
-            <script is:inline>
+            <script>
+              // Declaración para TypeScript para la biblioteca Preline
+              declare global {
+                interface Window {
+                  HSOverlay?: {
+                    close: (element: HTMLElement) => void;
+                  }
+                }
+              }
+              
               document.addEventListener('DOMContentLoaded', () => {
                 const loginForm = document.getElementById('login-form');
                 const emailInput = document.getElementById('login-email');
                 const passwordInput = document.getElementById('password');
                 
                 if (loginForm && emailInput && passwordInput) {
+                  // Asegurar que los elementos son inputs para acceder a sus valores
+                  const emailValue = emailInput instanceof HTMLInputElement ? emailInput.value : '';
+                  const passwordValue = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
                   loginForm.addEventListener('submit', (e) => {
                     e.preventDefault();
                     
@@ -115,7 +127,7 @@ const config = {
                     const email = emailInput instanceof HTMLInputElement ? emailInput.value : '';
                     const password = passwordInput instanceof HTMLInputElement ? passwordInput.value : '';
                     
-                    if (email === 'info@transcat.es' && password === 'Volvo25*') {
+                    if (email === 'info@transcar.es' && password === 'Volvo25*') {
                       // Credenciales correctas, abrir el dashboard en una nueva pestaña
                       window.open('/dashboard', '_blank');
                       
