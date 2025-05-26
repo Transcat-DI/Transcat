@@ -45,7 +45,17 @@ const texts = {
 };
 
 // Obtener los textos según el idioma actual
-const t = texts[currentLang] || texts.es;
+let t;
+// Usar una verificación de tipo segura
+if (currentLang === 'en') {
+  t = texts.en;
+} else if (currentLang === 'fr') {
+  t = texts.fr;
+} else if (currentLang === 'ca') {
+  t = texts.ca;
+} else {
+  t = texts.es;
+}
 
 // Define the cities with their coordinates and information
 const coverageCities = [
@@ -149,7 +159,7 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
         
         return (
           <div class="city-card rounded-lg border border-neutral-300 bg-white p-4 shadow-md transition-all hover:border-neutral-400 hover:shadow-lg dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600 relative group">
-            {/* Contenido visible por defecto */}
+            <!-- Contenido visible por defecto -->
             <div class="city-content transition-opacity duration-300 group-hover:opacity-0">
               <h3 class="font-semibold text-neutral-800 dark:text-neutral-200">{city.name}</h3>
               <div class="mt-1 flex items-center">
@@ -163,7 +173,7 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
               </div>
             </div>
             
-            {/* Imagen que aparece al hacer hover */}
+            <!-- Imagen que aparece al hacer hover -->
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg overflow-hidden">
               {cityImg.name === "París" ? (
                 <div class="w-full h-full relative">
