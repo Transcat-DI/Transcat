@@ -6,6 +6,14 @@
   command = "npm run dev"
   port = 3000
 
+# Redirección directa de la raíz al sitio en español
+[[redirects]]
+  from = "/"
+  to = "/es"
+  status = 301
+  force = true
+
+# Regla general para manejar rutas no encontradas
 [[redirects]]
   from = "/*"
   to = "/index.html"
