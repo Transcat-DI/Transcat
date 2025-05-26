@@ -2,58 +2,13 @@
 // Import necessary dependencies
 import { SITE } from "@data/constants";
 
-// Detectar el idioma actual basado en la URL
-const pathname = Astro.url.pathname;
-let currentLang = 'es';
-
-if (pathname.startsWith('/en')) {
-  currentLang = 'en';
-} else if (pathname.startsWith('/fr')) {
-  currentLang = 'fr';
-} else if (pathname.startsWith('/ca')) {
-  currentLang = 'ca';
-} else if (pathname.startsWith('/es')) {
-  currentLang = 'es';
-}
-
-// Textos traducidos para los diferentes idiomas
-const texts = {
-  es: {
-    title: "Cobertura de Servicios Internacional",
-    subtitle: "Servicios de transporte completos en toda España y en partes de Francia, incluyendo las zonas fronterizas y grandes ciudades como París.",
-    coverageRadius: "Radio de cobertura",
-    city: "Ciudad de"
-  },
-  en: {
-    title: "International Service Coverage",
-    subtitle: "Complete transport services throughout Spain and parts of France, including border areas and major cities like Paris.",
-    coverageRadius: "Coverage radius",
-    city: "City of"
-  },
-  fr: {
-    title: "Couverture de Services Internationale",
-    subtitle: "Services de transport complets dans toute l'Espagne et dans certaines parties de la France, y compris les zones frontalières et les grandes villes comme Paris.",
-    coverageRadius: "Rayon de couverture",
-    city: "Ville de"
-  },
-  ca: {
-    title: "Cobertura de Serveis Internacional",
-    subtitle: "Serveis de transport complets a tot Espanya i en parts de França, incloent les zones frontereres i grans ciutats com París.",
-    coverageRadius: "Radi de cobertura",
-    city: "Ciutat de"
-  }
-};
-
-// Obtener los textos según el idioma actual
-const t = texts[currentLang] || texts.es;
-
 // Define the cities with their coordinates and information
 const coverageCities = [
-  // Ciudades españolas
+  // Spanish cities
   { name: "Barcelona", lat: 41.3851, lng: 2.1734, radius: 80, color: "#FF5733" },
   { name: "Madrid", lat: 40.4168, lng: -3.7038, radius: 100, color: "#33A8FF" },
   { name: "Valencia", lat: 39.4699, lng: -0.3763, radius: 70, color: "#33FF57" },
-  { name: "Sevilla", lat: 37.3891, lng: -5.9845, radius: 75, color: "#FF33E9" },
+  { name: "Seville", lat: 37.3891, lng: -5.9845, radius: 75, color: "#FF33E9" },
   { name: "Bilbao", lat: 43.2630, lng: -2.9350, radius: 60, color: "#FFD433" },
   { name: "Zaragoza", lat: 41.6488, lng: -0.8891, radius: 60, color: "#33FFF3" },
   { name: "Málaga", lat: 36.7213, lng: -4.4214, radius: 50, color: "#C733FF" },
@@ -63,42 +18,42 @@ const coverageCities = [
   { name: "Las Palmas", lat: 28.1235, lng: -15.4366, radius: 55, color: "#9D4EDD" },
   { name: "Pamplona", lat: 42.8125, lng: -1.6458, radius: 45, color: "#4CC9F0" },
   
-  // Ciudades francesas
-  { name: "París", lat: 48.8566, lng: 2.3522, radius: 100, color: "#E63946" },
+  // French cities
+  { name: "Paris", lat: 48.8566, lng: 2.3522, radius: 100, color: "#E63946" },
   { name: "Toulouse", lat: 43.6047, lng: 1.4442, radius: 70, color: "#457B9D" },
   { name: "Montpellier", lat: 43.6108, lng: 3.8767, radius: 60, color: "#2A9D8F" },
-  { name: "Perpiñán", lat: 42.6987, lng: 2.8957, radius: 50, color: "#F4A261" },
-  { name: "Burdeos", lat: 44.8378, lng: -0.5792, radius: 70, color: "#264653" },
+  { name: "Perpignan", lat: 42.6987, lng: 2.8957, radius: 50, color: "#F4A261" },
+  { name: "Bordeaux", lat: 44.8378, lng: -0.5792, radius: 70, color: "#264653" },
   { name: "Lyon", lat: 45.7578, lng: 4.8320, radius: 80, color: "#8338EC" },
 ];
 
 // Define the routes between cities
 const routes = [
-  // Rutas españolas
+  // Spanish routes
   { from: "Barcelona", to: "Madrid", color: "#FF5733", weight: 3 },
   { from: "Barcelona", to: "Valencia", color: "#33A8FF", weight: 3 },
-  { from: "Madrid", to: "Sevilla", color: "#33FF57", weight: 3 },
+  { from: "Madrid", to: "Seville", color: "#33FF57", weight: 3 },
   { from: "Madrid", to: "Bilbao", color: "#FF33E9", weight: 3 },
   { from: "Barcelona", to: "Zaragoza", color: "#FFD433", weight: 3 },
   { from: "Madrid", to: "Valladolid", color: "#3369FF", weight: 3 },
   { from: "Bilbao", to: "A Coruña", color: "#FF8033", weight: 3 },
-  { from: "Sevilla", to: "Málaga", color: "#C733FF", weight: 3 },
+  { from: "Seville", to: "Málaga", color: "#C733FF", weight: 3 },
   { from: "Valencia", to: "Murcia", color: "#33FF99", weight: 3 },
   { from: "Madrid", to: "Las Palmas", color: "#9D4EDD", weight: 2 },
   { from: "Bilbao", to: "Pamplona", color: "#4CC9F0", weight: 3 },
   { from: "Zaragoza", to: "Pamplona", color: "#4CC9F0", weight: 3 },
   
-  // Rutas transfronterizas
-  { from: "Barcelona", to: "Perpiñán", color: "#F4A261", weight: 3 },
+  // Cross-border routes
+  { from: "Barcelona", to: "Perpignan", color: "#F4A261", weight: 3 },
   { from: "Barcelona", to: "Montpellier", color: "#2A9D8F", weight: 2 },
-  { from: "Bilbao", to: "Burdeos", color: "#264653", weight: 2 },
+  { from: "Bilbao", to: "Bordeaux", color: "#264653", weight: 2 },
   
-  // Rutas francesas
-  { from: "Perpiñán", to: "Montpellier", color: "#2A9D8F", weight: 3 },
+  // French routes
+  { from: "Perpignan", to: "Montpellier", color: "#2A9D8F", weight: 3 },
   { from: "Montpellier", to: "Lyon", color: "#8338EC", weight: 3 },
-  { from: "Lyon", to: "París", color: "#E63946", weight: 3 },
-  { from: "Burdeos", to: "París", color: "#264653", weight: 3 },
-  { from: "Toulouse", to: "Burdeos", color: "#457B9D", weight: 3 },
+  { from: "Lyon", to: "Paris", color: "#E63946", weight: 3 },
+  { from: "Bordeaux", to: "Paris", color: "#264653", weight: 3 },
+  { from: "Toulouse", to: "Bordeaux", color: "#457B9D", weight: 3 },
   { from: "Toulouse", to: "Montpellier", color: "#2A9D8F", weight: 3 },
 ];
 
@@ -106,16 +61,16 @@ const routes = [
 const mapCenter = { lat: 43.3623, lng: -0.7000 };
 ---
 
-<section id="cobertura" class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+<section id="coverage" class="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
   <div class="mx-auto max-w-2xl lg:max-w-5xl">
     <div class="text-center">
       <h1
         class="text-balance text-2xl font-bold tracking-tight text-neutral-800 dark:text-neutral-200 md:text-4xl md:leading-tight"
       >
-        {t.title}
+        International Service Coverage
       </h1>
       <p class="mt-1 text-pretty text-neutral-600 dark:text-neutral-400">
-        {t.subtitle}
+        We offer comprehensive transport services throughout Spain and parts of France, including border regions and major cities like Paris.
       </p>
     </div>
 
@@ -144,12 +99,12 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
         { name: "Burdeos", img: "17 - burdeos.webp" },
         { name: "Perpiñán", img: "18 - perpiñán.webp" }
       ].map((cityImg, index) => {
-        // Buscar la ciudad correspondiente en coverageCities
+        // Find the corresponding city in coverageCities
         const city = coverageCities.find(c => c.name === cityImg.name) || coverageCities[index];
         
         return (
           <div class="city-card rounded-lg border border-neutral-300 bg-white p-4 shadow-md transition-all hover:border-neutral-400 hover:shadow-lg dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600 relative group">
-            {/* Contenido visible por defecto */}
+            {/* Default visible content */}
             <div class="city-content transition-opacity duration-300 group-hover:opacity-0">
               <h3 class="font-semibold text-neutral-800 dark:text-neutral-200">{city.name}</h3>
               <div class="mt-1 flex items-center">
@@ -158,18 +113,18 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
                   style={`background-color: ${city.color};`}
                 ></span>
                 <p class="text-sm text-neutral-600 dark:text-neutral-400">
-                  {t.coverageRadius}: {city.radius} km
+                  Coverage radius: {city.radius} km
                 </p>
               </div>
             </div>
             
-            {/* Imagen que aparece al hacer hover */}
+            {/* Image that appears on hover */}
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg overflow-hidden">
               {cityImg.name === "París" ? (
                 <div class="w-full h-full relative">
                   <img 
                     src={`/src/images/cities/${cityImg.img}`} 
-                    alt={`${t.city} ${city.name}`} 
+                    alt={`City of ${city.name}`} 
                     class="absolute w-full h-[140%] object-cover object-top"
                     style="top: -20%;"
                   />
@@ -177,7 +132,7 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
               ) : (
                 <img 
                   src={`/src/images/cities/${cityImg.img}`} 
-                  alt={`${t.city} ${city.name}`} 
+                  alt={`City of ${city.name}`} 
                   class="w-full h-full object-cover"
                 />
               )}
@@ -192,7 +147,7 @@ const mapCenter = { lat: 43.3623, lng: -0.7000 };
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
 
-<script define:vars={{ coverageCities, routes, mapCenter, t }}>
+<script define:vars={{ coverageCities, routes, mapCenter }}>
 // Load Leaflet JS
 function loadLeaflet() {
   return new Promise((resolve) => {
@@ -228,7 +183,7 @@ async function initMap() {
       .bindPopup(`
         <div style="padding: 5px;">
           <h3 style="margin: 0 0 5px; font-weight: bold;">${city.name}</h3>
-          <p style="margin: 0;">${t.coverageRadius}: ${city.radius} km</p>
+          <p style="margin: 0;">Coverage radius: ${city.radius} km</p>
         </div>
       `);
     

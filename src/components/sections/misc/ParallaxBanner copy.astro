@@ -63,13 +63,13 @@ const { title, bannerText = "La teva confiança, la nostra <span class=\"text-ye
   )}
 </section>
 
-<script is:inline>
+<script>
   // Script para el efecto parallax
   document.addEventListener('DOMContentLoaded', () => {
     const parallaxImage = document.querySelector('.parallax-image');
     
     if (parallaxImage) {
-      function handleParallax() {
+      window.addEventListener('scroll', () => {
         // Calcular la posición de desplazamiento basada en el scroll
         const scrollPosition = window.scrollY;
         const container = parallaxImage.closest('.parallax-container');
@@ -91,19 +91,10 @@ const { title, bannerText = "La teva confiança, la nostra <span class=\"text-ye
             offset = Math.min(offset, maxOffset);
             
             // Aplicar la transformación
-            parallaxImage.style.transform = 'translateY(' + offset + 'px)';
+            (parallaxImage as HTMLElement).style.transform = `translateY(${offset}px)`;
           }
         }
-      }
-      
-      // Inicializar
-      handleParallax();
-      
-      // Actualizar en scroll
-      window.addEventListener('scroll', handleParallax, { passive: true });
-      
-      // Actualizar en resize
-      window.addEventListener('resize', handleParallax, { passive: true });
+      });
     }
   });
 </script>
