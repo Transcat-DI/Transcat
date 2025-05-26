@@ -1,0 +1,74 @@
+---
+// Script para asegurar que las pestañas y las imágenes se carguen correctamente
+---
+
+<script>
+  // Extender el tipo Window para incluir HSStaticMethods
+  declare global {
+    interface Window {
+      HSStaticMethods?: {
+        autoInit: () => void;
+      };
+    }
+  }
+
+  // Función para inicializar las pestañas
+  function initTabs() {
+    // Esperar a que el DOM esté completamente cargado
+    document.addEventListener('DOMContentLoaded', () => {
+      // Asegurarse de que Preline UI esté disponible
+      if (typeof window.HSStaticMethods !== 'undefined' && window.HSStaticMethods.autoInit) {
+        // Inicializar todos los componentes de Preline UI
+        window.HSStaticMethods.autoInit();
+        
+        // Forzar la carga de imágenes en las pestañas
+        preloadTabImages();
+      } else {
+        // Si Preline UI no está disponible, intentar de nuevo después de un breve retraso
+        setTimeout(initTabs, 200);
+      }
+    });
+  }
+
+  // Función para precargar las imágenes de las pestañas
+  function preloadTabImages() {
+    // Obtener todos los paneles de pestañas
+    const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+    
+    tabPanels.forEach(panel => {
+      // Obtener todas las imágenes dentro del panel
+      const images = panel.querySelectorAll('img');
+      
+      // Forzar la carga de cada imagen
+      images.forEach(img => {
+        // Crear una nueva imagen para precargar
+        const preloadImg = new Image();
+        
+        // Cuando la imagen se cargue, actualizar la original
+        preloadImg.onload = () => {
+          img.src = preloadImg.src;
+        };
+        
+        // Establecer la fuente de la imagen para iniciar la precarga
+        if (img.dataset.src) {
+          preloadImg.src = img.dataset.src;
+        } else if (img.src) {
+          preloadImg.src = img.src;
+        }
+      });
+    });
+  }
+
+  // Iniciar el proceso
+  initTabs();
+
+  // También inicializar cuando cambie la pestaña
+  document.addEventListener('click', (e) => {
+    // Verificar si el elemento clicado es un botón de pestaña
+    const target = e.target as HTMLElement;
+    if (target && target.closest && target.closest('[data-hs-tab]')) {
+      // Esperar a que la pestaña se muestre
+      setTimeout(preloadTabImages, 100);
+    }
+  });
+</script>
