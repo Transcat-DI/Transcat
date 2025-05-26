@@ -1,13 +1,13 @@
 // An array of links for navigation bar
 const navBarLinks = [
-  { name: "Home", url: "#hero" },
-  { name: "About", url: "#about" },
-  { name: "Services", url: "#services" },
-  { name: "Coverage", url: "/coverage" },
-  { name: "Clients", url: "#testimonials" },
-  { name: "Plans", url: "#pricing" },
-  { name: "FAQ", url: "#faq" },
-  { name: "Contact", url: "#contact" },
+  { name: "Home", url: "/en" },
+  { name: "About", url: "/en#about" },
+  { name: "Services", url: "/en#services" },
+  { name: "Coverage", url: "/en/coverage" },
+  { name: "Clients", url: "/en#testimonials" },
+  { name: "Plans", url: "/en#pricing" },
+  { name: "FAQ", url: "/en#faq" },
+  { name: "Contact", url: "/en#contact" },
 
 ];
 // An array of links for footer

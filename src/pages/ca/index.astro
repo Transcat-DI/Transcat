@@ -14,26 +14,26 @@ import FAQ from "@components/sections/misc/FAQ.astro";
 import ParallaxBanner from "@components/sections/misc/ParallaxBanner.astro";
 import DownloadModal from "@components/ui/modals/DownloadModal_ca.astro";
 
-import heroImage from "../../images/hero-image.avif";
+import heroImage from "@images/hero-image.avif";
 import faqs from "@/data_files/ca/faqs.json";
-import statsImage from "../../images/stats/stats.jpg";
+import statsImage from "@images/stats/stats.jpg";
 import features from "@/data_files/ca/features.json";
 import pricing from "@/data_files/ca/pricing.json";
-import featureImage from "../../images/features-image.avif";
-import construction from "../../images/construction-image.avif";
-import tools from "../../images/automated-tools.avif";
-import dashboard from "../../images/dashboard-image.avif";
-import service1 from "../../images/services/service-1.webp";
-import service2 from "../../images/services/service-2.webp";
-import service3 from "../../images/services/service-3.webp";
-import service4 from "../../images/services/service-4.webp";
+import featureImage from "@images/features-image.avif";
+import construction from "@images/construction-image.avif";
+import tools from "@images/automated-tools.avif";
+import dashboard from "@images/dashboard-image.avif";
+import service1 from "@images/services/service-1.webp";
+import service2 from "@images/services/service-2.webp";
+import service3 from "@images/services/service-3.webp";
+import service4 from "@images/services/service-4.webp";
 import { partnersData } from "@/data_files/constants";
 
-import testimonial1 from "../../images/testimonials/01-samantha.jpg";
-import testimonial2 from "../../images/testimonials/02-carlos.jpg";
-import testimonial3 from "../../images/testimonials/03-elena.jpg";
-import testimonial4 from "../../images/testimonials/04-miguel.jpg";
-import testimonial5 from "../../images/testimonials/05-laura.jpg";
+import testimonial1 from "@images/testimonials/01-samantha.jpg";
+import testimonial2 from "@images/testimonials/02-carlos.jpg";
+import testimonial3 from "@images/testimonials/03-elena.jpg";
+import testimonial4 from "@images/testimonials/04-miguel.jpg";
+import testimonial5 from "@images/testimonials/05-laura.jpg";
 
 // Usant imatges locals per als avatars del hero section
 // Convertim els objectes ImageMetadata a strings pel component HeroSection
@@ -87,7 +87,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="Sobre els meus Serveis"
-      subTitle="Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses."
+      subTitle="Hola! Sóc en Carmen Constantín, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses."
       features={features}
     />
   </div>
@@ -143,39 +143,39 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="clientes">
   <TestimonialsSection
     title="Confiança guanyada a la Carretera"
-    subTitle="Cada testimoni és una ruta compartida. Descobreix el que diuen els nostres clients sobre el tracte, el servei i l'experiència de treballar amb TransCat."
+    subTitle="Cada testimoni és una ruta compartida. Descobreix el que diuen els nostres clients sobre el tracte, el servei i l'experiència de treballar amb TransCar."
     testimonials={[
       {
         content:
-          "TransCat ha augmentat considerablement l'eficiència del nostre projecte. La configuració va ser instantània i els seus temps de resposta ràpids són fenomenals. Realment un canvi de joc en el suport de transport i logística!",
+          "TransCar ha augmentat considerablement l'eficiència del nostre projecte. La configuració va ser instantània i els seus temps de resposta ràpids són fenomenals. Realment un canvi de joc en el suport de transport i logística!",
         author: "Samantha Ruiz",
         role: "Directora d'Operacions | LogísticaTotal S.A.",
         avatarSrc: testimonial1,
       },
       {
         content:
-          "Com a empresa de distribució de productes peribles, necessitàvem un servei de transport fiable i puntual. En Jordi ha superat totes les nostres expectatives, mantenint la cadena de fred intacta i respectant sempre els horaris acordats.",
+          "Com a empresa de distribució de productes peribles, necessitàvem un servei de transport fiable i puntual. En Carmen Constantín ha superat totes les nostres expectatives, mantenint la cadena de fred intacta i respectant sempre els horaris acordats.",
         author: "Carlos Mendoza",
         role: "Responsable Logístic | FreshMarket",
         avatarSrc: testimonial2,
       },
       {
         content:
-          "La flexibilitat i la capacitat d'adaptació d'en Jordi han estat crucials per a la nostra empresa. Quan necessitem canvis d'última hora o lliuraments urgents, sempre troba una manera de resoldre el problema. Un soci logístic en qui realment podem confiar.",
+          "La flexibilitat i la capacitat d'adaptació d'en Carmen Constantín han estat crucials per a la nostra empresa. Quan necessitem canvis d'última hora o lliuraments urgents, sempre troba una manera de resoldre el problema. Un soci logístic en qui realment podem confiar.",
         author: "Elena Martínez",
         role: "Propietària | Mobles Martínez",
         avatarSrc: testimonial3,
       },
       {
         content:
-          "Hem treballat amb diversos transportistes abans de trobar en Jordi. La diferència és notable: comunicació constant, cura excepcional de les mercaderies i un servei personalitzat que entén perfectament les necessitats de la nostra indústria.",
+          "Hem treballat amb diversos transportistes abans de trobar en Carmen Constantín. La diferència és notable: comunicació constant, cura excepcional de les mercaderies i un servei personalitzat que entén perfectament les necessitats de la nostra indústria.",
         author: "Miquel Àngel Sánchez",
         role: "Director | Ceràmiques Artesanals S.L.",
         avatarSrc: testimonial4,
       },
       {
         content:
-          "Com a empresa de comerç electrònic, la rapidesa dels lliuraments és fonamental per a nosaltres. En Jordi no només respecta els terminis, sinó que el seu professionalisme i el seu tracte proper han millorat considerablement l'experiència dels nostres clients finals.",
+          "Com a empresa de comerç electrònic, la rapidesa dels lliuraments és fonamental per a nosaltres. En Carmen Constantín no només respecta els terminis, sinó que el seu professionalisme i el seu tracte proper han millorat considerablement l'experiència dels nostres clients finals.",
         author: "Laura Gómez",
         role: "Responsable d'Expedicions | TechShop Online",
         avatarSrc: testimonial5,
@@ -190,7 +190,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       {
         count: "35%",
         description:
-          "Augment de l'eficiència dels projectes amb les eines i serveis de TransCat",
+          "Augment de l'eficiència dels projectes amb les eines i serveis de TransCar",
       },
       {
         count: "15.3%",

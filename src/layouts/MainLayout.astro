@@ -6,9 +6,16 @@ import FooterSection from "@components/sections/navbar&footer/FooterSection.astr
 import FooterSection_en from "@components/sections/navbar&footer/FooterSection_en.astro";
 import FooterSection_fr from "@components/sections/navbar&footer/FooterSection_fr.astro";
 import FooterSection_ca from "@components/sections/navbar&footer/FooterSection_ca.astro";
-import { SITE } from "@data/constants";
+import { SITE as SITE_ES } from "../data_files/constants";
+import { SITE as SITE_FR } from "../data_files/fr/constants";
 import "@styles/global.css";
 import "../assets/styles/smooth-scroll.css";
+
+// Select the appropriate SITE constants based on language
+let SITE = SITE_ES;
+if (Astro.url.pathname.startsWith("/fr")) {
+  SITE = SITE_FR;
+}
 
 // Setting expected props
 const {
@@ -18,6 +25,8 @@ const {
   lang = "es",
   customDescription = null,
   customOgTitle = null,
+  description = null,
+  noIndex = false,
 } = Astro.props;
 
 // Interface to type-check the properties
@@ -28,6 +37,8 @@ interface Props {
   lang?: string;
   customDescription?: string | null;
   customOgTitle?: string | null;
+  description?: string;
+  noIndex?: boolean;
 }
 ---
 
@@ -37,8 +48,9 @@ interface Props {
     <Meta
       meta={meta}
       structuredData={structuredData}
-      customDescription={customDescription}
+      customDescription={description || customDescription}
       customOgTitle={customOgTitle}
+      noIndex={noIndex}
     />
     {/* Define the title of the page */}
     <title>{title}</title>

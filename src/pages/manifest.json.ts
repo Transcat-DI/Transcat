@@ -44,8 +44,8 @@ export const GET: APIRoute = async () => {
   );
 
   const manifest = {
-    short_name: "TransCat",
-    name: "TransCat",
+    short_name: "TransCar",
+    name: "TransCar",
     icons,
     display: "minimal-ui",
     id: "/",

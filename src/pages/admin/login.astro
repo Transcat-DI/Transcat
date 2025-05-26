@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import dashboardImage from "@images/dashboard-image.avif";
 ---
 
-<MainLayout title="Admin Login" customDescription="Acceso al panel de administración" meta="noindex, nofollow">
+<MainLayout title="Admin Login" description="Acceso al panel de administración" noIndex={true}>
   <div class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
       <div>
@@ -18,7 +18,7 @@ import dashboardImage from "@images/dashboard-image.avif";
           />
         </div>
         <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-          TransCat Admin
+          TransCar Admin
         </h2>
         <p class="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
           Panel de administración para gestionar el contenido multilingüe
@@ -72,15 +72,15 @@ import dashboardImage from "@images/dashboard-image.avif";
     </div>
   </div>
 
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function() {
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
       const loginForm = document.getElementById('login-form');
       if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', (e) => {
           e.preventDefault();
           // Simular un breve tiempo de carga
-          setTimeout(function() {
-            window.location.href = '/admin/dashboard';
+          setTimeout(() => {
+            window.location.href = '/admin/index';
           }, 500);
         });
       }
@@ -88,11 +88,11 @@ import dashboardImage from "@images/dashboard-image.avif";
       // También permitimos acceder directamente haciendo clic en el botón
       const submitButton = document.querySelector('button[type="submit"]');
       if (submitButton) {
-        submitButton.addEventListener('click', function(e) {
+        submitButton.addEventListener('click', (e) => {
           e.preventDefault();
           // Simular un breve tiempo de carga
-          setTimeout(function() {
-            window.location.href = '/admin/dashboard';
+          setTimeout(() => {
+            window.location.href = '/admin/index';
           }, 500);
         });
       }

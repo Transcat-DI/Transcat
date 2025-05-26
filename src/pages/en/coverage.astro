@@ -1,16 +1,16 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
-import CoverageMapSection from "@components/sections/misc/CoverageMapSection.astro";
+import CoverageMapSection from "@components/sections/misc/CoverageMapSection_en.astro";
 import { SITE } from "@data/constants";
 
 // Define the metadata for the page
-const title = "Cobertura | TransCar";
-const description = "Descubre nuestra cobertura de servicios en toda España. Ofrecemos servicios de transporte y logística en las principales ciudades con diferentes radios de cobertura.";
+const title = "Coverage | TransCar";
+const description = "Discover our service coverage throughout Spain. We offer transport and logistics services in major cities with different coverage radii.";
 ---
 
-<MainLayout title={title} customDescription={description}>
+<MainLayout title={title} customDescription={description} lang="en">
   <style>
-    /* Estilos para las tarjetas con efecto flip - versión mejorada */
+    /* Styles for cards with flip effect - improved version */
     .flip-card {
       perspective: 1000px;
       cursor: pointer;
@@ -42,13 +42,13 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
       overflow: hidden;
     }
     
-    /* Asegurarse de que el frente sea visible inicialmente */
+    /* Make sure the front is initially visible */
     .flip-card-front {
       z-index: 2;
       transform: rotateY(0deg);
     }
     
-    /* Asegurarse de que el reverso esté volteado inicialmente */
+    /* Make sure the back is initially flipped */
     .flip-card-back {
       transform: rotateY(180deg);
       display: flex;
@@ -57,7 +57,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
       z-index: 1;
     }
     
-    /* Solución para navegadores que no manejan bien backface-visibility */
+    /* Solution for browsers that don't handle backface-visibility well */
     .flip-card:hover .flip-card-front {
       opacity: 0;
       visibility: hidden;
@@ -68,7 +68,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
       visibility: visible;
     }
     
-    /* Ocultar cualquier texto en el reverso */
+    /* Hide any text on the back */
     .flip-card-back span,
     .flip-card-back p,
     .flip-card-back h1,
@@ -81,14 +81,14 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
       display: none !important;
     }
     
-    /* Estilos específicos para Firefox */
+    /* Firefox-specific styles */
     @-moz-document url-prefix() {
       .flip-card-front, .flip-card-back {
         backface-visibility: hidden !important;
       }
     }
     
-    /* Estilos específicos para Safari */
+    /* Safari-specific styles */
     @media not all and (min-resolution:.001dpcm) {
       @supports (-webkit-appearance:none) {
         .flip-card-front, .flip-card-back {
@@ -106,16 +106,16 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
       <div class="mx-auto max-w-2xl lg:max-w-5xl">
         <div class="text-center">
           <h2 class="text-2xl font-bold text-neutral-800 dark:text-neutral-200 md:text-3xl md:leading-tight">
-            Servicios de Transporte en Toda España
+            Transport Services Throughout Spain
           </h2>
           <p class="mt-4 text-pretty text-neutral-600 dark:text-neutral-400">
-            Ofrecemos servicios de transporte y logística en las principales ciudades de España. 
-            Nuestro compromiso es proporcionar soluciones eficientes y confiables para todas tus necesidades de transporte.
+            We offer transport and logistics services in major cities across Spain.
+            Our commitment is to provide efficient and reliable solutions for all your transportation needs.
           </p>
         </div>
         
         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Servicio 1 - Transporte Urbano -->
+          <!-- Service 1 - Urban Transport -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -124,9 +124,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Transporte Urbano</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Urban Transport</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Servicio de transporte dentro de las principales ciudades con entrega en el mismo día.
+                  Transport service within major cities with same-day delivery.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">
@@ -135,7 +135,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
             </div>
           </div>
           
-          <!-- Servicio 2 - Transporte Programado -->
+          <!-- Service 2 - Scheduled Transport -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -144,9 +144,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Transporte Programado</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Scheduled Transport</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Planifica tus envíos con antelación para obtener las mejores tarifas y horarios.
+                  Plan your shipments in advance to get the best rates and schedules.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">
@@ -155,7 +155,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
             </div>
           </div>
           
-          <!-- Servicio 3 - Transporte Express -->
+          <!-- Service 3 - Express Transport -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -164,9 +164,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Transporte Express</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Express Transport</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Servicio urgente para entregas que no pueden esperar, con tiempos de entrega garantizados.
+                  Urgent service for deliveries that cannot wait, with guaranteed delivery times.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">
@@ -175,7 +175,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
             </div>
           </div>
           
-          <!-- Servicio 4 - Logística Especializada -->
+          <!-- Service 4 - Specialized Logistics -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -184,9 +184,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Logística Especializada</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Specialized Logistics</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Soluciones a medida para mercancías que requieren condiciones especiales de transporte.
+                  Tailored solutions for goods that require special transport conditions.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">
@@ -195,7 +195,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
             </div>
           </div>
           
-          <!-- Servicio 5 - Almacenaje y Distribución -->
+          <!-- Service 5 - Storage and Distribution -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -204,9 +204,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Almacenaje y Distribución</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Storage and Distribution</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Gestión integral de tu cadena de suministro con almacenaje y distribución eficiente.
+                  Comprehensive management of your supply chain with efficient storage and distribution.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">
@@ -215,7 +215,7 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
             </div>
           </div>
           
-          <!-- Servicio 6 - Transporte Internacional -->
+          <!-- Service 6 - International Transport -->
           <div class="flip-card">
             <div class="flip-card-inner shadow-md">
               <div class="flip-card-front border border-neutral-300 bg-white p-5 dark:border-neutral-700 dark:bg-neutral-800">
@@ -224,9 +224,9 @@ const description = "Descubre nuestra cobertura de servicios en toda España. Of
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
                   </svg>
                 </div>
-                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">Transporte Internacional</h3>
+                <h3 class="mb-2 text-lg font-semibold text-neutral-800 dark:text-neutral-200">International Transport</h3>
                 <p class="text-neutral-600 dark:text-neutral-400">
-                  Conectamos España con el resto de Europa y el mundo con soluciones logísticas internacionales.
+                  We connect Spain with the rest of Europe and the world with international logistics solutions.
                 </p>
               </div>
               <div class="flip-card-back border border-neutral-300 dark:border-neutral-700">

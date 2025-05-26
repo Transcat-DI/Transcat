@@ -1,13 +1,13 @@
 
 const navBarLinks = [
-  { name: "Accueil", url: "#hero" },
-  { name: "À propos", url: "#about" },
-  { name: "Services", url: "#services" },
+  { name: "Accueil", url: "/fr" },
+  { name: "À propos", url: "/fr#about" },
+  { name: "Services", url: "/fr#services" },
   { name: "Couverture", url: "/fr/couverture" },
-  { name: "Clients", url: "#testimonials" },
-  { name: "Tarifs", url: "#pricing" },
-  { name: "FAQ", url: "#faq" },
-  { name: "Contact", url: "#contact" },
+  { name: "Clients", url: "/fr#testimonials" },
+  { name: "Tarifs", url: "/fr#pricing" },
+  { name: "FAQ", url: "/fr#faq" },
+  { name: "Contact", url: "/fr#contact" },
 
 ];
 

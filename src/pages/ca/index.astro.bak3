@@ -62,7 +62,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="Sobre els meus Serveis"
-      subTitle="Hola! Sóc en Jordi, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya."
+      subTitle="Hola! Sóc en Carmen Constantín, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya."
       features={features}
     />
   </div>
@@ -116,35 +116,35 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       testimonials={[
         {
           content:
-            "TransCat ha augmentat considerablement l'eficiència del nostre projecte. La configuració va ser instantània i els seus temps de resposta ràpids són fenomenals.",
+            "TransCar ha augmentat considerablement l'eficiència del nostre projecte. La configuració va ser instantània i els seus temps de resposta ràpids són fenomenals.",
           author: "Samantha Ruiz",
           role: "Directora d'Operacions | LogísticaTotal S.A.",
           avatarSrc: testimonial1,
         },
         {
           content:
-            "Com a empresa de distribució de productes peribles, necessitàvem un servei de transport fiable i puntual. En Jordi ha superat totes les nostres expectatives.",
+            "Com a empresa de distribució de productes peribles, necessitàvem un servei de transport fiable i puntual. En Carmen Constantín ha superat totes les nostres expectatives.",
           author: "Carlos Mendoza",
           role: "Responsable Logístic | FreshMarket",
           avatarSrc: testimonial2,
         },
         {
           content:
-            "La flexibilitat i la capacitat d'adaptació d'en Jordi han estat crucials per a la nostra empresa. Un soci logístic en qui realment podem confiar.",
+            "La flexibilitat i la capacitat d'adaptació d'en Carmen Constantín han estat crucials per a la nostra empresa. Un soci logístic en qui realment podem confiar.",
           author: "Elena Martínez",
           role: "Propietària | Mobles Martínez",
           avatarSrc: testimonial3,
         },
         {
           content:
-            "Hem treballat amb diversos transportistes abans de trobar en Jordi. La diferència és notable: comunicació constant i cura excepcional de les mercaderies.",
+            "Hem treballat amb diversos transportistes abans de trobar en Carmen Constantín. La diferència és notable: comunicació constant i cura excepcional de les mercaderies.",
           author: "Miquel Àngel Sánchez",
           role: "Director | Ceràmiques Artesanals S.L.",
           avatarSrc: testimonial4,
         },
         {
           content:
-            "Com a empresa de comerç electrònic, la rapidesa dels lliuraments és fonamental per a nosaltres. En Jordi no només respecta els terminis, sinó que millora l'experiència.",
+            "Com a empresa de comerç electrònic, la rapidesa dels lliuraments és fonamental per a nosaltres. En Carmen Constantín no només respecta els terminis, sinó que millora l'experiència.",
           author: "Laura Gómez",
           role: "Responsable d'Expedicions | TechShop Online",
           avatarSrc: testimonial5,
@@ -159,7 +159,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
         {
           count: "35%",
           description:
-            "Augment de l'eficiència dels projectes amb TransCat",
+            "Augment de l'eficiència dels projectes amb TransCar",
         },
         {
           count: "15.3%",
