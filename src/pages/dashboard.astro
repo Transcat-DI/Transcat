@@ -274,7 +274,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
               </button>
             </div>
             
-            <script>
+            <script is:inline>
               // Función para guardar cambios y cerrar la pestaña
               document.getElementById('save-button').addEventListener('click', function() {
                 // Aquí iría la lógica para guardar los cambios
@@ -453,20 +453,20 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
     </div>
   </div>
   
-  <script>
+  <script is:inline>
     // Inicializar cuando el DOM esté cargado
     document.addEventListener('DOMContentLoaded', () => {
       // Obtener elementos del DOM
-      const languageSelect = document.getElementById('language') as HTMLSelectElement;
-      const sectionSelect = document.getElementById('section') as HTMLSelectElement;
-      const carouselEditor = document.getElementById('carousel-slides-editor') as HTMLDivElement;
-      const slidesContainer = document.getElementById('carousel-slides-container') as HTMLDivElement;
-      const saveButton = document.getElementById('save-button') as HTMLButtonElement;
-      const closeButton = document.getElementById('close-button') as HTMLButtonElement;
-      const themeToggleLight = document.getElementById('theme-toggle-light') as HTMLButtonElement;
-      const themeToggleDark = document.getElementById('theme-toggle-dark') as HTMLButtonElement;
-      const sunIcon = document.getElementById('sun-icon') as HTMLElement;
-      const moonIcon = document.getElementById('moon-icon') as HTMLElement;
+      const languageSelect = document.getElementById('language');
+      const sectionSelect = document.getElementById('section');
+      const carouselEditor = document.getElementById('carousel-slides-editor');
+      const slidesContainer = document.getElementById('carousel-slides-container');
+      const saveButton = document.getElementById('save-button');
+      const closeButton = document.getElementById('close-button');
+      const themeToggleLight = document.getElementById('theme-toggle-light');
+      const themeToggleDark = document.getElementById('theme-toggle-dark');
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
       
       // Inicializar el tema según la preferencia guardada
       initializeTheme();
@@ -496,7 +496,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Función para cambiar el tema
-      function setTheme(theme: 'light' | 'dark') {
+      function setTheme(theme) {
         if (theme === 'dark') {
           document.documentElement.classList.add('dark');
           localStorage.setItem('theme', 'dark');
@@ -515,7 +515,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Definir las opciones de navegación para cada idioma
-      const navOptions: Record<string, Array<{value: string, text: string}>> = {
+      const navOptions = {
         en: [
           { value: 'hero', text: 'Home' },
           { value: 'about', text: 'About' },
@@ -567,7 +567,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       };
       
       // Datos del carrusel para cada idioma
-      const carouselData: Record<string, {slideTitles: string[], slideSubtitles: string[]}> = {
+      const carouselData = {
         en: {
           slideTitles: [
             `We take you from point<br/>"A" to point <span class="text-yellow-500 dark:text-yellow-400">Done!</span>`,
@@ -645,7 +645,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
 
       
       // Función para crear tarjetas de diapositivas del carrusel
-      function createCarouselSlideCards(language: string): void {
+      function createCarouselSlideCards(language) {
         if (!slidesContainer || !carouselEditor) {
           console.error('No se encontraron los elementos necesarios para crear las tarjetas del carrusel');
           return;
@@ -791,20 +791,24 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
             }
             
             // Agregar event listeners para actualizar las vistas previas cuando se editen los textos
-            const titleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="title"]`) as HTMLTextAreaElement;
-            const subtitleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="subtitle"]`) as HTMLTextAreaElement;
+            const titleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="title"]`);
+            const subtitleTextarea = document.querySelector(`textarea[data-slide="${index}"][data-type="subtitle"]`);
             
             if (titleTextarea && previewTitle) {
               titleTextarea.addEventListener('input', (e) => {
-                const target = e.target as HTMLTextAreaElement;
-                previewTitle.innerHTML = target.value;
+                const target = e.target;
+                if (target && target instanceof HTMLTextAreaElement) {
+                  previewTitle.innerHTML = target.value;
+                }
               });
             }
             
             if (subtitleTextarea && previewSubtitle) {
               subtitleTextarea.addEventListener('input', (e) => {
-                const target = e.target as HTMLTextAreaElement;
-                previewSubtitle.innerHTML = target.value;
+                const target = e.target;
+                if (target && target instanceof HTMLTextAreaElement) {
+                  previewSubtitle.innerHTML = target.value;
+                }
               });
             }
           });
@@ -814,7 +818,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         carouselEditor.classList.remove('hidden');
       }
       // Función para actualizar las opciones de sección según el idioma seleccionado
-      function updateSectionOptions(language: string): void {
+      function updateSectionOptions(language) {
         if (!sectionSelect) {
           console.error('No se encontró el elemento select de sección');
           return;
@@ -844,7 +848,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       
       // Función para actualizar el contenido basado en el idioma y la sección seleccionados
       // Datos de los servicios para cada idioma
-      const servicesData: Record<string, {title: string, services: Array<{heading: string, content: string, svg: string, alt: string}>}> = {
+      const servicesData = {
         es: {
           title: "Servicios de <span class=\"text-yellow-500 dark:text-yellow-400\">Transporte Profesional</span> adaptados a tus necesidades logísticas<br/>en Cataluña.",
           services: [
@@ -964,7 +968,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       };
       
       // Datos de las características (features) para cada idioma
-      const featuresData: Record<string, Array<{heading: string, content: string, svg: string}>> = {
+      const featuresData = {
         es: [
           {
             heading: "Experiencia y Profesionalidad",
@@ -1096,7 +1100,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       };
       
       // Datos de la sección Acerca para cada idioma con los textos reales del sitio
-      const aboutData: Record<string, {title: string, description: string}> = {
+      const aboutData = {
         en: {
           title: "About my Services",
           description: "Hello! I'm Carmen Constantín, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises."
@@ -1116,7 +1120,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       };
       
       // Función para crear el editor de la sección Acerca
-      function createAboutEditor(language: string): void {
+      function createAboutEditor(language) {
         const aboutEditor = document.getElementById('about-section-editor');
         if (!aboutEditor) {
           console.error('No se encontró el editor de la sección Acerca');
@@ -1273,27 +1277,25 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         
         // Agregar event listeners para actualizar la vista previa
         setTimeout(() => {
-          const titleInput = document.getElementById('about-title') as HTMLInputElement;
-          const descriptionTextarea = document.getElementById('about-description') as HTMLTextAreaElement;
+          const titleInput = document.getElementById('about-title');
+          const descriptionTextarea = document.getElementById('about-description');
           const previewTitle = document.getElementById('preview-about-title');
           const previewDescription = document.getElementById('preview-about-description');
-          const saveTitleButton = document.getElementById('save-title-button');
-          const saveDescriptionButton = document.getElementById('save-description-button');
           
           if (titleInput && previewTitle) {
             titleInput.addEventListener('input', (e) => {
-              const target = e.target as HTMLInputElement;
-              if (previewTitle) {
-                previewTitle.textContent = target.value;
+              const target = e.target;
+              if (target && target instanceof HTMLInputElement) {
+                previewTitle.innerHTML = target.value;
               }
             });
           }
           
           if (descriptionTextarea && previewDescription) {
             descriptionTextarea.addEventListener('input', (e) => {
-              const target = e.target as HTMLTextAreaElement;
-              if (previewDescription) {
-                previewDescription.textContent = target.value;
+              const target = e.target;
+              if (target && target instanceof HTMLTextAreaElement) {
+                previewDescription.innerHTML = target.value;
               }
             });
           }
@@ -1321,15 +1323,15 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
           
           // Agregar event listeners para las tarjetas de características
           features.forEach((feature, index) => {
-            const featureTitleInput = document.getElementById(`feature-title-${index}`) as HTMLInputElement;
-            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`) as HTMLTextAreaElement;
+            const featureTitleInput = document.getElementById(`feature-title-${index}`);
+            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`);
             const previewFeatureTitle = document.getElementById(`preview-feature-title-${index}`);
             const previewFeatureDescription = document.getElementById(`preview-feature-description-${index}`);
             const saveFeatureButton = document.getElementById(`save-feature-button-${index}`);
             
             if (featureTitleInput && previewFeatureTitle) {
               featureTitleInput.addEventListener('input', (e) => {
-                const target = e.target as HTMLInputElement;
+                const target = e.target;
                 if (previewFeatureTitle) {
                   previewFeatureTitle.textContent = target.value;
                 }
@@ -1338,7 +1340,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
             
             if (featureDescriptionTextarea && previewFeatureDescription) {
               featureDescriptionTextarea.addEventListener('input', (e) => {
-                const target = e.target as HTMLTextAreaElement;
+                const target = e.target;
                 if (previewFeatureDescription) {
                   previewFeatureDescription.textContent = target.value;
                 }
@@ -1364,7 +1366,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         aboutEditor.classList.remove('hidden');
       }
       
-      function updateContent(language: string, section: string): void {
+      function updateContent(language, section) {
         if (!languageSelect || !sectionSelect) {
           console.error('No se encontraron los elementos necesarios para actualizar el contenido');
           return;
@@ -1373,7 +1375,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         // Ocultar todos los editores de sección
         Object.values(sectionEditors).forEach(editor => {
           if (editor) {
-            (editor as HTMLElement).classList.add('hidden');
+            editor.classList.add('hidden');
           }
         });
         
@@ -1388,7 +1390,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Función para crear el editor de la sección Servicios
-      function createServicesEditor(language: string): void {
+      function createServicesEditor(language) {
         const servicesEditor = document.getElementById('services-section-editor');
         if (!servicesEditor) {
           console.error('No se encontró el editor de la sección Servicios');
@@ -1521,14 +1523,14 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         
         // Agregar event listeners para actualizar la vista previa
         setTimeout(() => {
-          const titleInput = document.getElementById('services-title') as HTMLInputElement;
+          const titleInput = document.getElementById('services-title');
           const previewTitle = document.getElementById('preview-services-title');
           const saveTitleButton = document.getElementById('save-services-title-button');
           
           if (titleInput && previewTitle) {
             titleInput.addEventListener('input', (e) => {
-              const target = e.target as HTMLInputElement;
-              if (previewTitle) {
+              const target = e.target;
+              if (target && target instanceof HTMLInputElement && previewTitle) {
                 previewTitle.innerHTML = target.value;
               }
             });
@@ -1546,17 +1548,17 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
           
           // Agregar event listeners para las tarjetas de servicios
           services.services.forEach((service, index) => {
-            const serviceTitleInput = document.getElementById(`service-title-${index}`) as HTMLInputElement;
-            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`) as HTMLTextAreaElement;
-            const serviceAltInput = document.getElementById(`service-alt-${index}`) as HTMLInputElement;
+            const serviceTitleInput = document.getElementById(`service-title-${index}`);
+            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`);
+            const serviceAltInput = document.getElementById(`service-alt-${index}`);
             const previewServiceTitle = document.getElementById(`preview-service-title-${index}`);
             const previewServiceDescription = document.getElementById(`preview-service-description-${index}`);
             const saveServiceButton = document.getElementById(`save-service-button-${index}`);
             
             if (serviceTitleInput && previewServiceTitle) {
               serviceTitleInput.addEventListener('input', (e) => {
-                const target = e.target as HTMLInputElement;
-                if (previewServiceTitle) {
+                const target = e.target;
+                if (target && target instanceof HTMLInputElement && previewServiceTitle) {
                   previewServiceTitle.textContent = target.value;
                 }
               });
@@ -1564,8 +1566,8 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
             
             if (serviceDescriptionTextarea && previewServiceDescription) {
               serviceDescriptionTextarea.addEventListener('input', (e) => {
-                const target = e.target as HTMLTextAreaElement;
-                if (previewServiceDescription) {
+                const target = e.target;
+                if (target && target instanceof HTMLTextAreaElement && previewServiceDescription) {
                   previewServiceDescription.textContent = target.value;
                 }
               });
@@ -1592,8 +1594,8 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Función para guardar los cambios de la sección Servicios
-      function saveServicesChanges(language: string): void {
-        const titleInput = document.getElementById('services-title') as HTMLInputElement;
+      function saveServicesChanges(language) {
+        const titleInput = document.getElementById('services-title');
         
         if (!titleInput) {
           console.error('No se encontraron los elementos necesarios para guardar los cambios de la sección Servicios');
@@ -1614,9 +1616,9 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         const services = servicesData[language].services;
         if (services) {
           services.forEach((service, index) => {
-            const serviceTitleInput = document.getElementById(`service-title-${index}`) as HTMLInputElement;
-            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`) as HTMLTextAreaElement;
-            const serviceAltInput = document.getElementById(`service-alt-${index}`) as HTMLInputElement;
+            const serviceTitleInput = document.getElementById(`service-title-${index}`);
+            const serviceDescriptionTextarea = document.getElementById(`service-description-${index}`);
+            const serviceAltInput = document.getElementById(`service-alt-${index}`);
             
             if (serviceTitleInput && serviceDescriptionTextarea && serviceAltInput) {
               servicesData[language].services[index].heading = serviceTitleInput.value;
@@ -1643,9 +1645,9 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Función para guardar los cambios de la sección Acerca
-      function saveAboutChanges(language: string): void {
-        const titleInput = document.getElementById('about-title') as HTMLInputElement;
-        const descriptionTextarea = document.getElementById('about-description') as HTMLTextAreaElement;
+      function saveAboutChanges(language) {
+        const titleInput = document.getElementById('about-title');
+        const descriptionTextarea = document.getElementById('about-description');
         
         if (!titleInput || !descriptionTextarea) {
           console.error('No se encontraron los elementos necesarios para guardar los cambios de la sección Acerca');
@@ -1674,8 +1676,8 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
         const features = featuresData[language];
         if (features) {
           features.forEach((feature, index) => {
-            const featureTitleInput = document.getElementById(`feature-title-${index}`) as HTMLInputElement;
-            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`) as HTMLTextAreaElement;
+            const featureTitleInput = document.getElementById(`feature-title-${index}`);
+            const featureDescriptionTextarea = document.getElementById(`feature-description-${index}`);
             
             if (featureTitleInput && featureDescriptionTextarea) {
               featuresData[language][index].heading = featureTitleInput.value;
@@ -1701,7 +1703,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Función para cerrar el dashboard
-      function cerrarDashboard(): void {
+      function cerrarDashboard() {
         // Cerrar la pestaña actual y volver a la pestaña original
         if (window.opener && !window.opener.closed) {
           window.opener.focus(); // Devolver el foco a la pestaña original
@@ -1713,7 +1715,7 @@ import AdminSidebar from "../components/admin/AdminSidebar.astro";
       }
       
       // Inicializar la interfaz cuando todos los elementos existen
-      function initializeInterface(): void {
+      function initializeInterface() {
         if (!languageSelect || !sectionSelect) {
           console.error('No se encontraron todos los elementos necesarios para inicializar la interfaz');
           return;
