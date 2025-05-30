@@ -8,6 +8,11 @@ import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
 import SectionDivider from "@components/sections/misc/SectionDivider.astro";
 import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
+import GeometricDivider from "../../components/sections/misc/GeometricDivider.astro";
+import RouteDivider from "../../components/sections/misc/RouteDivider.astro";
+import ParallaxDivider from "../../components/sections/misc/ParallaxDivider.astro";
+import DiagonalDivider from "../../components/sections/misc/DiagonalDivider.astro";
+import IconsDivider from "../../components/sections/misc/IconsDivider.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
@@ -87,14 +92,14 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="Acerca de mis Servicios"
-      subTitle="Hola!, soy Carmen Constantín, transportista profesional comprometido con la excelencia. Ofrezco soluciones de transporte eficientes y confiables para empresas y particulares en toda Cataluña. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la carretera y un servicio de transporte que cumple con lo que promete."
+      subTitle="Hola!, soy Carmen Constantín, transportista profesional comprometida con la excelencia. Ofrezco soluciones de transporte eficientes y confiables para empresas y particulares en todo el territorio español y parte de Francia. Me especializo en el traslado de mercancías paletizadas, cargas completas o parciales, y entregas puerta a puerta. En cada trayecto, pongo a disposición mi compromiso, mi conocimiento de la carretera y un servicio de transporte que cumple con lo que promete."
       features={features}
     />
   </div>
 
   <!-- Separador visual con íconos SVG animados entre secciones -->
   <BlackBannerDivider 
-    title="Confianza en Cada Kilómetro"
+    title={`Confianza en <span class="text-yellow-500 dark:text-yellow-400">Cada Kilómetro</span>`}
     subTitle="Tu carga, mi compromiso. Seguridad, puntualidad y control en todo momento"
     showIcons={true}
   />
@@ -106,7 +111,7 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
       {
         heading: "Transporte de Mercancías",
         content:
-          "Servicio de transporte de mercancías general para empresas y particulares. Garantizamos entregas puntuales y seguras de todo tipo de productos, desde pequeños paquetes hasta cargas completas, en toda la región de Cataluña.",
+          "Servicio de transporte de mercancías general para empresas y particulares. Garantizamos entregas puntuales y seguras de todo tipo de productos, desde pequeños paquetes hasta cargas completas.",
         svg: "truck",
         src: service1,
         alt: "Camión de transporte de mercancías en carretera",
@@ -207,9 +212,18 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
 
   <ParallaxBanner bannerText={`Tu confianza, nuestra <span class="text-yellow-500 dark:text-yellow-400">Mejor Ruta!</span>`} />
 
-  <div id="pricing">
-    <PricingSection pricing={pricing} />
-  </div>
+  {/* Espacio de separación adicional */}
+  <div class="py-8 md:py-12"></div>
+
+  <!-- Nuevo separador visual con patrón geométrico que reemplaza la sección de Planes -->
+  <GeometricDivider 
+    title="Servicio personalizado" 
+    highlightedEnd="en cada entrega" 
+    description="Adaptabilidad, comunicación constante y soluciones a medida para todas tus necesidades logísticas. Mi compromiso es ofrecerte un servicio que se ajuste a tus requerimientos."
+  />
+
+  {/* Espacio de separación adicional */}
+  <div class="py-8 md:py-12"></div>
 
   <div id="faq">
     <FAQ title="Preguntas Frecuentes" faqs={faqs} image={statsImage} />
