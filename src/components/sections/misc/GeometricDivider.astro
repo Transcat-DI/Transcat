@@ -1,0 +1,34 @@
+---
+// Componente para crear un separador visual con patrones geométricos
+interface Props {
+  title?: string;
+  highlightedEnd?: string;
+  description?: string;
+  className?: string;
+}
+
+const { 
+  title = "Servicio personalizado", 
+  highlightedEnd = "en cada entrega", 
+  description = "Adaptabilidad y soluciones a medida para todas tus necesidades logísticas.",
+  className = ""
+} = Astro.props;
+---
+
+<div class={`relative py-12 overflow-hidden ${className}`}>
+  <div class="absolute inset-0 flex items-center justify-center opacity-10">
+    <div class="grid grid-cols-10 gap-4 transform rotate-12 scale-150">
+      {Array(20).fill(0).map((_, i) => (
+        <div class={`h-16 w-16 ${i % 3 === 0 ? 'bg-orange-500' : 'bg-neutral-300 dark:bg-neutral-700'}`}></div>
+      ))}
+    </div>
+  </div>
+  <div class="relative z-10 text-center max-w-3xl mx-auto px-4">
+    <h3 class="text-2xl md:text-3xl font-bold text-neutral-800 dark:text-neutral-200">
+      {title} <span class="text-yellow-500 dark:text-yellow-400">{highlightedEnd}</span>
+    </h3>
+    <p class="mt-4 text-neutral-600 dark:text-neutral-400">
+      {description}
+    </p>
+  </div>
+</div>
