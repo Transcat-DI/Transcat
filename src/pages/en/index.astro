@@ -3,10 +3,12 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import HeroSection from "@components/sections/landing/HeroSection_en.astro";
 import HeroSectionAlt from "@components/sections/landing/HeroSectionAlt.astro";
-import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
 import ContactSection_en from "../../components/sections/misc/ContactSection_en.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
+import SectionDivider from "@components/sections/misc/SectionDivider.astro";
+import GeometricDivider from "../../components/sections/misc/GeometricDivider.astro";
+import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
@@ -87,14 +89,14 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="About my Services"
-      subTitle="Hello! I'm Carmen Constantín, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Catalonia. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises."
+      subTitle="Hello! I'm Carmen Constantín, a professional carrier committed to excellence. I offer efficient and reliable transport solutions for companies and individuals throughout Spain and parts of France. I specialize in the transfer of palletized goods, full or partial loads, and door-to-door deliveries. In each journey, I offer my commitment, my knowledge of the road, and a transport service that fulfills what it promises."
       features={features}
     />
   </div>
 
   <!-- Visual separator with icons between sections -->
   <BlackBannerDivider 
-    title="Trust in Every Mile"
+    title={`Trust in <span class="text-yellow-500 dark:text-yellow-400">Every Mile</span>`}
     subTitle="Your cargo, my commitment. Safety, punctuality and control at all times"
     showIcons={true}
   />
@@ -207,9 +209,18 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
 
   <ParallaxBanner bannerText={`Your trust, our <span class="text-yellow-500 dark:text-yellow-400">Best Route!</span>`} />
 
-  <div id="pricing">
-    <PricingSection pricing={pricing} />
-  </div>
+  {/* Additional separation space */}
+  <div class="py-8 md:py-12"></div>
+
+  <!-- Geometric pattern visual divider replacing the Pricing section -->
+  <GeometricDivider 
+    title="Personalized service" 
+    highlightedEnd="in every delivery" 
+    description="Adaptability, constant communication, and tailored solutions for all your logistics needs. My commitment is to offer you a service that perfectly fits your requirements."
+  />
+
+  {/* Additional separation space */}
+  <div class="py-8 md:py-12"></div>
 
   <div id="faq">
     <FAQ title="Frequently Asked Questions" faqs={faqs} image={statsImage} />
