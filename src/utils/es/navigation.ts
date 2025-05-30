@@ -4,7 +4,8 @@ const navBarLinks = [
   { name: "Servicios", url: "#services" },
   { name: "Cobertura", url: "/es/cobertura" },
   { name: "Clientes", url: "#testimonials" },
-  { name: "Planes", url: "#pricing" },
+  // Sección de Planes temporalmente eliminada
+  // { name: "Planes", url: "#pricing" },
   { name: "FAQ", url: "#faq" },
   { name: "Contacto", url: "#contacto" },
 
