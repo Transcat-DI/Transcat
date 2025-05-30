@@ -20,7 +20,7 @@ const footerLinks = [
       { name: "Servicios Profesionales", url: "/es/services" },
       { name: "Cobertura de Servicios", url: "/es/cobertura" },
       { name: "Testimonios / Estadísticas", url: "/es/cobertura" },
-      { name: "Tarifas y Planes de Pago", url: "/es/cobertura" },
+      // { name: "Tarifas y Planes de Pago", url: "/es/cobertura" },
       { name: "Preguntas Frecuentes", url: "/es/cobertura" },
        { name: "Contacto", url: "/es/contact" },
     ],
