@@ -7,6 +7,8 @@ import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.ast
 import ContactSection_fr from "../../components/sections/misc/ContactSection_fr.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
+import SectionDivider from "@components/sections/misc/SectionDivider.astro";
+import GeometricDivider from "../../components/sections/misc/GeometricDivider.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
@@ -87,14 +89,14 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="À propos de mes Services"
-      subTitle="Bonjour! Je suis Carmen Constantín, transporteur professionnel engagé dans l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans toute la Catalogne. Je me spécialise dans le transfert de marchandises palettisées, charges complètes ou partielles, et livraisons porte-à-porte. Dans chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses."
+      subTitle="Bonjour! Je suis Carmen Constantín, transporteuse professionnelle engagée dans l'excellence. J'offre des solutions de transport efficaces et fiables pour les entreprises et les particuliers dans tout le territoire espagnol et une partie de la France. Je me spécialise dans le transfert de marchandises palettisées, charges complètes ou partielles, et livraisons porte-à-porte. Dans chaque trajet, je mets à disposition mon engagement, ma connaissance de la route et un service de transport qui tient ses promesses."
       features={features}
     />
   </div>
 
   <!-- Séparateur visuel avec icônes entre sections -->
   <BlackBannerDivider 
-    title="Confiance à Chaque Kilomètre"
+    title={`Confiance à <span class="text-yellow-500 dark:text-yellow-400">Chaque Kilomètre</span>`}
     subTitle="Votre chargement, mon engagement. Sécurité, ponctualité et contrôle à tout moment"
     showIcons={true}
   />
@@ -207,9 +209,18 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
 
   <ParallaxBanner bannerText={`Votre confiance, notre <span class="text-yellow-500 dark:text-yellow-400">Meilleure Route!</span>`} />
 
-  <div id="pricing">
-    <PricingSection pricing={pricing} />
-  </div>
+  {/* Espace de séparation supplémentaire */}
+  <div class="py-8 md:py-12"></div>
+
+  <!-- Nouveau séparateur visuel avec motif géométrique remplaçant la section Tarifs -->
+  <GeometricDivider 
+    title="Service personnalisé" 
+    highlightedEnd="à chaque livraison" 
+    description="Adaptabilité, communication constante et solutions sur mesure pour tous vos besoins logistiques. Mon engagement est de vous offrir un service qui s'adapte parfaitement à vos exigences."
+  />
+
+  {/* Espace de séparation supplémentaire */}
+  <div class="py-8 md:py-12"></div>
 
   <div id="faq">
     <FAQ title="Questions Fréquemment Posées" faqs={faqs} image={statsImage} />
