@@ -7,6 +7,8 @@ import BlackBannerDivider from "@components/sections/misc/BlackBannerDivider.ast
 import ContactSection_ca from "../../components/sections/misc/ContactSection_ca.astro";
 import ClientsSection from "@components/sections/landing/ClientsSection.astro";
 import AboutSection from "@components/sections/about/AboutSection.astro";
+import SectionDivider from "@components/sections/misc/SectionDivider.astro";
+import GeometricDivider from "../../components/sections/misc/GeometricDivider.astro";
 import FeaturesNavs from "@components/sections/features/FeaturesNavs.astro";
 import TestimonialsSection from "@components/sections/testimonials/TestimonialsSection.astro";
 import PricingSection from "@components/sections/pricing/PricingSection.astro";
@@ -87,14 +89,14 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   <div id="about">
     <AboutSection
       title="Sobre els meus Serveis"
-      subTitle="Hola! Sóc en Carmen Constantín, transportista professional compromès amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot Catalunya. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses."
+      subTitle="Hola! Sóc la Carmen Constantín, transportista professional compromesa amb l'excel·lència. Ofereixo solucions de transport eficients i fiables per a empreses i particulars a tot el territori espanyol i part de França. Em especialitzo en el trasllat de mercaderies paletitzades, càrregues completes o parcials, i lliuraments porta a porta. En cada trajecte, poso a disposició el meu compromís, el meu coneixement de la ruta i un servei de transport que compleix les seves promeses."
       features={features}
     />
   </div>
 
   <!-- Separador visual amb icones entre seccions -->
   <BlackBannerDivider 
-    title="Confiança en Cada Quilòmetre"
+    title={`Confiança en <span class="text-yellow-500 dark:text-yellow-400">Cada Quilòmetre</span>`}
     subTitle="La teva càrrega, el meu compromís. Seguretat, puntualitat i control en tot moment"
     showIcons={true}
   />
@@ -205,11 +207,20 @@ const avatarSrcs = [testimonial1.src, testimonial2.src, testimonial3.src, testim
   />
   </div>
 
-  <ParallaxBanner />
+  <ParallaxBanner bannerText={`La teva confiança, la nostra <span class="text-yellow-500 dark:text-yellow-400">Millor Ruta!</span>`} />
 
-  <div id="pricing">
-    <PricingSection pricing={pricing} />
-  </div>
+  {/* Espai de separació addicional */}
+  <div class="py-8 md:py-12"></div>
+
+  <!-- Nou separador visual amb patró geomètric que reemplaça la secció de Plans -->
+  <GeometricDivider 
+    title="Servei personalitzat" 
+    highlightedEnd="en cada lliurament" 
+    description="Adaptabilitat, comunicació constant i solucions a mida per a totes les teves necessitats logístiques. El meu compromís és oferir-te un servei que s'ajusti perfectament als teus requeriments."
+  />
+
+  {/* Espai de separació addicional */}
+  <div class="py-8 md:py-12"></div>
 
   <div id="faq">
     <FAQ title="Preguntes Freqüents" faqs={faqs} image={statsImage} />
