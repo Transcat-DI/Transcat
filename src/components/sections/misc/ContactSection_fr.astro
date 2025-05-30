@@ -46,6 +46,7 @@ const formSubTitle: string = "Je vous répondrai dans 1-2 jours ouvrables.";
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_honey" value="">
+          <input type="hidden" name="_next" value="https://transcar-di.netlify.app/thank-you">
           
           <!-- État du formulaire -->
           <div id="form-status" class="mb-4 hidden">
@@ -120,78 +121,37 @@ const formSubTitle: string = "Je vous répondrai dans 1-2 jours ouvrables.";
             </p>
           </div>
           
-          <!-- Message de succès/erreur initialement caché -->
-          <div id="form-status" class="mt-4 hidden">
-            <div id="success-message" class="hidden rounded-md bg-green-100 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-green-800">Message envoyé avec succès! Nous vous répondrons dès que possible.</p>
-                </div>
-              </div>
-            </div>
-            <div id="error-message" class="hidden rounded-md bg-red-100 p-4">
-              <div class="flex">
-                <div class="flex-shrink-0">
-                  <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-                  </svg>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-red-800">Un problème est survenu lors de l'envoi du message. Veuillez réessayer.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+
         </form>
         
-        <script>
-          const contactForm = document.getElementById('contact-form');
-          if (contactForm) {
-            contactForm.addEventListener('submit', function(event) {
-              event.preventDefault();
-              
-              const form = this;
-              const formData = new FormData(form);
-              const formStatus = document.getElementById('form-status');
-              const successMessage = document.getElementById('success-message');
-              const errorMessage = document.getElementById('error-message');
-              
-              fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: {
-                  'Accept': 'application/json'
-                }
-              })
-              .then(response => {
+        <script is:inline>
+          document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+              contactForm.addEventListener('submit', function(event) {
+                // No prevenimos el comportamiento predeterminado para permitir que FormSubmit maneje el envío
+                
+                const form = this;
+                const formStatus = document.getElementById('form-status');
+                const sendingMessage = document.getElementById('sending-message');
+                const successMessage = document.getElementById('success-message');
+                const errorMessage = document.getElementById('error-message');
+                const submitButton = form.querySelector('button[type="submit"]');
+                
+                // Mostrar mensaje de enviando
                 if (formStatus) formStatus.classList.remove('hidden');
-                if (response.ok) {
-                  form.reset();
-                  if (successMessage) successMessage.classList.remove('hidden');
-                  if (errorMessage) errorMessage.classList.add('hidden');
-                } else {
-                  response.json().then(data => {
-                    if (Object.hasOwn(data, 'errors')) {
-                      console.error(data.errors);
-                    }
-                  });
-                  if (errorMessage) errorMessage.classList.remove('hidden');
-                  if (successMessage) successMessage.classList.add('hidden');
-                }
-              })
-              .catch(error => {
-                if (formStatus) formStatus.classList.remove('hidden');
-                if (errorMessage) errorMessage.classList.remove('hidden');
+                if (sendingMessage) sendingMessage.classList.remove('hidden');
                 if (successMessage) successMessage.classList.add('hidden');
-                console.error('Error:', error);
+                if (errorMessage) errorMessage.classList.add('hidden');
+                
+                // Deshabilitar el botón para evitar múltiples envíos
+                if (submitButton) submitButton.disabled = true;
+                
+                // Permitimos que el formulario se envíe normalmente a FormSubmit
+                // El campo _next se encargará de la redirección
               });
-            });
-          }
+            }
+          });
         </script>
       </div>
 
@@ -248,7 +208,7 @@ const formSubTitle: string = "Je vous répondrai dans 1-2 jours ouvrables.";
           content="Vous préférez nous écrire ? Envoyez-nous un email à"
           isLinkVisible={true}
           linkTitle="carmen_consta@yahoo.com"
-          linkURL="#"
+          linkURL="mailto:carmen_consta@yahoo.com"
           ><div class="text-neutral-600 dark:text-white/70 opacity-90">
             <Icon name="envelopeOpen" class="h-8 w-8" />
           </div>
@@ -275,5 +235,4 @@ const formSubTitle: string = "Je vous répondrai dans 1-2 jours ouvrables.";
       ></iframe>
     </div>
   </div>
-</section>
 </section>
